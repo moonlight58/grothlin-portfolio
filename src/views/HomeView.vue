@@ -1,18 +1,21 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <h1>Gaël Röthlin</h1>
+  <div class="title-badge">
+    <h3>Full-Stack Developer</h3>
+    <span>×</span>
+    <h3>Artist</h3>
   </div>
 </template>
+<style>
+.title-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
-export default {
-  name: "HomeView",
-  components: {
-    HelloWorld,
-  },
-};
-</script>
+.title-badge span {
+  font-size: 3rem;
+  user-select: none;
+  color: var(--light-gray);
+}
+</style>
