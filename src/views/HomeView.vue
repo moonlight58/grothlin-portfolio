@@ -417,13 +417,12 @@ export default {
 .expertise-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
+  border: 2px solid var(--light-gray);
 }
 
 .expertise-card {
   background-color: rgba(42, 41, 46, 0.5);
-  border: 1px solid rgba(95, 94, 97, 0.3);
-  border-radius: 8px;
+  border: 1px solid var(--light-gray);
   padding: 2.5rem;
   transition: all 0.3s ease;
   position: relative;
