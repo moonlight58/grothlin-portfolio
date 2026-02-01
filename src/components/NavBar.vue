@@ -1,16 +1,18 @@
 <template>
-  <header :class="{ 'scrolled': scrollTop > 0 }">
-    <div class="logo-container">
-      <a href="/" class="logo">Gaël Röthlin</a>
+  <header class="blueprint-header">
+    <div class="header-left">
+      <span class="logo-text">GR_</span>
     </div>
-    <nav>
-      <ul>
-        <li><a href="#about" @click="scrollToSection('#about')">About</a></li>
-        <li><a href="#work" @click="scrollToSection('#work')">Work</a></li>
-        <li><a href="#skills" @click="scrollToSection('#skills')">Skills</a></li>
-        <li><a href="#contact" @click="scrollToSection('#contact')">Contact</a></li>
-      </ul>
+    <nav class="header-nav">
+      <a href="#about" class="nav-link">01_About</a>
+      <a href="#work" class="nav-link">02_Work</a>
+      <a href="#skills" class="nav-link">03_Skills</a>
+      <a href="#contact" class="nav-link">04_Contact</a>
     </nav>
+    <div class="lang_button">
+      <button class="lang-btn">FR</button>
+      <button class="lang-btn">EN</button>
+    </div>
   </header>
 </template>
 <script>
@@ -18,15 +20,15 @@ export default {
   name: "NavBar",
   data() {
     return {
-      container: document.querySelector('header'),
+      container: document.querySelector("header"),
       scrollTop: 0,
     };
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   },
   beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     handleScroll() {
@@ -57,5 +59,84 @@ header {
 
 header.scrolled {
   background-color: rgba(15, 15, 26, 0.8);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+} 
+
+/* ========== HEADER ========== */
+.blueprint-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 6%;
+  background: rgba(10, 10, 15, 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(79, 172, 254, 0.1);
+  z-index: 1000;
+}
+
+.logo-text {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.header-nav {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+}
+
+.lang_button {
+  display: flex;
+  gap: 10px;
+}
+
+.lang-btn {
+  background: none;
+  border: 1px solid var(--color-text-primary);
+  color: var(--color-text-primary);
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: 'Fira Code', 'Courier New', monospace;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.lang-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-background);
+}
+
+.blueprint-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: var(--color-background);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 </style>

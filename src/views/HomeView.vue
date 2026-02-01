@@ -1,332 +1,556 @@
 <template>
-  <div class="blueprint-container" @mousemove="updateCoords" @scroll="handleScroll">
-    <!-- Grille primaire et secondaire imbriquée -->
+  <div class="blueprint-portfolio" @mousemove="updateCoords">
+    <!-- Grille blueprint subtile -->
     <div class="grid-layer"></div>
-    
-    <!-- Curseur "Réglet" CAO avec coordonnées -->
-    <div class="crosshair-h" :style="{ top: mouseY + 'px' }"></div>
-    <div class="crosshair-v" :style="{ left: mouseX + 'px' }"></div>
-    <div class="coords-display" :style="{ left: mouseX + 20 + 'px', top: mouseY + 20 + 'px' }">
-      <span class="coord-label">X:</span> {{ mouseX.toFixed(0) }}<br>
-      <span class="coord-label">Y:</span> {{ mouseY.toFixed(0) }}
-    </div>
 
-    <!-- En-tête technique -->
-    <header class="blueprint-header">
-      <div class="file-info">
-        <p class="label">
-          <span class="icon">▶</span> FILE_NAME: 
-          <span class="value">GAEL_ROTHLIN_DEV.VUE</span>
-        </p>
-        <p class="label">
-          <span class="icon">◆</span> STATUS: 
-          <span class="blink value">DRAFT_MODE</span>
-        </p>
-        <p class="label">
-          <span class="icon">●</span> REV: 
-          <span class="value">2026.01.30</span>
-        </p>
-      </div>
-      <div class="lang-selector">
-        <span class="comment">// Academic Title</span>
-      </div>
-    </header>
+    <!-- En-tête fixe minimaliste -->
+    <NavBar />
 
-    <!-- Section Hero -->
-    <main class="hero-section">
-      <!-- Zone de dessin SVG -->
-      <div class="drawing-container">
-        <svg viewBox="0 0 600 600" class="main-sketch">
-          <!-- Cadre principal -->
-          <rect x="50" y="50" width="500" height="400" class="path-draw frame" />
-          
-          <!-- Portrait symbolique -->
-          <circle cx="300" cy="250" r="120" class="path-draw portrait-circle" />
-          <path d="M 220 250 Q 300 200, 380 250" class="path-draw smile" />
-          <circle cx="260" cy="220" r="8" class="path-draw eye" fill="#4facfe" />
-          <circle cx="340" cy="220" r="8" class="path-draw eye" fill="#4facfe" />
-          
-          <!-- Lignes d'annotation technique -->
-          <line x1="420" y1="250" x2="550" y2="200" class="annotation-line" 
-                :style="{ strokeDashoffset: annotationOffset }" />
-          <line x1="180" y1="250" x2="50" y2="150" class="annotation-line" 
-                :style="{ strokeDashoffset: annotationOffset }" />
-          
-          <!-- Points de dimension -->
-          <circle cx="420" cy="250" r="3" class="dimension-point" />
-          <circle cx="180" cy="250" r="3" class="dimension-point" />
-          
-          <!-- Texte technique SVG -->
-          <text x="480" y="190" class="svg-annotation" fill="#4facfe" font-size="10">
-            radius: 120px
-          </text>
-          <text x="70" y="140" class="svg-annotation" fill="#4facfe" font-size="10">
-            center: (300, 250)
-          </text>
-        </svg>
+    <!-- Hero Section - Layout totalement différent -->
+    <section class="hero-zone">
+      <div class="hero-content">
+        <!-- Nom en grand format vertical -->
+        <div class="name-stack">
+          <h1 class="name-line">GAËL</h1>
+          <h1 class="name-line accent">RÖTHLIN</h1>
+        </div>
 
-        <!-- Boîte X-Ray interactive -->
-        <div 
-          class="x-ray-box" 
-          @mouseenter="isHovered = true" 
-          @mouseleave="isHovered = false"
-          :class="{ 'x-ray-active': isHovered }"
-        >
-          <div v-if="!isHovered" class="sketch-label">
-            <span class="label-icon">[+]</span> PROJECT_CORE
+        <!-- Métadonnées techniques à droite -->
+        <div class="meta-panel">
+          <div class="meta-item">
+            <span class="meta-key">ROLE:</span>
+            <span class="meta-value">HomeTitle</span>
           </div>
-          <div v-else class="code-reveal">
-            <pre><code><span class="code-brace">{</span>
-  <span class="code-key">"type"</span>: <span class="code-string">"Creative_Dev"</span>,
-  <span class="code-key">"tools"</span>: [<span class="code-string">"VueJS"</span>, <span class="code-string">"WebGL"</span>, <span class="code-string">"SVG"</span>],
-  <span class="code-key">"vision"</span>: <span class="code-string">"Art_meets_Logic"</span>,
-  <span class="code-key">"status"</span>: <span class="code-string">"{{ isHovered ? 'INSPECTING' : 'IDLE' }}"</span>
-<span class="code-brace">}</span></code></pre>
+          <div class="meta-item">
+            <span class="meta-key">FOCUS:</span>
+            <span class="meta-value">AcademicTitle</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-key">STATUS:</span>
+            <span class="meta-value blink">Precision</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-key">LOCATION:</span>
+            <span class="meta-value">Besançon, FR</span>
           </div>
         </div>
 
-        <!-- Annotations flottantes -->
-        <div class="floating-annotation" :style="{ top: '15%', left: '5%', opacity: scrollProgress }">
-          <div class="annotation-line-connector"></div>
-          <span class="annotation-text">
-            <span class="comment">// Fusion Code/Art</span>
-          </span>
+        <!-- Avatar en position absolue style "blueprint annotation" -->
+        <div class="avatar-blueprint">
+          <div class="avatar-container">
+            <img src="../assets/moon-pfp.jpg" alt="Gaël Röthlin" />
+            <!-- Lignes d'annotation blueprint -->
+            <svg class="annotation-lines" viewBox="0 0 200 200">
+              <line x1="0" y1="100" x2="50" y2="100" class="dimension-line" />
+              <line x1="150" y1="100" x2="200" y2="100" class="dimension-line" />
+              <circle cx="100" cy="100" r="80" class="measurement-circle" />
+            </svg>
+          </div>
+          <div class="avatar-label">
+            <span class="label-text">PROFILE_IMAGE</span>
+            <span class="label-dimension">280x280px</span>
+          </div>
         </div>
-        
-        <div class="floating-annotation" :style="{ top: '70%', right: '8%', opacity: scrollProgress }">
-          <div class="annotation-line-connector right"></div>
-          <span class="annotation-text">
-            <span class="comment">// Interactive Blueprint</span>
-          </span>
+
+        <!-- Bio en bas à gauche -->
+        <div class="bio-compact">
+          <p class="bio-text">BodyPart1</p>
+          <p class="bio-text">BodyPart2</p>
+        </div>
+
+        <!-- Actions sociales minimalistes -->
+        <div class="social-compact">
+          <a href="https://www.instagram.com/osiris._25" target="_blank" class="social-item">
+            <img src="../assets/instagram.svg" alt="Instagram" />
+          </a>
+          <a href="https://github.com/moonlight58" target="_blank" class="social-item">
+            <img src="../assets/github.svg" alt="GitHub" />
+          </a>
+          <button @click="toggleFormVisibility" class="social-item">
+            <img src="../assets/email.svg" alt="Email" />
+          </button>
+        </div>
+
+        <!-- Spotify en position flottante -->
+        <div class="spotify-widget">
+          <SpotifyNowPlaying />
         </div>
       </div>
 
-      <!-- Bloc de texte principal -->
-      <div class="text-block">
-        <h1 class="sketched-name">
-          <span class="name-outline">Gaël</span> 
-          <span class="name-solid">Röthlin</span>
-        </h1>
-        
-        <div class="subtitle-container">
-          <p class="subtitle">
-            <span class="comment">// Home Title</span><br />
-            <span class="typewriter">{{ typedText }}</span>
-            <span class="cursor-blink">|</span>
+      <!-- Scroll indicator -->
+      <div class="scroll-indicator" @click="scrollToWork">
+        <span class="scroll-text">SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- About Section - Format interview/terminal -->
+    <section id="about" class="about-zone">
+      <div class="section-marker">
+        <span class="marker-number">01</span>
+        <span class="marker-title">ABOUT</span>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="terminal-title">~ about.sh</span>
+        </div>
+        <div class="terminal-body">
+          <p class="terminal-line">
+            <span class="prompt">$</span> cat introduction.txt
           </p>
+          <p class="terminal-output">
+            WhyPortfolioContent
+          </p>
+          <p class="terminal-line">
+            <span class="prompt">$</span> ls -la skills/
+          </p>
+          <p class="terminal-output cursor-blink">_</p>
         </div>
-
-        <!-- Métriques techniques -->
-        <div class="metrics-grid">
-          <div class="metric-item">
-            <span class="metric-label">PRECISION</span>
-            <div class="metric-bar">
-              <div class="metric-fill" :style="{ width: '95%' }"></div>
-            </div>
-          </div>
-          <div class="metric-item">
-            <span class="metric-label">CREATIVITY</span>
-            <div class="metric-bar">
-              <div class="metric-fill" :style="{ width: '88%' }"></div>
-            </div>
-          </div>
-          <div class="metric-item">
-            <span class="metric-label">INNOVATION</span>
-            <div class="metric-bar">
-              <div class="metric-fill" :style="{ width: '92%' }"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Bouton CTA avec effet blueprint -->
-        <button class="blueprint-cta" @click="handleCTA">
-          <span class="cta-brackets">[</span>
-          <span class="cta-text">EXPLORE_PROJECTS</span>
-          <span class="cta-brackets">]</span>
-          <div class="cta-underline"></div>
-        </button>
       </div>
-    </main>
+    </section>
 
-    <!-- Indicateur de scroll -->
-    <div class="scroll-indicator">
-      <div class="scroll-line" :style="{ height: scrollProgress * 100 + '%' }"></div>
-      <span class="scroll-text">SCROLL</span>
-    </div>
+    <!-- Work Section - Format grille blueprint -->
+    <section id="work" class="work-zone" ref="workSection">
+      <div class="section-marker">
+        <span class="marker-number">02</span>
+        <span class="marker-title">WORK</span>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="work-category">
+        <h3 class="category-label">Projects</h3>
+        <div class="blueprint-grid">
+          <!-- Template pour les projets - À remplacer par vos vrais projets -->
+          <div class="blueprint-card" v-for="n in 3" :key="'project-' + n">
+            <div class="card-header">
+              <span class="card-number">0{{ n }}</span>
+              <span class="card-status">IN_PROGRESS</span>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Project Title {{ n }}</h4>
+              <p class="card-description">
+                Description du projet {{ n }}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </p>
+              <div class="card-tags">
+                <span class="tag">VueJS</span>
+                <span class="tag">TailwindCSS</span>
+                <span class="tag">API</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="card-link">VIEW_PROJECT →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Internship -->
+      <div class="work-category">
+        <h3 class="category-label">Internship</h3>
+        <div class="timeline-container">
+          <!-- Template pour les stages - À remplacer par vos vrais stages -->
+          <div class="timeline-item" v-for="n in 2" :key="'internship-' + n">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <div class="timeline-date">2024 - 202{{ 5 - n }}</div>
+              <h4 class="timeline-title">Stage Entreprise {{ n }}</h4>
+              <p class="timeline-description">
+                Description du stage. Missions réalisées et compétences développées.
+              </p>
+              <div class="timeline-tech">
+                <span class="tech-badge">PHP</span>
+                <span class="tech-badge">MySQL</span>
+                <span class="tech-badge">Docker</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI/UX -->
+      <div class="work-category">
+        <h3 class="category-label">UI/UX DESIGN</h3>
+        <div class="design-showcase">
+          <!-- Template pour UI/UX - À remplacer par vos vrais designs -->
+          <div class="design-card" v-for="n in 4" :key="'design-' + n">
+            <div class="design-preview">
+              <div class="preview-placeholder">
+                <span class="placeholder-text">DESIGN {{ n }}</span>
+              </div>
+            </div>
+            <div class="design-info">
+              <span class="design-name">Design Project {{ n }}</span>
+              <span class="design-tool">Figma</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section - Format diagramme technique -->
+    <section id="skills" class="skills-zone">
+      <div class="section-marker">
+        <span class="marker-number">03</span>
+        <span class="marker-title">SKILLS</span>
+      </div>
+
+      <div class="skills-diagram">
+        <!-- Frontend -->
+        <div class="skill-block">
+          <div class="block-header">
+            <div class="block-icon">{'}</div>
+            <h3 class="block-title">FRONTEND</h3>
+          </div>
+          <div class="block-content">
+            <div class="skill-item" v-for="skill in frontendSkills" :key="skill.name">
+              <span class="skill-name">{{ skill.name }}</span>
+              <div class="skill-bar">
+                <div class="skill-fill" :style="{ width: skill.level + '%' }"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="skill-block">
+          <div class="block-header">
+            <div class="block-icon">⚙</div>
+            <h3 class="block-title">BACKEND</h3>
+          </div>
+          <div class="block-content">
+            <div class="skill-item" v-for="skill in backendSkills" :key="skill.name">
+              <span class="skill-name">{{ skill.name }}</span>
+              <div class="skill-bar">
+                <div class="skill-fill" :style="{ width: skill.level + '%' }"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tools & Others -->
+        <div class="skill-block full-width">
+          <div class="block-header">
+            <div class="block-icon">🔧</div>
+            <h3 class="block-title">TOOLS & DATABASES</h3>
+          </div>
+          <div class="block-content horizontal">
+            <div class="tool-chip" v-for="tool in tools" :key="tool">
+              {{ tool }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section - Format formulaire minimaliste -->
+    <section id="contact" class="contact-zone">
+      <div class="section-marker">
+        <span class="marker-number">04</span>
+        <span class="marker-title">CONTACT</span>
+      </div>
+
+      <div class="contact-layout">
+        <!-- Gauche : Infos -->
+        <div class="contact-info">
+          <h2 class="contact-heading">LET'S WORK<br>TOGETHER</h2>
+          <p class="contact-text">
+            Vous avez un projet en tête ? N'hésitez pas à me contacter.
+          </p>
+
+          <div class="contact-methods">
+            <div class="method-item">
+              <span class="method-label">EMAIL</span>
+              <span class="method-value">gael.rothlin@example.com</span>
+            </div>
+            <div class="method-item">
+              <span class="method-label">LOCATION</span>
+              <span class="method-value">Besançon, France</span>
+            </div>
+          </div>
+
+          <div class="social-links">
+            <a href="https://www.instagram.com/osiris._25" target="_blank" class="social-link">
+              <img src="../assets/instagram.svg" alt="Instagram" />
+              <span>Instagram</span>
+            </a>
+            <a href="https://github.com/moonlight58" target="_blank" class="social-link">
+              <img src="../assets/github.svg" alt="GitHub" />
+              <span>GitHub</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Droite : Formulaire -->
+        <div class="contact-form-wrapper" v-if="showForm">
+          <form
+            name="contact"
+            method="POST"
+            data-netlify="true"
+            class="contact-form"
+            @submit.prevent="handleSubmit"
+          >
+            <input type="hidden" name="form-name" value="contact" />
+            
+            <div class="form-field">
+              <label for="name">NAME</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                v-model="formData.name"
+                placeholder="Votre nom"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="email">EMAIL</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                v-model="formData.email"
+                placeholder="votre@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="message">MESSAGE</label>
+              <textarea
+                id="message"
+                name="message"
+                v-model="formData.message"
+                placeholder="Votre message..."
+                rows="5"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-button" :disabled="isSubmitting">
+              <span v-if="!isSubmitting">SEND_MESSAGE</span>
+              <span v-else>SENDING...</span>
+            </button>
+
+            <div v-if="statusMessage" class="form-status" :class="statusClass">
+              {{ statusMessage }}
+            </div>
+          </form>
+        </div>
+
+        <!-- Bouton toggle formulaire si fermé -->
+        <div v-else class="form-toggle">
+          <button @click="toggleFormVisibility" class="toggle-button">
+            OPEN_CONTACT_FORM
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-content">
+        <span class="footer-text">© 2026 Gaël Röthlin</span>
+        <span class="footer-text">Designed & Built with Vue.js</span>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
+import NavBar from '@/components/NavBar.vue';
 
-// État réactif
+// État
 const mouseX = ref(0);
 const mouseY = ref(0);
-const isHovered = ref(false);
-const scrollProgress = ref(1);
-const typedText = ref('');
+const showForm = ref(true);
+const isSubmitting = ref(false);
+const statusMessage = ref('');
+const statusClass = ref('');
 
-// Texte pour l'effet typewriter
-const fullText = "Conception d'interfaces où la logique devient esthétique.";
-let typewriterIndex = 0;
-let typewriterTimer = null;
+const workSection = ref(null);
 
-// Animation offset pour les lignes d'annotation
-const annotationOffset = computed(() => {
-  return 200 - (scrollProgress.value * 200);
+// Données du formulaire
+const formData = ref({
+  name: '',
+  email: '',
+  message: ''
 });
 
-// Mise à jour des coordonnées souris
+// Skills data (exemples)
+const frontendSkills = ref([
+  { name: 'HTML/CSS', level: 95 },
+  { name: 'JavaScript', level: 90 },
+  { name: 'Vue.js', level: 85 },
+  { name: 'React', level: 75 },
+  { name: 'TailwindCSS', level: 90 }
+]);
+
+const backendSkills = ref([
+  { name: 'Node.js', level: 80 },
+  { name: 'PHP', level: 85 },
+  { name: 'Python', level: 70 },
+  { name: 'Java', level: 65 }
+]);
+
+const tools = ref([
+  'Git', 'Docker', 'MySQL', 'PostgreSQL', 
+  'MongoDB', 'Figma', 'VS Code', 'Linux'
+]);
+
+// Méthodes
 const updateCoords = (e) => {
   mouseX.value = e.clientX;
   mouseY.value = e.clientY;
 };
 
-// Gestion du scroll
-const handleScroll = (e) => {
-  const scrolled = window.scrollY;
-  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-  scrollProgress.value = Math.min(scrolled / (maxScroll || 1), 1);
+const scrollToWork = () => {
+  workSection.value?.scrollIntoView({ behavior: 'smooth' });
 };
 
-// Effet typewriter
-const startTypewriter = () => {
-  typewriterTimer = setInterval(() => {
-    if (typewriterIndex < fullText.length) {
-      typedText.value += fullText[typewriterIndex];
-      typewriterIndex++;
+const toggleFormVisibility = () => {
+  showForm.value = !showForm.value;
+};
+
+const handleSubmit = async () => {
+  isSubmitting.value = true;
+  statusMessage.value = '';
+
+  try {
+    const response = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        'form-name': 'contact',
+        ...formData.value
+      }).toString()
+    });
+
+    if (response.ok) {
+      statusMessage.value = 'Message envoyé avec succès !';
+      statusClass.value = 'success';
+      formData.value = { name: '', email: '', message: '' };
     } else {
-      clearInterval(typewriterTimer);
+      throw new Error('Erreur');
     }
-  }, 50);
+  } catch (error) {
+    statusMessage.value = 'Erreur lors de l\'envoi. Réessayez.';
+    statusClass.value = 'error';
+  } finally {
+    isSubmitting.value = false;
+  }
 };
-
-// Action CTA
-const handleCTA = () => {
-  console.log('Navigate to projects');
-  // Router navigation ici si nécessaire
-};
-
-// Lifecycle hooks
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  setTimeout(startTypewriter, 1000); // Démarre après l'animation SVG
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-  if (typewriterTimer) clearInterval(typewriterTimer);
-});
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Fira+Code:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
 
-/* ========== CONTENEUR PRINCIPAL ========== */
-.blueprint-container {
-  min-height: 100vh;
-  background-color: #0b0e14;
-  color: #4facfe;
-  font-family: 'Fira Code', monospace;
-  overflow-x: hidden;
-  position: relative;
-  cursor: none;
+/* ========== VARIABLES ========== */
+:root {
+  --color-primary: #4facfe;
+  --color-bg: #0a0a0f;
+  --color-surface: #151520;
+  --color-text: #e0e0e0;
+  --color-muted: #6a7c92;
+  --font-mono: 'Space Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
 }
 
-/* ========== GRILLE BLUEPRINT ========== */
+/* ========== BASE ========== */
+.blueprint-portfolio {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ========== GRILLE ========== */
 .grid-layer {
   position: fixed;
   inset: 0;
   background-image: 
-    /* Grille principale */
-    linear-gradient(rgba(79, 172, 254, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79, 172, 254, 0.15) 1px, transparent 1px),
-    /* Grille secondaire */
-    linear-gradient(rgba(79, 172, 254, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(79, 172, 254, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    linear-gradient(rgba(79, 172, 254, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 172, 254, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
   z-index: 0;
   pointer-events: none;
 }
 
-.grid-layer::after {
-  content: "";
+/* ========== HERO SECTION ========== */
+.hero-zone {
+  min-height: 100vh;
+  position: relative;
+  padding: 120px 6% 80px;
+  z-index: 1;
+}
+
+.hero-content {
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+  height: calc(100vh - 200px);
+}
+
+/* Nom en stack vertical */
+.name-stack {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 0%, rgba(11, 14, 20, 0.4) 100%);
-}
-
-/* ========== CURSEUR RÉGLET CAO ========== */
-.crosshair-h, .crosshair-v {
-  position: fixed;
-  background: rgba(79, 172, 254, 0.4);
-  pointer-events: none;
-  z-index: 100;
-  transition: opacity 0.2s ease;
-}
-
-.crosshair-h { 
-  width: 100%; 
-  height: 1px; 
   left: 0;
-  box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.crosshair-v { 
-  width: 1px; 
-  height: 100%; 
-  top: 0;
-  box-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+.name-line {
+  font-size: clamp(4rem, 12vw, 10rem);
+  font-weight: 700;
+  line-height: 0.9;
+  margin: 0;
+  letter-spacing: -0.03em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--color-primary);
 }
 
-.coords-display {
-  position: fixed;
-  font-size: 11px;
-  color: #4facfe;
-  pointer-events: none;
-  z-index: 101;
-  background: rgba(11, 14, 20, 0.9);
-  padding: 4px 8px;
-  border: 1px solid rgba(79, 172, 254, 0.3);
-  font-weight: 500;
-  line-height: 1.4;
+.name-line.accent {
+  color: var(--color-primary);
+  -webkit-text-stroke: 0;
 }
 
-.coord-label {
-  color: #6a7c92;
-  font-size: 9px;
+/* Meta panel à droite */
+.meta-panel {
+  position: absolute;
+  right: 0;
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  padding: 32px;
+  min-width: 320px;
 }
 
-/* ========== EN-TÊTE ========== */
-.blueprint-header {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  right: 20px;
+.meta-item {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  z-index: 50;
-  font-size: 11px;
-  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
 }
 
-.file-info .label {
-  margin: 4px 0;
-  color: #6a7c92;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.meta-key {
+  color: var(--color-muted);
+  letter-spacing: 1px;
 }
 
-.file-info .icon {
-  color: #4facfe;
-  font-size: 8px;
-}
-
-.file-info .value {
-  color: #4facfe;
-  font-weight: 500;
+.meta-value {
+  color: var(--color-primary);
 }
 
 .blink {
@@ -334,426 +558,860 @@ onUnmounted(() => {
 }
 
 @keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0.3; }
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
 }
 
-.comment {
-  color: #6a7c92;
-  font-style: italic;
+/* Avatar blueprint */
+.avatar-blueprint {
+  position: absolute;
+  right: 40%;
+  bottom: 10%;
+  text-align: center;
 }
 
-/* ========== SECTION HERO ========== */
-.hero-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+.avatar-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.avatar-container img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-primary);
+}
+
+.annotation-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.dimension-line {
+  stroke: var(--color-primary);
+  stroke-width: 1;
+  opacity: 0.4;
+}
+
+.measurement-circle {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 1;
+  stroke-dasharray: 5, 5;
+  opacity: 0.3;
+}
+
+.avatar-label {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.label-text {
+  color: var(--color-primary);
+}
+
+.label-dimension {
+  color: var(--color-muted);
+}
+
+/* Bio compact */
+.bio-compact {
+  position: absolute;
+  left: 0;
+  bottom: 10%;
+  max-width: 400px;
+}
+
+.bio-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--color-muted);
+  margin: 8px 0;
+}
+
+/* Social compact */
+.social-compact {
+  position: absolute;
+  right: 0;
+  bottom: 10%;
+  display: flex;
+  gap: 16px;
+}
+
+.social-item {
+  width: 44px;
+  height: 44px;
+  display: flex;
   align-items: center;
-  min-height: 100vh;
-  padding: 100px 10% 60px;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.social-item:hover {
+  background: rgba(79, 172, 254, 0.1);
+  border-color: var(--color-primary);
+}
+
+.social-item img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Spotify widget */
+.spotify-widget {
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.scroll-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-muted);
+  letter-spacing: 2px;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--color-primary), transparent);
+  animation: scrollPulse 2s infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* ========== SECTIONS COMMUNES ========== */
+section {
+  padding: 120px 6%;
   position: relative;
   z-index: 1;
 }
 
-/* ========== CONTENEUR DE DESSIN ========== */
-.drawing-container {
-  position: relative;
-  width: 100%;
-  max-width: 600px;
+.section-marker {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 80px;
 }
 
-.main-sketch {
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 20px rgba(79, 172, 254, 0.3));
+.marker-number {
+  font-family: var(--font-mono);
+  font-size: 48px;
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-primary);
 }
 
-/* Animation du tracé SVG */
-.path-draw {
-  fill: none;
-  stroke: #4facfe;
-  stroke-width: 2;
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  animation: draw 3s forwards ease-in-out;
+.marker-title {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 2px;
 }
 
-.path-draw.frame {
-  animation-delay: 0s;
+/* ========== ABOUT SECTION ========== */
+.terminal-window {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.path-draw.portrait-circle {
-  animation-delay: 0.5s;
-  stroke-width: 2.5;
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  background: rgba(79, 172, 254, 0.05);
+  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
 }
 
-.path-draw.smile {
-  animation-delay: 1s;
-  stroke-linecap: round;
+.terminal-dots {
+  display: flex;
+  gap: 8px;
 }
 
-.path-draw.eye {
-  animation-delay: 1.2s;
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
 }
 
-@keyframes draw {
-  to { stroke-dashoffset: 0; }
+.dot.red { background: #ff5f56; }
+.dot.yellow { background: #ffbd2e; }
+.dot.green { background: #27c93f; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-muted);
 }
 
-/* Lignes d'annotation */
-.annotation-line {
-  stroke: #4facfe;
-  stroke-width: 1;
-  stroke-dasharray: 5, 5;
-  stroke-dashoffset: 200;
-  opacity: 0.6;
-  transition: stroke-dashoffset 0.5s ease-out;
-}
-
-.dimension-point {
-  fill: #4facfe;
-  stroke: #0b0e14;
-  stroke-width: 2;
-  opacity: 0;
-  animation: fadeInPoint 0.5s forwards 2s;
-}
-
-@keyframes fadeInPoint {
-  to { opacity: 1; }
-}
-
-.svg-annotation {
-  font-family: 'Fira Code', monospace;
-  opacity: 0;
-  animation: fadeInPoint 0.5s forwards 2.2s;
-}
-
-/* ========== BOÎTE X-RAY ========== */
-.x-ray-box {
-  position: absolute;
-  top: 10%;
-  right: 0;
-  border: 1px dashed #4facfe;
-  padding: 20px;
-  background: rgba(11, 14, 20, 0.95);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  min-width: 250px;
-  backdrop-filter: blur(10px);
-}
-
-.x-ray-box:hover,
-.x-ray-box.x-ray-active {
-  background: rgba(79, 172, 254, 0.08);
-  border-style: solid;
-  border-width: 2px;
-  box-shadow: 0 0 30px rgba(79, 172, 254, 0.3);
-  transform: scale(1.02);
-}
-
-.sketch-label {
+.terminal-body {
+  padding: 32px;
+  font-family: var(--font-mono);
   font-size: 14px;
-  font-weight: 500;
-  color: #4facfe;
-  letter-spacing: 1px;
 }
 
-.label-icon {
-  color: #6a7c92;
+.terminal-line {
+  margin: 20px 0 8px;
+  color: var(--color-text);
+}
+
+.prompt {
+  color: var(--color-primary);
   margin-right: 8px;
 }
 
-.code-reveal pre {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.6;
-  color: #a8b5c9;
-}
-
-.code-reveal code {
-  font-family: 'Fira Code', monospace;
-}
-
-.code-brace { color: #4facfe; font-weight: bold; }
-.code-key { color: #7dd3fc; }
-.code-string { color: #a78bfa; }
-
-/* ========== ANNOTATIONS FLOTTANTES ========== */
-.floating-annotation {
-  position: absolute;
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: opacity 0.5s ease;
-}
-
-.annotation-line-connector {
-  width: 40px;
-  height: 1px;
-  background: #4facfe;
-  position: relative;
-}
-
-.annotation-line-connector::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: -3px;
-  width: 0;
-  height: 0;
-  border-left: 6px solid #4facfe;
-  border-top: 3px solid transparent;
-  border-bottom: 3px solid transparent;
-}
-
-.annotation-line-connector.right {
-  order: 2;
-}
-
-.annotation-line-connector.right::after {
-  left: 0;
-  right: auto;
-  border-left: none;
-  border-right: 6px solid #4facfe;
-}
-
-/* ========== BLOC DE TEXTE ========== */
-.text-block {
-  position: relative;
-}
-
-.sketched-name {
-  font-family: 'Architects Daughter', cursive;
-  font-size: clamp(3rem, 8vw, 5.5rem);
-  color: #fff;
-  margin-bottom: 20px;
-  line-height: 1.1;
-  display: flex;
-  flex-direction: column;
-}
-
-.name-outline {
-  -webkit-text-stroke: 2px #4facfe;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 20px rgba(79, 172, 254, 0.5);
-}
-
-.name-solid {
-  text-shadow: 3px 3px 0px #4facfe;
-}
-
-.subtitle-container {
-  margin-bottom: 40px;
-}
-
-.subtitle {
-  font-size: 16px;
+.terminal-output {
+  color: var(--color-muted);
   line-height: 1.8;
-  color: #a8b5c9;
-}
-
-.typewriter {
-  color: #fff;
-  font-weight: 400;
+  margin: 0;
 }
 
 .cursor-blink {
-  color: #4facfe;
   animation: cursorBlink 1s infinite;
-  font-weight: 300;
 }
 
 @keyframes cursorBlink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
-/* ========== MÉTRIQUES ========== */
-.metrics-grid {
+/* ========== WORK SECTION ========== */
+.work-category {
+  margin-bottom: 100px;
+}
+
+.category-label {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+}
+
+/* Blueprint Grid */
+.blueprint-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 32px;
+}
+
+.blueprint-card {
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  padding: 28px;
+  transition: all 0.3s ease;
+}
+
+.blueprint-card:hover {
+  background: rgba(79, 172, 254, 0.06);
+  border-color: var(--color-primary);
+  transform: translateY(-4px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-number {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-primary);
+}
+
+.card-status {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-muted);
+  letter-spacing: 1px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 12px;
+}
+
+.card-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-muted);
+  margin-bottom: 20px;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 12px;
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--color-primary);
+}
+
+.card-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.card-link:hover {
+  opacity: 0.7;
+}
+
+/* Timeline */
+.timeline-container {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 60px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -40px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  background: var(--color-primary);
+  border-radius: 50%;
+}
+
+.timeline-marker::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100px;
+  background: rgba(79, 172, 254, 0.3);
+}
+
+.timeline-item:last-child .timeline-marker::before {
+  display: none;
+}
+
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+}
+
+.timeline-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 12px;
+}
+
+.timeline-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-muted);
+  margin-bottom: 16px;
+}
+
+.timeline-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 12px;
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--color-primary);
+}
+
+/* Design Showcase */
+.design-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.design-card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.design-card:hover {
+  transform: translateY(-8px);
+}
+
+.design-preview {
+  aspect-ratio: 16 / 10;
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-placeholder {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--color-muted);
+}
+
+.design-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.design-name {
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.design-tool {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+}
+
+/* ========== SKILLS SECTION ========== */
+.skills-diagram {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skill-block {
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  padding: 32px;
+}
+
+.skill-block.full-width {
+  grid-column: 1 / -1;
+}
+
+.block-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+}
+
+.block-icon {
+  font-size: 24px;
+}
+
+.block-title {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.block-content {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+}
+
+.block-content.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.skill-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skill-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.skill-bar {
+  height: 4px;
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  background: var(--color-primary);
+  transition: width 1s ease-out;
+}
+
+.tool-chip {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 8px 16px;
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--color-primary);
+}
+
+/* ========== CONTACT SECTION ========== */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-heading {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text);
+  margin: 0 0 24px;
+}
+
+.contact-text {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--color-muted);
   margin-bottom: 40px;
 }
 
-.metric-item {
+.contact-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.method-item {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.metric-label {
-  font-size: 10px;
-  color: #6a7c92;
+.method-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
   letter-spacing: 1px;
 }
 
-.metric-bar {
-  width: 100%;
-  height: 4px;
-  background: rgba(79, 172, 254, 0.1);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  position: relative;
-  overflow: hidden;
-}
-
-.metric-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #4facfe 0%, #7dd3fc 100%);
-  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: fillMetric 2s ease-out 1.5s backwards;
-  box-shadow: 0 0 10px rgba(79, 172, 254, 0.6);
-}
-
-@keyframes fillMetric {
-  from { width: 0 !important; }
-}
-
-/* ========== BOUTON CTA ========== */
-.blueprint-cta {
-  background: transparent;
-  border: 2px solid #4facfe;
-  color: #4facfe;
-  padding: 16px 32px;
-  font-family: 'Fira Code', monospace;
+.method-value {
   font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  letter-spacing: 1px;
+  color: var(--color-primary);
 }
 
-.blueprint-cta::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.2), transparent);
-  transition: left 0.5s ease;
-}
-
-.blueprint-cta:hover::before {
-  left: 100%;
-}
-
-.blueprint-cta:hover {
-  background: rgba(79, 172, 254, 0.1);
-  box-shadow: 0 0 20px rgba(79, 172, 254, 0.4);
-  transform: translateY(-2px);
-}
-
-.cta-brackets {
-  color: #6a7c92;
-  font-weight: 700;
-}
-
-.cta-underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #4facfe;
-  transition: width 0.3s ease;
-}
-
-.blueprint-cta:hover .cta-underline {
-  width: 100%;
-}
-
-/* ========== INDICATEUR DE SCROLL ========== */
-.scroll-indicator {
-  position: fixed;
-  right: 30px;
-  top: 50%;
-  transform: translateY(-50%);
+.social-links {
   display: flex;
-  flex-direction: column;
+  gap: 16px;
+}
+
+.social-link {
+  display: flex;
   align-items: center;
   gap: 10px;
-  z-index: 50;
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  border-radius: 4px;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.3s ease;
 }
 
-.scroll-line {
-  width: 2px;
-  height: 0;
-  background: linear-gradient(to bottom, #4facfe, #7dd3fc);
-  transition: height 0.3s ease;
-  position: relative;
+.social-link:hover {
+  background: rgba(79, 172, 254, 0.1);
+  border-color: var(--color-primary);
 }
 
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  background: #4facfe;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(79, 172, 254, 0.8);
+.social-link img {
+  width: 18px;
+  height: 18px;
 }
 
-.scroll-text {
-  font-size: 9px;
-  letter-spacing: 2px;
-  color: #6a7c92;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
+/* Formulaire */
+.contact-form {
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  padding: 40px;
+}
+
+.form-field {
+  margin-bottom: 24px;
+}
+
+.form-field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(79, 172, 254, 0.05);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: var(--font-sans);
+  transition: all 0.3s ease;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: rgba(79, 172, 254, 0.08);
+}
+
+.submit-button {
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+.submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-status {
+  margin-top: 16px;
+  padding: 12px;
+  text-align: center;
+  font-size: 13px;
+  border: 1px solid;
+}
+
+.form-status.success {
+  color: #4caf50;
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.form-status.error {
+  color: #f44336;
+  border-color: #f44336;
+  background: rgba(244, 67, 54, 0.1);
+}
+
+.form-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-button {
+  padding: 16px 32px;
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-button:hover {
+  background: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* ========== FOOTER ========== */
+.site-footer {
+  padding: 40px 6%;
+  border-top: 1px solid rgba(79, 172, 254, 0.1);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
 }
 
 /* ========== RESPONSIVE ========== */
+@media (max-width: 1200px) {
+  .name-line {
+    font-size: clamp(3rem, 10vw, 8rem);
+  }
+
+  .meta-panel {
+    min-width: 280px;
+  }
+}
+
 @media (max-width: 1024px) {
-  .hero-section {
-    grid-template-columns: 1fr;
-    padding: 80px 5% 40px;
-    gap: 40px;
+  .hero-content {
+    height: auto;
   }
 
-  .drawing-container {
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .sketched-name {
-    font-size: clamp(2.5rem, 10vw, 4rem);
-  }
-
-  .x-ray-box {
+  .name-stack {
     position: relative;
-    top: 20px;
+    transform: none;
+    margin-bottom: 40px;
+  }
+
+  .meta-panel {
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+  .avatar-blueprint {
+    position: relative;
     right: auto;
-    margin-top: 20px;
+    bottom: auto;
+    margin-bottom: 40px;
+  }
+
+  .bio-compact,
+  .social-compact {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+  }
+
+  .contact-layout,
+  .skills-diagram {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
   .blueprint-header {
+    padding: 20px 5%;
+  }
+
+  .header-nav {
+    gap: 16px;
+  }
+
+  .nav-link {
+    font-size: 10px;
+  }
+
+  section {
+    padding: 80px 5%;
+  }
+
+  .hero-zone {
+    padding: 100px 5% 60px;
+  }
+
+  .section-marker {
+    margin-bottom: 40px;
+  }
+
+  .marker-number {
+    font-size: 32px;
+  }
+
+  .marker-title {
+    font-size: 24px;
+  }
+
+  .blueprint-grid,
+  .design-showcase {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
     flex-direction: column;
-    gap: 10px;
-  }
-
-  .coords-display {
-    font-size: 9px;
-  }
-
-  .floating-annotation {
-    display: none;
-  }
-
-  .scroll-indicator {
-    display: none;
-  }
-
-  .metrics-grid {
     gap: 12px;
+    text-align: center;
   }
 }
 
@@ -761,13 +1419,7 @@ onUnmounted(() => {
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  
-  .cursor-blink {
-    animation: none;
-    opacity: 1;
   }
 }
 </style>
