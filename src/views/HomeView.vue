@@ -42,7 +42,13 @@
             <!-- Lignes d'annotation blueprint -->
             <svg class="annotation-lines" viewBox="0 0 200 200">
               <line x1="0" y1="100" x2="50" y2="100" class="dimension-line" />
-              <line x1="150" y1="100" x2="200" y2="100" class="dimension-line" />
+              <line
+                x1="150"
+                y1="100"
+                x2="200"
+                y2="100"
+                class="dimension-line"
+              />
               <circle cx="100" cy="100" r="80" class="measurement-circle" />
             </svg>
           </div>
@@ -60,10 +66,18 @@
 
         <!-- Actions sociales minimalistes -->
         <div class="social-compact">
-          <a href="https://www.instagram.com/osiris._25" target="_blank" class="social-item">
+          <a
+            href="https://www.instagram.com/osiris._25"
+            target="_blank"
+            class="social-item"
+          >
             <img src="../assets/instagram.svg" alt="Instagram" />
           </a>
-          <a href="https://github.com/moonlight58" target="_blank" class="social-item">
+          <a
+            href="https://github.com/moonlight58"
+            target="_blank"
+            class="social-item"
+          >
             <img src="../assets/github.svg" alt="GitHub" />
           </a>
           <button @click="toggleFormVisibility" class="social-item">
@@ -104,9 +118,7 @@
           <p class="terminal-line">
             <span class="prompt">$</span> cat introduction.txt
           </p>
-          <p class="terminal-output">
-            WhyPortfolioContent
-          </p>
+          <p class="terminal-output">WhyPortfolioContent</p>
           <p class="terminal-line">
             <span class="prompt">$</span> ls -la skills/
           </p>
@@ -135,7 +147,8 @@
             <div class="card-body">
               <h4 class="card-title">Project Title {{ n }}</h4>
               <p class="card-description">
-                Description du projet {{ n }}. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Description du projet {{ n }}. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
               </p>
               <div class="card-tags">
                 <span class="tag">VueJS</span>
@@ -161,7 +174,8 @@
               <div class="timeline-date">2024 - 202{{ 5 - n }}</div>
               <h4 class="timeline-title">Stage Entreprise {{ n }}</h4>
               <p class="timeline-description">
-                Description du stage. Missions réalisées et compétences développées.
+                Description du stage. Missions réalisées et compétences
+                développées.
               </p>
               <div class="timeline-tech">
                 <span class="tech-badge">PHP</span>
@@ -208,11 +222,14 @@
             <h3 class="block-title">FRONTEND</h3>
           </div>
           <div class="block-content">
-            <div class="skill-item" v-for="skill in frontendSkills" :key="skill.name">
+            <div
+              class="skill-item"
+              :style="{ '--color': skill.color }"
+              v-for="skill in frontendSkills"
+            >
+              <!-- svg logo of the skill -->
+              <img class="skill-icon" :src="skill.icon" :alt="skill.name">
               <span class="skill-name">{{ skill.name }}</span>
-              <div class="skill-bar">
-                <div class="skill-fill" :style="{ width: skill.level + '%' }"></div>
-              </div>
             </div>
           </div>
         </div>
@@ -224,11 +241,14 @@
             <h3 class="block-title">BACKEND</h3>
           </div>
           <div class="block-content">
-            <div class="skill-item" v-for="skill in backendSkills" :key="skill.name">
+            <div
+              class="skill-item"
+              :style="{ '--color': skill.color }"
+              v-for="skill in backendSkills"
+            >
+              <!-- svg logo of the skill -->
+              <img class="skill-icon" :src="skill.icon" :alt="skill.name">
               <span class="skill-name">{{ skill.name }}</span>
-              <div class="skill-bar">
-                <div class="skill-fill" :style="{ width: skill.level + '%' }"></div>
-              </div>
             </div>
           </div>
         </div>
@@ -236,13 +256,15 @@
         <!-- Tools & Others -->
         <div class="skill-block full-width">
           <div class="block-header">
-            <div class="block-icon">🔧</div>
+            <div class="block-icon">⚒</div>
             <h3 class="block-title">TOOLS & DATABASES</h3>
           </div>
           <div class="block-content horizontal">
-            <div class="tool-chip" v-for="tool in tools" :key="tool">
-              {{ tool }}
-            </div>
+            <div class="skill-item" :style="{ '--color': skill.color }" v-for="skill in tools">
+              <!-- svg logo of the skill -->
+              <img class="skill-icon" :src="skill.icon" :alt="skill.name">
+              <span class="skill-name">{{ skill.name }}</span>
+              </div>
           </div>
         </div>
       </div>
@@ -258,7 +280,7 @@
       <div class="contact-layout">
         <!-- Gauche : Infos -->
         <div class="contact-info">
-          <h2 class="contact-heading">LET'S WORK<br>TOGETHER</h2>
+          <h2 class="contact-heading">LET'S WORK<br />TOGETHER</h2>
           <p class="contact-text">
             Vous avez un projet en tête ? N'hésitez pas à me contacter.
           </p>
@@ -275,11 +297,19 @@
           </div>
 
           <div class="social-links">
-            <a href="https://www.instagram.com/osiris._25" target="_blank" class="social-link">
+            <a
+              href="https://www.instagram.com/osiris._25"
+              target="_blank"
+              class="social-link"
+            >
               <img src="../assets/instagram.svg" alt="Instagram" />
               <span>Instagram</span>
             </a>
-            <a href="https://github.com/moonlight58" target="_blank" class="social-link">
+            <a
+              href="https://github.com/moonlight58"
+              target="_blank"
+              class="social-link"
+            >
               <img src="../assets/github.svg" alt="GitHub" />
               <span>GitHub</span>
             </a>
@@ -296,7 +326,7 @@
             @submit.prevent="handleSubmit"
           >
             <input type="hidden" name="form-name" value="contact" />
-            
+
             <div class="form-field">
               <label for="name">NAME</label>
               <input
@@ -333,7 +363,11 @@
               ></textarea>
             </div>
 
-            <button type="submit" class="submit-button" :disabled="isSubmitting">
+            <button
+              type="submit"
+              class="submit-button"
+              :disabled="isSubmitting"
+            >
               <span v-if="!isSubmitting">SEND_MESSAGE</span>
               <span v-else>SENDING...</span>
             </button>
@@ -364,45 +398,49 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import NavBar from '@/components/NavBar.vue';
+import { ref, onMounted } from "vue";
+import NavBar from "@/components/NavBar.vue";
 
 // État
 const mouseX = ref(0);
 const mouseY = ref(0);
 const showForm = ref(true);
 const isSubmitting = ref(false);
-const statusMessage = ref('');
-const statusClass = ref('');
+const statusMessage = ref("");
+const statusClass = ref("");
 
 const workSection = ref(null);
 
 // Données du formulaire
 const formData = ref({
-  name: '',
-  email: '',
-  message: ''
+  name: "",
+  email: "",
+  message: "",
 });
 
 // Skills data (exemples)
 const frontendSkills = ref([
-  { name: 'HTML/CSS', level: 95 },
-  { name: 'JavaScript', level: 90 },
-  { name: 'Vue.js', level: 85 },
-  { name: 'React', level: 75 },
-  { name: 'TailwindCSS', level: 90 }
+  { name: "VueJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", color: "65, 184, 131" },
+  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "97, 218, 251" },
+  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", color: "38, 77, 228" }
 ]);
 
 const backendSkills = ref([
-  { name: 'Node.js', level: 80 },
-  { name: 'PHP', level: 85 },
-  { name: 'Python', level: 70 },
-  { name: 'Java', level: 65 }
+  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", color: "55, 118, 171" },
+  { name: "NodeJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", color: "51, 153, 51" },
+  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", color: "247, 223, 30" },
+  { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", color: "119, 123, 180" },
+  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", color: "176, 114, 25" },
 ]);
 
 const tools = ref([
-  'Git', 'Docker', 'MySQL', 'PostgreSQL', 
-  'MongoDB', 'Figma', 'VS Code', 'Linux'
+  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "0, 123, 193" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", color: "240, 80, 51" },
+  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", color: "0, 117, 181" },
+  { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", color: "255, 0, 102" },
+  { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "0, 0, 0" },
+  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 153, 0" },
+  { name: "Neovim", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg", color: "43, 145, 175" },
 ]);
 
 // Méthodes
@@ -412,7 +450,7 @@ const updateCoords = (e) => {
 };
 
 const scrollToWork = () => {
-  workSection.value?.scrollIntoView({ behavior: 'smooth' });
+  workSection.value?.scrollIntoView({ behavior: "smooth" });
 };
 
 const toggleFormVisibility = () => {
@@ -421,28 +459,28 @@ const toggleFormVisibility = () => {
 
 const handleSubmit = async () => {
   isSubmitting.value = true;
-  statusMessage.value = '';
+  statusMessage.value = "";
 
   try {
-    const response = await fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    const response = await fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        'form-name': 'contact',
-        ...formData.value
-      }).toString()
+        "form-name": "contact",
+        ...formData.value,
+      }).toString(),
     });
 
     if (response.ok) {
-      statusMessage.value = 'Message envoyé avec succès !';
-      statusClass.value = 'success';
-      formData.value = { name: '', email: '', message: '' };
+      statusMessage.value = "Message envoyé avec succès !";
+      statusClass.value = "success";
+      formData.value = { name: "", email: "", message: "" };
     } else {
-      throw new Error('Erreur');
+      throw new Error("Erreur");
     }
   } catch (error) {
-    statusMessage.value = 'Erreur lors de l\'envoi. Réessayez.';
-    statusClass.value = 'error';
+    statusMessage.value = "Erreur lors de l'envoi. Réessayez.";
+    statusClass.value = "error";
   } finally {
     isSubmitting.value = false;
   }
@@ -450,7 +488,7 @@ const handleSubmit = async () => {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
 
 /* ========== VARIABLES ========== */
 :root {
@@ -459,8 +497,8 @@ const handleSubmit = async () => {
   --color-surface: #151520;
   --color-text: #e0e0e0;
   --color-muted: #6a7c92;
-  --font-mono: 'Space Mono', monospace;
-  --font-sans: 'Inter', sans-serif;
+  --font-mono: "Space Mono", monospace;
+  --font-sans: "Inter", sans-serif;
 }
 
 /* ========== BASE ========== */
@@ -477,8 +515,10 @@ const handleSubmit = async () => {
 .grid-layer {
   position: fixed;
   inset: 0;
-  background-image: 
-    linear-gradient(rgba(79, 172, 254, 0.02) 1px, transparent 1px),
+  background-image: linear-gradient(
+      rgba(79, 172, 254, 0.02) 1px,
+      transparent 1px
+    ),
     linear-gradient(90deg, rgba(79, 172, 254, 0.02) 1px, transparent 1px);
   background-size: 40px 40px;
   z-index: 0;
@@ -558,8 +598,14 @@ const handleSubmit = async () => {
 }
 
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0.3; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0.3;
+  }
 }
 
 /* Avatar blueprint */
@@ -706,8 +752,13 @@ const handleSubmit = async () => {
 }
 
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* ========== SECTIONS COMMUNES ========== */
@@ -770,9 +821,15 @@ section {
   border-radius: 50%;
 }
 
-.dot.red { background: #ff5f56; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #27c93f; }
+.dot.red {
+  background: #ff5f56;
+}
+.dot.yellow {
+  background: #ffbd2e;
+}
+.dot.green {
+  background: #27c93f;
+}
 
 .terminal-title {
   font-family: var(--font-mono);
@@ -807,8 +864,14 @@ section {
 }
 
 @keyframes cursorBlink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* ========== WORK SECTION ========== */
@@ -931,7 +994,7 @@ section {
 }
 
 .timeline-marker::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 12px;
@@ -1073,7 +1136,6 @@ section {
 
 .block-content {
   display: flex;
-  flex-direction: column;
   gap: 20px;
 }
 
@@ -1084,28 +1146,25 @@ section {
 }
 
 .skill-item {
+  --color: 79, 172, 254;
+  color: white;
+  width: fit-content;
+  background-color: rgba(var(--color), 0.2);
+  padding: 12px 16px;
+  border: 2px solid rgba(var(--color), 0.6);
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+}
+
+.skill-icon {
+  width: 24px;
+  margin-right: 12px;
 }
 
 .skill-name {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--color-text);
-}
-
-.skill-bar {
-  height: 4px;
-  background: rgba(79, 172, 254, 0.1);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  overflow: hidden;
-}
-
-.skill-fill {
-  height: 100%;
-  background: var(--color-primary);
-  transition: width 1s ease-out;
 }
 
 .tool-chip {
