@@ -1,0 +1,12 @@
+/* ========== VARIABLES ========== */
+:root {
+  --color-primary: #4facfe;
+  --color-secondary: #00f2fe;
+  --color-tertiary: #f0f0f0;
+  --color-bg: #0a0a0f;
+  --color-surface: #151520;
+  --color-text: #e0e0e0;
+  --color-muted: #6a7c92;
+  --font-mono: "Space Mono", monospace;
+  --font-sans: "Inter", sans-serif;
+}

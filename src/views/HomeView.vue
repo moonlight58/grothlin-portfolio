@@ -19,15 +19,15 @@
         <div class="meta-panel">
           <div class="meta-item">
             <span class="meta-key">ROLE:</span>
-            <span class="meta-value">HomeTitle</span>
+            <span class="meta-value">{{ $i18n.t('home.panel.role') }}</span>
           </div>
           <div class="meta-item">
             <span class="meta-key">FOCUS:</span>
-            <span class="meta-value">AcademicTitle</span>
+            <span class="meta-value">{{ $i18n.t('home.panel.focus') }}</span>
           </div>
           <div class="meta-item">
             <span class="meta-key">STATUS:</span>
-            <span class="meta-value blink">Precision</span>
+            <span class="meta-value blink">{{ $i18n.t('home.panel.status') }}</span>
           </div>
           <div class="meta-item">
             <span class="meta-key">LOCATION:</span>
@@ -60,8 +60,8 @@
 
         <!-- Bio en bas à gauche -->
         <div class="bio-compact">
-          <p class="bio-text">BodyPart1</p>
-          <p class="bio-text">BodyPart2</p>
+          <p class="bio-text">{{ $i18n.t('home.body.student') }}</p>
+          <p class="bio-text">{{ $i18n.t('home.body.description') }}</p>
         </div>
 
         <!-- Actions sociales minimalistes -->
@@ -108,20 +108,17 @@
       <div class="terminal-window">
         <div class="terminal-header">
           <div class="terminal-dots">
-            <span class="dot red"></span>
-            <span class="dot yellow"></span>
-            <span class="dot green"></span>
+            <span class="rectangle close"></span>
+            <span class="rectangle reduce"></span>
+            <span class="rectangle expand"></span>
           </div>
           <span class="terminal-title">~ about.sh</span>
         </div>
         <div class="terminal-body">
           <p class="terminal-line">
-            <span class="prompt">$</span> cat introduction.txt
+            <span class="prompt">$</span> cat {{ $i18n.t('home.body.why') }}.txt
           </p>
-          <p class="terminal-output">WhyPortfolioContent</p>
-          <p class="terminal-line">
-            <span class="prompt">$</span> ls -la skills/
-          </p>
+          <p class="terminal-output">{{ $i18n.t('home.body.why_desc') }}</p>
           <p class="terminal-output cursor-blink">_</p>
         </div>
       </div>
@@ -168,19 +165,17 @@
         <h3 class="category-label">Internship</h3>
         <div class="timeline-container">
           <!-- Template pour les stages - À remplacer par vos vrais stages -->
-          <div class="timeline-item" v-for="n in 2" :key="'internship-' + n">
+          <div class="timeline-item" v-for="internship in internships" :key="internship.name">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
-              <div class="timeline-date">2024 - 202{{ 5 - n }}</div>
-              <h4 class="timeline-title">Stage Entreprise {{ n }}</h4>
+              <div class="timeline-date">{{ internship.date }}</div>
+              <h4 class="timeline-title">{{ internship.name }}</h4>
               <p class="timeline-description">
                 Description du stage. Missions réalisées et compétences
                 développées.
               </p>
               <div class="timeline-tech">
-                <span class="tech-badge">PHP</span>
-                <span class="tech-badge">MySQL</span>
-                <span class="tech-badge">Docker</span>
+                <span class="tech-badge" v-for="tech in internship.tech" :key="tech">{{ tech }}</span>
               </div>
             </div>
           </div>
@@ -422,7 +417,8 @@ const formData = ref({
 const frontendSkills = ref([
   { name: "VueJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", color: "65, 184, 131" },
   { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "97, 218, 251" },
-  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", color: "38, 77, 228" }
+  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", color: "38, 77, 228" },
+  { name: "Quasar", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/quasar/quasar-plain.svg", color: "0, 102, 204" },
 ]);
 
 const backendSkills = ref([
@@ -442,6 +438,11 @@ const tools = ref([
   { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 153, 0" },
   { name: "Neovim", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg", color: "43, 145, 175" },
 ]);
+
+const internships = ref([
+  { name: "ANI & Low-Tech", mission: "", tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026"},
+  { name: "Euphron", mission: "", tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025"},
+])
 
 // Méthodes
 const updateCoords = (e) => {
@@ -489,17 +490,8 @@ const handleSubmit = async () => {
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
-
-/* ========== VARIABLES ========== */
-:root {
-  --color-primary: #4facfe;
-  --color-bg: #0a0a0f;
-  --color-surface: #151520;
-  --color-text: #e0e0e0;
-  --color-muted: #6a7c92;
-  --font-mono: "Space Mono", monospace;
-  --font-sans: "Inter", sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap');
 
 /* ========== BASE ========== */
 .blueprint-portfolio {
@@ -529,7 +521,7 @@ const handleSubmit = async () => {
 .hero-zone {
   min-height: 100vh;
   position: relative;
-  padding: 120px 6% 80px;
+  padding: 60px 6% 80px;
   z-index: 1;
 }
 
@@ -549,6 +541,7 @@ const handleSubmit = async () => {
 }
 
 .name-line {
+  font-family: "Chivo", sans-serif;
   font-size: clamp(4rem, 12vw, 10rem);
   font-weight: 700;
   line-height: 0.9;
@@ -559,6 +552,7 @@ const handleSubmit = async () => {
 }
 
 .name-line.accent {
+  font-family: "Bricolage Grotesque", sans-serif;
   color: var(--color-primary);
   -webkit-text-stroke: 0;
 }
@@ -815,20 +809,20 @@ section {
   gap: 8px;
 }
 
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
+.rectangle {
+  width: 16px;
+  height: 8px;
+  border-radius: 2px;
 }
 
-.dot.red {
-  background: #ff5f56;
+.rectangle.close {
+  background: var(--color-primary);
 }
-.dot.yellow {
-  background: #ffbd2e;
+.rectangle.reduce {
+  background: var(--color-secondary);
 }
-.dot.green {
-  background: #27c93f;
+.rectangle.expand {
+  background: #f0f0f0;
 }
 
 .terminal-title {

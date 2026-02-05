@@ -1,0 +1,15 @@
+{
+    "home": {
+        "panel": {
+            "role": "Développeur & Artiste",
+            "focus": "3ème année en BUT informatique",
+            "status": "En recherche de travail"
+        },
+        "body": {
+            "student": "Étudiant français en informatique",
+            "description": "Je suis toujours entrain d'essayer de nouvelles choses, avide d'apprendre.",
+            "why": "pourquoi_ce_portfolio",
+            "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels."
+        }
+    }
+}
