@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 /* ========== VARIABLES ========== */
 :root {
   --color-primary: #4facfe;
@@ -8,5 +13,5 @@
   --color-text: #e0e0e0;
   --color-muted: #6a7c92;
   --font-mono: "Space Mono", monospace;
-  --font-sans: "Inter", sans-serif;
+  --font-sans: "Chivo", sans-serif;
 }

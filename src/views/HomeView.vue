@@ -135,47 +135,50 @@
       <div class="work-category">
         <h3 class="category-label">Projects</h3>
         <div class="blueprint-grid">
-          <!-- Template pour les projets - À remplacer par vos vrais projets -->
-          <div class="blueprint-card" v-for="n in 3" :key="'project-' + n">
+          <div class="blueprint-card" v-for="project in projects" :key="project.name">
             <div class="card-header">
-              <span class="card-number">0{{ n }}</span>
-              <span class="card-status">IN_PROGRESS</span>
+              <span class="card-number">0{{ projects.indexOf(project) + 1 }}</span>
+              <span class="card-status">{{ project.status }}</span>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Project Title {{ n }}</h4>
+              <h4 class="card-title">{{ project.name }}</h4>
+              <img :src="project.image" :alt="project.name" class="project-image" />
               <p class="card-description">
-                Description du projet {{ n }}. Lorem ipsum dolor sit amet,
-                consectetur adipiscing elit.
+                {{ project.description }}
               </p>
-              <div class="card-tags">
-                <span class="tag">VueJS</span>
-                <span class="tag">TailwindCSS</span>
-                <span class="tag">API</span>
+            <div class="card-tags">
+              <div v-for="tag in project.tech" :key="tag">
+                <span class="tag">{{ tag }}</span>
               </div>
+            </div>
             </div>
             <div class="card-footer">
               <a href="#" class="card-link">VIEW_PROJECT →</a>
             </div>
           </div>
         </div>
+          <div class="more-projects">
+            <a href="#" class="card-link">VIEW_ALL_PROJECTS →</a>
+          </div>
       </div>
 
       <!-- Internship -->
       <div class="work-category">
         <h3 class="category-label">Internship</h3>
         <div class="timeline-container">
-          <!-- Template pour les stages - À remplacer par vos vrais stages -->
           <div class="timeline-item" v-for="internship in internships" :key="internship.name">
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-date">{{ internship.date }}</div>
               <h4 class="timeline-title">{{ internship.name }}</h4>
               <p class="timeline-description">
-                Description du stage. Missions réalisées et compétences
-                développées.
+                {{ internship.mission }}
               </p>
               <div class="timeline-tech">
                 <span class="tech-badge" v-for="tech in internship.tech" :key="tech">{{ tech }}</span>
+              </div>
+              <div class="redirect-link">
+                <a href="#" class="card-link">VIEW_DETAILS →</a>
               </div>
             </div>
           </div>
@@ -186,7 +189,6 @@
       <div class="work-category">
         <h3 class="category-label">UI/UX DESIGN</h3>
         <div class="design-showcase">
-          <!-- Template pour UI/UX - À remplacer par vos vrais designs -->
           <div class="design-card" v-for="n in 4" :key="'design-' + n">
             <div class="design-preview">
               <div class="preview-placeholder">
@@ -440,8 +442,14 @@ const tools = ref([
 ]);
 
 const internships = ref([
-  { name: "ANI & Low-Tech", mission: "", tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026"},
-  { name: "Euphron", mission: "", tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025"},
+  { name: "ANI & Low-Tech", mission: $i18n.t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026"},
+  { name: "Euphron", mission: $i18n.t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025"},
+])
+
+const projects = ref([
+  { name: "SpotCLI", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/spotcli.png", description: "", tech: ["C", "curl", "SpotifyAPI"], status: $i18n.t("home.projects.spotcli.status"), github: "https://github.com/moonlight58/SpotCLI.git"},
+  { name: "DotIC", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/dotic.png", description: "", tech: ["Python", "NumPy", "Matplotlib", "OpenCV"], status: $i18n.t("home.projects.dotic.status"), github: "https://github.com/moonlight58/DotIC.git"},
+  { name: "HFP Script", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/hfp-disable-autoscript.png", description: "", tech: ["Powershell"], status: $i18n.t("home.projects.hfp.status"), github: "https://github.com/moonlight58/HFP-Disable-AutoScript.git"}
 ])
 
 // Méthodes
@@ -486,13 +494,19 @@ const handleSubmit = async () => {
     isSubmitting.value = false;
   }
 };
+
+const getGithubRepoDescription = async (url) => {
+  try {
+    const response = await fetch(`https://api.github.com/repos/${url.split("github.com/")[1]}`);
+    const data = await response.json();
+    return data.description || "No description available.";
+  } catch (error) {
+    return "Unable to fetch description."; 
+  }
+};
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap');
-
 /* ========== BASE ========== */
 .blueprint-portfolio {
   min-height: 100vh;
@@ -939,9 +953,9 @@ section {
 }
 
 .card-tags {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
@@ -964,6 +978,29 @@ section {
 
 .card-link:hover {
   opacity: 0.7;
+}
+
+.more-projects {
+  padding: 20px 0;
+  text-align: right;
+}
+
+.redirect-link {
+  margin-top: 12px;
+}
+
+.redirect-link .card-link,
+.more-projects .card-link {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.project-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 12px;
 }
 
 /* Timeline */

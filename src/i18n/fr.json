@@ -2,14 +2,33 @@
     "home": {
         "panel": {
             "role": "Développeur & Artiste",
-            "focus": "3ème année en BUT informatique",
-            "status": "En recherche de travail"
+            "focus": "3ème année de BUT Informatique",
+            "status": "En stage à ANI & Low-Tech (4 mois)"
         },
         "body": {
             "student": "Étudiant français en informatique",
             "description": "Je suis toujours entrain d'essayer de nouvelles choses, avide d'apprendre.",
             "why": "pourquoi_ce_portfolio",
             "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels."
+        },
+        "internship": {
+            "ani": {
+                "mission": "Intégration dans le service ANI & Low-Tech, assistance technique au CROUS BFC et au développement d'une IA locale."
+            },
+            "euphron": {
+                "mission": "Réalisation d'une application de troc d'objets sportif pour étudiants en STAPS."
+            }
+        },
+        "projects": {
+            "spotcli": {
+                "status": "En Développement"
+            },
+            "dotic": {
+                "status": "Terminé"
+            },
+            "hfp": {
+                "status": "Terminé"
+            }
         }
     }
 }
