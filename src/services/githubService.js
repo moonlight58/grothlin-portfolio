@@ -67,6 +67,7 @@ async function fetchProjectsFromNetlify() {
       url: repo.html_url,
       language: repo.language,
       stars: repo.stargazers_count,
+      forks: repo.forks_count,
       updatedAt: repo.updated_at,
       topics: repo.topics || []
     }))

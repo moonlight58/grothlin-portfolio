@@ -10,7 +10,23 @@ const cache = {
 const CACHE_DURATION = 60 * 1000;
 
 exports.handler = async (event) => {
-  const { username } = event.queryStringParameters || {};
+  // Extract username from query parameters (handle both formats)
+  let username;
+  
+  if (event.queryStringParameters) {
+    username = event.queryStringParameters.username;
+  }
+  
+  // Fallback: try rawQueryString for edge cases
+  if (!username && event.rawQueryString) {
+    const params = new URLSearchParams(event.rawQueryString);
+    username = params.get('username');
+  }
+  
+  // Default to moonlight58 if no username provided
+  if (!username) {
+    username = 'moonlight58';
+  }
   
   const tokens = {
     moonlight58: process.env.TOKEN_API_GITHUB_MOONLIGHT58,
@@ -20,9 +36,11 @@ exports.handler = async (event) => {
   const token = tokens[username];
   
   if (!token) {
+    console.error(`Token not found for username: ${username}`);
+    console.error(`Available env vars: TOKEN_API_GITHUB_MOONLIGHT58=${process.env.TOKEN_API_GITHUB_MOONLIGHT58 ? 'SET' : 'NOT SET'}, TOKEN_API_GITHUB_GROTHLIN_IUT90=${process.env.TOKEN_API_GITHUB_GROTHLIN_IUT90 ? 'SET' : 'NOT SET'}`);
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: "Invalid username" }),
+      body: JSON.stringify({ error: `Invalid username or token not configured for: ${username}` }),
     };
   }
 
@@ -37,6 +55,7 @@ exports.handler = async (event) => {
       headers: {
         "X-Cache": "HIT",
         "X-Cache-Age": Math.floor((now - cachedData.timestamp) / 1000),
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(cachedData.data),
     };
@@ -64,6 +83,7 @@ exports.handler = async (event) => {
       statusCode: 200,
       headers: {
         "X-Cache": "MISS",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(response.data),
     };
@@ -76,6 +96,7 @@ exports.handler = async (event) => {
         headers: {
           "X-Cache": "STALE",
           "X-Cache-Age": Math.floor((now - cachedData.timestamp) / 1000),
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(cachedData.data),
       };
