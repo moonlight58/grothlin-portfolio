@@ -42,13 +42,7 @@
             <!-- Lignes d'annotation blueprint -->
             <svg class="annotation-lines" viewBox="0 0 200 200">
               <line x1="0" y1="100" x2="50" y2="100" class="dimension-line" />
-              <line
-                x1="150"
-                y1="100"
-                x2="200"
-                y2="100"
-                class="dimension-line"
-              />
+              <line x1="150" y1="100" x2="200" y2="100" class="dimension-line" />
               <circle cx="100" cy="100" r="80" class="measurement-circle" />
             </svg>
           </div>
@@ -158,7 +152,7 @@
           </div>
         </div>
           <div class="more-projects">
-            <a href="#" class="card-link">VIEW_ALL_PROJECTS →</a>
+            <a href="/projects" class="card-link">VIEW_ALL_PROJECTS →</a>
           </div>
       </div>
 
@@ -439,6 +433,7 @@ const tools = ref([
   { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "0, 0, 0" },
   { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 153, 0" },
   { name: "Neovim", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg", color: "43, 145, 175" },
+  { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", color: "30, 30, 30" }
 ]);
 
 const internships = ref([
