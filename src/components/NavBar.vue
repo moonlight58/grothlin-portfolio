@@ -1,17 +1,17 @@
 <template>
   <header class="blueprint-header">
     <div class="header-left">
-      <span class="logo-text">GR_</span>
+      <a class="logo-text" href="/">GR_</a>
     </div>
     <nav class="header-nav">
-      <a href="#about" class="nav-link">01_About</a>
-      <a href="#work" class="nav-link">02_Work</a>
-      <a href="#skills" class="nav-link">03_Skills</a>
-      <a href="#contact" class="nav-link">04_Contact</a>
+      <a href="/#about" class="nav-link">01_About</a>
+      <a href="/#work" class="nav-link">02_Work</a>
+      <a href="/#skills" class="nav-link">03_Skills</a>
+      <a href="/#contact" class="nav-link">04_Contact</a>
     </nav>
     <div class="lang_button">
-      <button class="lang-btn">FR</button>
-      <button class="lang-btn">EN</button>
+      <button class="lang-btn" @click="changeLang('fr')">FR</button>
+      <button class="lang-btn" @click="changeLang('en')">EN</button>
     </div>
   </header>
 </template>
@@ -47,6 +47,9 @@ export default {
           }
         });
       });
+    },
+    changeLang(lang) {
+      this.$i18n.locale = lang;
     },
   },
 };
@@ -112,18 +115,17 @@ header.scrolled {
 }
 
 .lang-btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-muted);
   background: none;
-  border: 1px solid var(--color-text-primary);
-  color: var(--color-text-primary);
-  padding: 5px 10px;
+  border: none;
   cursor: pointer;
-  font-family: 'Fira Code', 'Courier New', monospace;
-  transition: background-color 0.3s, color 0.3s;
+  transition: color 0.3s ease;
 }
 
 .lang-btn:hover {
-  background-color: var(--color-primary);
-  color: var(--color-background);
+  color: var(--color-primary);
 }
 
 .blueprint-header {

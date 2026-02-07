@@ -3,7 +3,7 @@
         "panel": {
             "role": "Développeur & Artiste",
             "focus": "3ème année de BUT Informatique",
-            "status": "En stage à ANI & Low-Tech (4 mois)"
+            "status": "En stage à ANI & Low-Tech (12 Jan - 30 Avr)"
         },
         "body": {
             "student": "Étudiant français en informatique",
@@ -29,6 +29,13 @@
             "hfp": {
                 "status": "Terminé"
             }
+        },
+        "contact": {
+            "title": "TRAVAILLONS ENSEMBLE !",
+            "description": "Vous avez un projet ? Contactez-moi pour en discuter."
         }
+    },
+    "common": {
+        "back": "Retour"
     }
 }

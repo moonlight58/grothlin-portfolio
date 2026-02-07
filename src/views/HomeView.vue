@@ -3,8 +3,6 @@
     <!-- Grille blueprint subtile -->
     <div class="grid-layer"></div>
 
-    <!-- En-tête fixe minimaliste -->
-    <NavBar />
 
     <!-- Hero Section - Layout totalement différent -->
     <section class="hero-zone">
@@ -19,15 +17,17 @@
         <div class="meta-panel">
           <div class="meta-item">
             <span class="meta-key">ROLE:</span>
-            <span class="meta-value">{{ $i18n.t('home.panel.role') }}</span>
+            <span class="meta-value">{{ $i18n.t("home.panel.role") }}</span>
           </div>
           <div class="meta-item">
             <span class="meta-key">FOCUS:</span>
-            <span class="meta-value">{{ $i18n.t('home.panel.focus') }}</span>
+            <span class="meta-value">{{ $i18n.t("home.panel.focus") }}</span>
           </div>
           <div class="meta-item">
             <span class="meta-key">STATUS:</span>
-            <span class="meta-value blink">{{ $i18n.t('home.panel.status') }}</span>
+            <span class="meta-value blink">{{
+              $i18n.t("home.panel.status")
+            }}</span>
           </div>
           <div class="meta-item">
             <span class="meta-key">LOCATION:</span>
@@ -42,7 +42,13 @@
             <!-- Lignes d'annotation blueprint -->
             <svg class="annotation-lines" viewBox="0 0 200 200">
               <line x1="0" y1="100" x2="50" y2="100" class="dimension-line" />
-              <line x1="150" y1="100" x2="200" y2="100" class="dimension-line" />
+              <line
+                x1="150"
+                y1="100"
+                x2="200"
+                y2="100"
+                class="dimension-line"
+              />
               <circle cx="100" cy="100" r="80" class="measurement-circle" />
             </svg>
           </div>
@@ -54,8 +60,8 @@
 
         <!-- Bio en bas à gauche -->
         <div class="bio-compact">
-          <p class="bio-text">{{ $i18n.t('home.body.student') }}</p>
-          <p class="bio-text">{{ $i18n.t('home.body.description') }}</p>
+          <p class="bio-text">{{ $i18n.t("home.body.student") }}</p>
+          <p class="bio-text">{{ $i18n.t("home.body.description") }}</p>
         </div>
 
         <!-- Actions sociales minimalistes -->
@@ -74,9 +80,9 @@
           >
             <img src="../assets/github.svg" alt="GitHub" />
           </a>
-          <button @click="toggleFormVisibility" class="social-item">
+          <a href="#contact" class="social-item">
             <img src="../assets/email.svg" alt="Email" />
-          </button>
+          </a>
         </div>
 
         <!-- Spotify en position flottante -->
@@ -110,9 +116,9 @@
         </div>
         <div class="terminal-body">
           <p class="terminal-line">
-            <span class="prompt">$</span> cat {{ $i18n.t('home.body.why') }}.txt
+            <span class="prompt">$</span> cat {{ $i18n.t("home.body.why") }}.txt
           </p>
-          <p class="terminal-output">{{ $i18n.t('home.body.why_desc') }}</p>
+          <p class="terminal-output">{{ $i18n.t("home.body.why_desc") }}</p>
           <p class="terminal-output cursor-blink">_</p>
         </div>
       </div>
@@ -129,38 +135,52 @@
       <div class="work-category">
         <h3 class="category-label">Projects</h3>
         <div class="blueprint-grid">
-          <div class="blueprint-card" v-for="project in projects" :key="project.name">
+          <div
+            class="blueprint-card"
+            v-for="project in projects"
+            :key="project.name"
+          >
             <div class="card-header">
-              <span class="card-number">0{{ projects.indexOf(project) + 1 }}</span>
+              <span class="card-number"
+                >0{{ projects.indexOf(project) + 1 }}</span
+              >
               <span class="card-status">{{ project.status }}</span>
             </div>
             <div class="card-body">
               <h4 class="card-title">{{ project.name }}</h4>
-              <img :src="project.image" :alt="project.name" class="project-image" />
+              <img
+                :src="project.image"
+                :alt="project.name"
+                class="project-image"
+              />
               <p class="card-description">
                 {{ project.description }}
               </p>
-            <div class="card-tags">
-              <div v-for="tag in project.tech" :key="tag">
-                <span class="tag">{{ tag }}</span>
+              <div class="card-tags">
+                <div v-for="tag in project.tech" :key="tag">
+                  <span class="tag">{{ tag }}</span>
+                </div>
               </div>
             </div>
-            </div>
             <div class="card-footer">
-              <a href="#" class="card-link">VIEW_PROJECT →</a>
+              <a href="#" class="card-link">VIEW_PROJECT ⇁</a>
             </div>
           </div>
         </div>
-          <div class="more-projects">
-            <a href="/projects" class="card-link">VIEW_ALL_PROJECTS →</a>
-          </div>
+        <div class="more-projects">
+          <a href="/projects" class="card-link">VIEW_ALL_PROJECTS ⇁</a>
+        </div>
       </div>
 
       <!-- Internship -->
       <div class="work-category">
         <h3 class="category-label">Internship</h3>
         <div class="timeline-container">
-          <div class="timeline-item" v-for="internship in internships" :key="internship.name">
+          <div
+            class="timeline-item"
+            v-for="internship in internships"
+            :key="internship.name"
+          >
             <div class="timeline-marker"></div>
             <div class="timeline-content">
               <div class="timeline-date">{{ internship.date }}</div>
@@ -169,10 +189,15 @@
                 {{ internship.mission }}
               </p>
               <div class="timeline-tech">
-                <span class="tech-badge" v-for="tech in internship.tech" :key="tech">{{ tech }}</span>
+                <span
+                  class="tech-badge"
+                  v-for="tech in internship.tech"
+                  :key="tech"
+                  >{{ tech }}</span
+                >
               </div>
               <div class="redirect-link">
-                <a href="#" class="card-link">VIEW_DETAILS →</a>
+                <a href="#" class="card-link">VIEW_DETAILS ⇁</a>
               </div>
             </div>
           </div>
@@ -219,7 +244,7 @@
               v-for="skill in frontendSkills"
             >
               <!-- svg logo of the skill -->
-              <img class="skill-icon" :src="skill.icon" :alt="skill.name">
+              <img class="skill-icon" :src="skill.icon" :alt="skill.name" />
               <span class="skill-name">{{ skill.name }}</span>
             </div>
           </div>
@@ -238,7 +263,7 @@
               v-for="skill in backendSkills"
             >
               <!-- svg logo of the skill -->
-              <img class="skill-icon" :src="skill.icon" :alt="skill.name">
+              <img class="skill-icon" :src="skill.icon" :alt="skill.name" />
               <span class="skill-name">{{ skill.name }}</span>
             </div>
           </div>
@@ -251,11 +276,15 @@
             <h3 class="block-title">TOOLS & DATABASES</h3>
           </div>
           <div class="block-content horizontal">
-            <div class="skill-item" :style="{ '--color': skill.color }" v-for="skill in tools">
+            <div
+              class="skill-item"
+              :style="{ '--color': skill.color }"
+              v-for="skill in tools"
+            >
               <!-- svg logo of the skill -->
-              <img class="skill-icon" :src="skill.icon" :alt="skill.name">
+              <img class="skill-icon" :src="skill.icon" :alt="skill.name" />
               <span class="skill-name">{{ skill.name }}</span>
-              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -271,15 +300,15 @@
       <div class="contact-layout">
         <!-- Gauche : Infos -->
         <div class="contact-info">
-          <h2 class="contact-heading">LET'S WORK<br />TOGETHER</h2>
+          <h2 class="contact-heading">{{ $t('home.contact.title') }}</h2>
           <p class="contact-text">
-            Vous avez un projet en tête ? N'hésitez pas à me contacter.
+            {{ $t('home.contact.description') }}
           </p>
 
           <div class="contact-methods">
             <div class="method-item">
               <span class="method-label">EMAIL</span>
-              <span class="method-value">gael.rothlin@example.com</span>
+              <span class="method-value">gael.rothlin@edu.univ-fcomte.fr</span>
             </div>
             <div class="method-item">
               <span class="method-label">LOCATION</span>
@@ -389,13 +418,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useI18n } from "vue-i18n";
 import NavBar from "@/components/NavBar.vue";
 
 // État
 const mouseX = ref(0);
 const mouseY = ref(0);
-const showForm = ref(true);
+const showForm = ref(false);
 const isSubmitting = ref(false);
 const statusMessage = ref("");
 const statusClass = ref("");
@@ -436,16 +466,18 @@ const tools = ref([
   { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", color: "30, 30, 30" }
 ]);
 
-const internships = ref([
-  { name: "ANI & Low-Tech", mission: $i18n.t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026"},
-  { name: "Euphron", mission: $i18n.t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025"},
-])
+const { t } = useI18n();
 
-const projects = ref([
-  { name: "SpotCLI", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/spotcli.png", description: "", tech: ["C", "curl", "SpotifyAPI"], status: $i18n.t("home.projects.spotcli.status"), github: "https://github.com/moonlight58/SpotCLI.git"},
-  { name: "DotIC", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/dotic.png", description: "", tech: ["Python", "NumPy", "Matplotlib", "OpenCV"], status: $i18n.t("home.projects.dotic.status"), github: "https://github.com/moonlight58/DotIC.git"},
-  { name: "HFP Script", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/hfp-disable-autoscript.png", description: "", tech: ["Powershell"], status: $i18n.t("home.projects.hfp.status"), github: "https://github.com/moonlight58/HFP-Disable-AutoScript.git"}
-])
+const internships = computed(() => [
+  { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026"},
+  { name: "Euphron", mission: t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025"},
+]);
+
+const projects = computed(() => [
+  { name: "SpotCLI", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/spotcli.png", description: "", tech: ["C", "curl", "SpotifyAPI"], status: t("home.projects.spotcli.status"), github: "https://github.com/moonlight58/SpotCLI.git"},
+  { name: "DotIC", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/dotic.png", description: "", tech: ["Python", "NumPy", "Matplotlib", "OpenCV"], status: t("home.projects.dotic.status"), github: "https://github.com/moonlight58/DotIC.git"},
+  { name: "HFP Script", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/hfp-disable-autoscript.png", description: "", tech: ["Powershell"], status: t("home.projects.hfp.status"), github: "https://github.com/moonlight58/HFP-Disable-AutoScript.git"}
+]);
 
 // Méthodes
 const updateCoords = (e) => {
@@ -490,14 +522,19 @@ const handleSubmit = async () => {
   }
 };
 
-const getGithubRepoDescription = async (url) => {
-  try {
-    const response = await fetch(`https://api.github.com/repos/${url.split("github.com/")[1]}`);
-    const data = await response.json();
-    return data.description || "No description available.";
-  } catch (error) {
-    return "Unable to fetch description."; 
-  }
+const scrollToSection = (sectionId) => {
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    });
+  });
 };
 </script>
 
@@ -1163,6 +1200,7 @@ section {
 .block-content {
   display: flex;
   gap: 20px;
+  flex-wrap: wrap;
 }
 
 .block-content.horizontal {

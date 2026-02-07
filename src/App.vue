@@ -2,6 +2,9 @@
   <div class="terminal-wrapper">
     <!-- Effet scanline subtil -->
     <div class="scanlines"></div>
+
+    <!-- En-tête fixe minimaliste -->
+    <NavBar />
     
     <!-- Contenu principal -->
     <router-view v-slot="{ Component }">
@@ -13,7 +16,7 @@
 </template>
 
 <script setup>
-// Pas de logique nécessaire pour l'instant
+import NavBar from "./components/NavBar.vue";
 </script>
 
 <style>
