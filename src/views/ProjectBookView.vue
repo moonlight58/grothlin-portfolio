@@ -5,10 +5,12 @@
 
     <!-- Hero Section pour Projects -->
     <section class="projects-hero">
+      <div class="hero-content">
+
       <div class="back-btn" @click="goBack">
         ↼ {{ $t('common.back') }}
       </div>
-      <div class="hero-content">
+
         <div class="title-stack">
           <h1 class="title-line">{{ $t('projects.hero.title') }}</h1>
           <h1 class="title-line accent">{{ $t('projects.hero.subtitle') }}</h1>
@@ -133,6 +135,12 @@
           <!-- Hover effect overlay -->
           <div class="card-overlay"></div>
         </article>
+      </div>
+    </section>
+
+    <section class="back-section">
+      <div class="back-btn" @click="goBack">
+        ↼ {{ $t('common.back') }}
       </div>
     </section>
 
@@ -680,6 +688,11 @@ export default {
 
 .card-link:hover::after {
   width: 100%;
+}
+
+.back-section {
+  padding: 40px 6%;
+  text-align: left;
 }
 
 /* ========== FOOTER ========== */

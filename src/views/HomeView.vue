@@ -1462,6 +1462,12 @@ section {
     height: auto;
   }
 
+  .avatar-container {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+  }
+
   .name-stack {
     position: relative;
     transform: none;

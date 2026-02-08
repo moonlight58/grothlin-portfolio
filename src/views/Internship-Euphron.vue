@@ -710,7 +710,6 @@ export default {
   min-height: 60vh;
   position: relative;
   padding: 120px 6% 80px;
-  margin-top: 5rem;
   z-index: 1;
 }
 
@@ -1535,7 +1534,7 @@ section {
     padding: 20px 0;
     gap: 16px;
     flex-wrap: wrap;
-    margin: 20px 0;
+    margin: 100px 0 0 0;
     border-top: 1px solid rgba(79, 172, 254, 0.2);
     border-bottom: 1px solid rgba(79, 172, 254, 0.2);
   }
@@ -1574,6 +1573,12 @@ section {
 
   .title-line {
     font-size: clamp(2.5rem, 10vw, 5rem);
+    text-align: center;
+  }
+
+  .title-line.accent {
+    width: 100%;
+    text-align: center;
   }
 
   .marker-number {
