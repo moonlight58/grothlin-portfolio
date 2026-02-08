@@ -9,7 +9,7 @@
       <a href="/#skills" class="nav-link">03_Skills</a>
       <a href="/#contact" class="nav-link">04_Contact</a>
     </nav>
-    <div class="lang_button">
+    <div class="extra-buttons">
       <button class="lang-btn" @click="changeLang('fr')">FR</button>
       <button class="lang-btn" @click="changeLang('en')">EN</button>
     </div>
@@ -109,7 +109,7 @@ header.scrolled {
   color: var(--color-primary);
 }
 
-.lang_button {
+.extra-buttons {
   display: flex;
   gap: 10px;
 }

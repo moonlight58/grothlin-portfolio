@@ -128,7 +128,7 @@
     <section id="work" class="work-zone" ref="workSection">
       <div class="section-marker">
         <span class="marker-number">02</span>
-        <span class="marker-title">WORK</span>
+        <span class="marker-title">WORK </span>
       </div>
 
       <!-- Projects Grid -->
@@ -197,7 +197,7 @@
                 >
               </div>
               <div class="redirect-link">
-                <a href="#" class="card-link">VIEW_DETAILS ⇁</a>
+                <a :href="internship.link" class="card-link">VIEW_DETAILS ⇁</a>
               </div>
             </div>
           </div>
@@ -469,8 +469,8 @@ const tools = ref([
 const { t } = useI18n();
 
 const internships = computed(() => [
-  { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026"},
-  { name: "Euphron", mission: t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025"},
+  { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026", link: "/intership/ani" },
+  { name: "Euphron", mission: t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025", link: "/internship/euphron" },
 ]);
 
 const projects = computed(() => [

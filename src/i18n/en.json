@@ -1,41 +1,185 @@
 {
-    "home": {
-        "panel": {
-            "role": "Software Developper & Digital Artist",
-            "focus": "3rd year of Computer Science degree",
-            "status": "Internship at ANI & Low-Tech (12 Jan - 30 Apr)"
-        },
-        "body": {
-            "student": "French Computer Science student",
-            "description": "I'm always trying new things, eager to learn.",
-            "why": "why_this_portfolio",
-            "why_desc": "This website is developed as part of my Portfolio project during the three years of my Computer Science degree. It will be continuously updated to reflect my academic and personal projects."
-        },
-        "internship": {
-            "ani": {
-                "mission": "Integration in the ANI & Low-Tech service, technical assistance at CROUS BFC and development of a local AI."
-            },
-            "euphron": {
-                "mission": "Development of a sports equipment exchange application for STAPS students."
-            }
-        },
-        "projects": {
-            "spotcli": {
-                "status": "In Development"
-            },
-            "dotic": {
-                "status": "Completed"
-            },
-            "hfp": {
-                "status": "Completed"
-            }
-        },
-        "contact": {
-            "title": "LET'S WORK TOGETHER !",
-            "description": "Have a project? Contact me to discuss."
-        }
+  "home": {
+    "panel": {
+      "role": "Software Developper & Digital Artist",
+      "focus": "3rd year of Computer Science degree",
+      "status": "Internship at ANI & Low-Tech (12 Jan - 30 Apr)"
     },
-    "common": {
-        "back": "Back"
+    "body": {
+      "student": "French Computer Science student",
+      "description": "I'm always trying new things, eager to learn.",
+      "why": "why_this_portfolio",
+      "why_desc": "This website is developed as part of my Portfolio project during the three years of my Computer Science degree. It will be continuously updated to reflect my academic and personal projects."
+    },
+    "internship": {
+      "ani": {
+        "mission": "Integration in the ANI & Low-Tech service, technical assistance at CROUS BFC and development of a local AI."
+      },
+      "euphron": {
+        "mission": "Development of a sports equipment exchange application for STAPS students."
+      }
+    },
+    "projects": {
+      "spotcli": {
+        "status": "In Development"
+      },
+      "dotic": {
+        "status": "Completed"
+      },
+      "hfp": {
+        "status": "Completed"
+      }
+    },
+    "contact": {
+      "title": "LET'S WORK TOGETHER !",
+      "description": "Have a project? Contact me to discuss."
     }
+  },
+  "internshipPage": {
+    "hero": {
+      "title": "Euphron",
+      "jobTitle": "Full-Stack Web Internship",
+      "location": "Learning Centre Claude Oytana • Besançon, France",
+      "duration": "April 2025 - May 2025 • 8 weeks"
+    },
+    "context": {
+      "sectionNumber": "01",
+      "title": "Context & Objectives",
+      "subtitle": "Project mission and stakes",
+      "description1": "I had the opportunity to work as a web full-stack intern at the Learning Centre Claude Oytana in Besançon, France, from April 2025 to May 2025. My mission was to create a mobile application called 'Euphron', enabling students at the Université de Franche-Comté to give or take second-hand sports equipment on a donation system.",
+      "description2": "The creation of this application was proposed by STAPS students, following a market study on access to sports equipment in their curriculum. This study revealed that, while some schools manage to provide the necessary equipment to their students, in many others, students themselves must finance their equipment.",
+      "objective1Title": "Promote access to sport",
+      "objective1Desc": "For all students in Franche-Comté",
+      "objective2Title": "Encourage solidarity",
+      "objective2Desc": "By facilitating equipment exchange",
+      "objective3Title": "Promote reuse",
+      "objective3Desc": "In an eco-responsible approach",
+      "constraintLabel": "Main constraint:",
+      "constraintText": "No monetary gain allowed - everything had to be free, based on student solidarity."
+    },
+    "role": {
+      "sectionNumber": "02",
+      "title": "My Role",
+      "subtitle": "Responsibilities & autonomous development",
+      "description": "I was tasked with creating the entire web application (computer and mobile compatible) completely autonomously.",
+      "responsibility1Title": "Visual design",
+      "responsibility1Desc": "Design on Figma for client validation",
+      "responsibility2Title": "Frontend development",
+      "responsibility2Desc": "Responsive user interface",
+      "responsibility3Title": "Backend development",
+      "responsibility3Desc": "API and business logic",
+      "responsibility4Title": "Database",
+      "responsibility4Desc": "Complete design and management"
+    },
+    "organization": {
+      "sectionNumber": "03",
+      "title": "Organization",
+      "subtitle": "Planning & methodology",
+      "week12Title": "Weeks 1-2",
+      "week12Desc": "Visual preparation and feature definition",
+      "week3Title": "Week 3",
+      "week3Desc": "Technology research and validation meetings",
+      "week48Title": "Weeks 4-8",
+      "week48Desc": "Development (frontend, backend, database)",
+      "methodologyTitle": "Methodology",
+      "methodologyDesc": "Weekly meetings with the library team and my internship supervisor. Using Git for versioning and Trello for task management."
+    },
+    "techStack": {
+      "sectionNumber": "04",
+      "title": "Tech Stack",
+      "subtitle": "Technologies & architecture",
+      "frontendTitle": "Frontend",
+      "frontend1Name": "Vue.js 3",
+      "frontend1Desc": "Main framework (Composition API, script setup)",
+      "frontend2Name": "Quasar Framework",
+      "frontend2Desc": "UI framework for mobile compatibility",
+      "frontend3Name": "Pinia",
+      "frontend3Desc": "State management (Vuex replacement)",
+      "frontend4Name": "Socket.io-client",
+      "frontend4Desc": "Real-time communication",
+      "backendTitle": "Backend",
+      "backend1Name": "Node.js",
+      "backend1Desc": "JavaScript runtime environment",
+      "backend2Name": "Express.js",
+      "backend2Desc": "Web framework",
+      "backend3Name": "MySQL",
+      "backend3Desc": "Relational database",
+      "backend4Name": "Socket.io",
+      "backend4Desc": "WebSocket for real-time chat",
+      "justificationTitle": "Choice justification",
+      "justificationDesc": "I favored Vue.js because I master this framework well, unlike Angular or React. Quasar was the ideal choice for native mobile compatibility, perfectly meeting the project requirements."
+    },
+    "features": {
+      "sectionNumber": "05",
+      "title": "Features",
+      "subtitle": "Development & implementation",
+      "category1Title": "User management",
+      "category1Item1": "Sign up / Login",
+      "category1Item2": "Profile modification",
+      "category1Item3": "Authentication system",
+      "category2Title": "Item management",
+      "category2Item1": "Adding sports items",
+      "category2Item2": "Modification / Deletion",
+      "category2Item3": "Category system",
+      "category3Title": "Communication",
+      "category3Item1": "Real-time chat (Socket.IO)",
+      "category3Item2": "User messaging",
+      "category4Title": "Administration",
+      "category4Item1": "Sport category management",
+      "category4Item2": "User account management",
+      "category4Item3": "Content moderation",
+      "highlightTitle": "Most enriching part",
+      "highlightDesc": "Developing the real-time chat with Socket.IO was a first for me. The excellent documentation allowed me to quickly understand the concepts and successfully implement this feature.",
+      "progressTitle": "Progress status",
+      "progressDesc": "of features completed",
+      "progressPercentage": "70%"
+    },
+    "architecture": {
+      "sectionNumber": "06",
+      "title": "Architecture",
+      "subtitle": "Technical structure & data flow",
+      "diagramAlt": "Frontend/backend architecture diagram",
+      "diagramCaption": "Diagram of the communication flow between the frontend (Vue/Quasar) and the backend (Express, Socket.io, MySQL).",
+      "description": "The application architecture is based on a clear separation between the frontend, developed with Quasar/Vue.js, and the backend, built around Express, Socket.io and MySQL.",
+      "section1Title": "Classic data flow (HTTP)",
+      "section1Desc": "When a user interacts with the interface via their browser, their actions are handled by Vue components, which orchestrate the display and logic of the application. These components, when they need to access data or trigger server-side operations, call on dedicated JavaScript services.",
+      "section2Title": "Real-time communication (WebSockets)",
+      "section2Desc": "In parallel with this traditional operation, the application also integrates a real-time dimension thanks to Socket.io. For features like chat or instant notifications, Vue components communicate with the server via the Socket.io client."
+    },
+    "security": {
+      "sectionNumber": "07",
+      "title": "Security",
+      "subtitle": "Protection & best practices",
+      "intro": "During development, I learned the importance of securing against SQL injections. I implemented double protection:",
+      "method1Title": "1. Frontend verification (Regex)",
+      "method1Desc": "This frontend method checks that the user is not trying to harm the application's operation using a regular expression. This expression verifies that fields (name, email, phone) do not contain suspicious characters like ' \" ; -- / * , etc.",
+      "method1Alt": "Regex verification",
+      "method2Title": "2. Prepared queries (Backend)",
+      "method2Desc": "Prepared (or parameterized) queries offer robust protection because they:",
+      "method2Item1": "Prevent SQL injections",
+      "method2Item2": "Are supported by all modern SQL engines",
+      "method2Item3": "Form the basis of all modern ORMs",
+      "method2Alt": "Prepared query"
+    },
+    "learning": {
+      "sectionNumber": "08",
+      "title": "Learning",
+      "subtitle": "Skills & feedback",
+      "technicalTitle": "Technical skills acquired",
+      "technical1": "Mastering Socket.IO for real-time communication",
+      "technical2": "Deepening web security (SQL injections, prepared queries)",
+      "technical3": "Complete full-stack development experience",
+      "technical4": "Using Quasar for mobile development",
+      "softTitle": "Transferable skills",
+      "soft1": "Autonomy in managing a complete project",
+      "soft2": "Adaptability to changing specifications",
+      "soft3": "Client communication and expectation management",
+      "soft4": "Taking initiative and proposing improvements",
+      "reflectionTitle": "If I had to do it again",
+      "reflectionDesc": "I would have preferred working in a team for more efficiency. Being alone, I couldn't implement as many features as desired, although it allowed me to develop my autonomy and ability to manage a project in its entirety."
+    }
+  },
+  "common": {
+    "back": "Back"
+  }
 }

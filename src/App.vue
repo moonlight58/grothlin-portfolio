@@ -45,7 +45,7 @@ html {
 }
 
 body {
-  font-family: 'Fira Code', 'Courier New', monospace;
+  font-family: var(--font-sans);
   background-color: var(--color-bg-dark);
   color: var(--color-text-primary);
   overflow-x: hidden;

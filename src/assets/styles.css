@@ -1,7 +1,32 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+  font-family: "Space Mono Nerd Font";
+  src: url("./fonts/SpaceMono-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: "Chivo";
+  src: url("./fonts/Chivo-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Chivo";
+  src: url("./fonts/Chivo-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Chivo";
+  src: url("./fonts/Chivo-Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
 
 /* ========== VARIABLES ========== */
 :root {
@@ -12,6 +37,6 @@
   --color-surface: #151520;
   --color-text: #e0e0e0;
   --color-muted: #6a7c92;
-  --font-mono: "Space Mono", monospace;
+  --font-mono: "Space Mono Nerd Font", monospace;
   --font-sans: "Chivo", sans-serif;
 }

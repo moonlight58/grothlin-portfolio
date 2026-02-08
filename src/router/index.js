@@ -20,6 +20,11 @@ const routes = [
     path: "/projects",
     name: "projects",
     component: () => import("../views/ProjectBookView.vue"),
+  },
+  {
+    path: "/internship/euphron",
+    name: "euphron-internship",
+    component: () => import("../views/Internship-Euphron.vue"),
   }
 ];
 

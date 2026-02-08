@@ -232,7 +232,7 @@ export default {
   --color-muted: #8b95a8;
   --color-primary: #4facfe;
   --font-sans: "Chivo", sans-serif;
-  --font-mono: "Courier New", monospace;
+  --font-mono: "Space Mono", monospace;
 }
 
 /* ========== BASE ========== */
