@@ -40,3 +40,23 @@
   --font-mono: "Space Mono Nerd Font", monospace;
   --font-sans: "Chivo", sans-serif;
 }
+
+.back-btn {
+  position: relative;
+  display: inline-block;
+  margin-top: 40px;
+  padding: 12px 24px;
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.back-btn:hover {
+  transform: translateX(-4px);
+  cursor: pointer;
+}

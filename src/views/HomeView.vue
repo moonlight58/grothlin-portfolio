@@ -16,21 +16,21 @@
         <!-- Métadonnées techniques à droite -->
         <div class="meta-panel">
           <div class="meta-item">
-            <span class="meta-key">ROLE:</span>
+            <span class="meta-key">{{ $i18n.t("home.panel.roleTitle") }}:</span>
             <span class="meta-value">{{ $i18n.t("home.panel.role") }}</span>
           </div>
           <div class="meta-item">
-            <span class="meta-key">FOCUS:</span>
+            <span class="meta-key">{{ $i18n.t("home.panel.focusTitle") }}:</span>
             <span class="meta-value">{{ $i18n.t("home.panel.focus") }}</span>
           </div>
           <div class="meta-item">
-            <span class="meta-key">STATUS:</span>
+            <span class="meta-key">{{ $i18n.t("home.panel.statusTitle") }}:</span>
             <span class="meta-value blink">{{
               $i18n.t("home.panel.status")
             }}</span>
           </div>
           <div class="meta-item">
-            <span class="meta-key">LOCATION:</span>
+            <span class="meta-key">{{ $i18n.t("home.panel.locationTitle") }}:</span>
             <span class="meta-value">Besançon, FR</span>
           </div>
         </div>
@@ -102,7 +102,7 @@
     <section id="about" class="about-zone">
       <div class="section-marker">
         <span class="marker-number">01</span>
-        <span class="marker-title">ABOUT</span>
+        <span class="marker-title">{{ $i18n.t("nav.about") }}</span>
       </div>
 
       <div class="terminal-window">
@@ -128,7 +128,7 @@
     <section id="work" class="work-zone" ref="workSection">
       <div class="section-marker">
         <span class="marker-number">02</span>
-        <span class="marker-title">WORK </span>
+        <span class="marker-title">{{ $i18n.t("nav.work") }}</span>
       </div>
 
       <!-- Projects Grid -->
@@ -163,18 +163,18 @@
               </div>
             </div>
             <div class="card-footer">
-              <a href="#" class="card-link">VIEW_PROJECT ⇁</a>
+              <a href="#" class="card-link">{{ $i18n.t("home.body.viewProject") }} ⇁</a>
             </div>
           </div>
         </div>
         <div class="more-projects">
-          <a href="/projects" class="card-link">VIEW_ALL_PROJECTS ⇁</a>
+          <a href="/projects" class="card-link">{{ $i18n.t("home.body.viewAllProjects") }} ⇁</a>
         </div>
       </div>
 
       <!-- Internship -->
       <div class="work-category">
-        <h3 class="category-label">Internship</h3>
+        <h3 class="category-label">{{ $i18n.t("home.body.internship.title") }}</h3>
         <div class="timeline-container">
           <div
             class="timeline-item"
@@ -197,7 +197,7 @@
                 >
               </div>
               <div class="redirect-link">
-                <a :href="internship.link" class="card-link">VIEW_DETAILS ⇁</a>
+                <a :href="internship.link" class="card-link">{{ $i18n.t("home.body.internship.viewDetails") }} ⇁</a>
               </div>
             </div>
           </div>
@@ -227,7 +227,7 @@
     <section id="skills" class="skills-zone">
       <div class="section-marker">
         <span class="marker-number">03</span>
-        <span class="marker-title">SKILLS</span>
+        <span class="marker-title">{{ $i18n.t("nav.skills") }}</span>
       </div>
 
       <div class="skills-diagram">
@@ -273,7 +273,7 @@
         <div class="skill-block full-width">
           <div class="block-header">
             <div class="block-icon">⚒</div>
-            <h3 class="block-title">TOOLS & DATABASES</h3>
+            <h3 class="block-title">{{ $i18n.t("home.skills.database") }}</h3>
           </div>
           <div class="block-content horizontal">
             <div
@@ -294,7 +294,7 @@
     <section id="contact" class="contact-zone">
       <div class="section-marker">
         <span class="marker-number">04</span>
-        <span class="marker-title">CONTACT</span>
+        <span class="marker-title">{{ $i18n.t("nav.contact") }}</span>
       </div>
 
       <div class="contact-layout">
@@ -311,7 +311,7 @@
               <span class="method-value">gael.rothlin@edu.univ-fcomte.fr</span>
             </div>
             <div class="method-item">
-              <span class="method-label">LOCATION</span>
+              <span class="method-label">{{ $i18n.t("home.panel.locationTitle") }}</span>
               <span class="method-value">Besançon, France</span>
             </div>
           </div>
@@ -348,7 +348,7 @@
             <input type="hidden" name="form-name" value="contact" />
 
             <div class="form-field">
-              <label for="name">NAME</label>
+              <label for="name">{{ $i18n.t("home.contact.form.name") }}</label>
               <input
                 type="text"
                 id="name"
@@ -360,7 +360,7 @@
             </div>
 
             <div class="form-field">
-              <label for="email">EMAIL</label>
+              <label for="email">{{ $i18n.t("home.contact.form.email") }}</label>
               <input
                 type="email"
                 id="email"
@@ -372,7 +372,7 @@
             </div>
 
             <div class="form-field">
-              <label for="message">MESSAGE</label>
+              <label for="message">{{ $i18n.t("home.contact.form.message") }}</label>
               <textarea
                 id="message"
                 name="message"
@@ -388,8 +388,8 @@
               class="submit-button"
               :disabled="isSubmitting"
             >
-              <span v-if="!isSubmitting">SEND_MESSAGE</span>
-              <span v-else>SENDING...</span>
+              <span v-if="!isSubmitting">{{ $i18n.t("home.contact.form.submit") }}</span>
+              <span v-else>{{ $i18n.t("home.contact.form.submitting") }}</span>
             </button>
 
             <div v-if="statusMessage" class="form-status" :class="statusClass">
@@ -401,7 +401,7 @@
         <!-- Bouton toggle formulaire si fermé -->
         <div v-else class="form-toggle">
           <button @click="toggleFormVisibility" class="toggle-button">
-            OPEN_CONTACT_FORM
+            {{ $t('home.contact.toggleButton') }}
           </button>
         </div>
       </div>
@@ -453,6 +453,7 @@ const backendSkills = ref([
   { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", color: "247, 223, 30" },
   { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", color: "119, 123, 180" },
   { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", color: "176, 114, 25" },
+  { name: "C", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg", color: "0, 122, 204" },
 ]);
 
 const tools = ref([

@@ -4,10 +4,10 @@
       <a class="logo-text" href="/">GR_</a>
     </div>
     <nav class="header-nav">
-      <a href="/#about" class="nav-link">01_About</a>
-      <a href="/#work" class="nav-link">02_Work</a>
-      <a href="/#skills" class="nav-link">03_Skills</a>
-      <a href="/#contact" class="nav-link">04_Contact</a>
+      <a href="/#about" class="nav-link">01_{{ $i18n.t("nav.about") }}</a>
+      <a href="/#work" class="nav-link">02_{{ $i18n.t("nav.work") }}</a>
+      <a href="/#skills" class="nav-link">03_{{ $i18n.t("nav.skills") }}</a>
+      <a href="/#contact" class="nav-link">04_{{ $i18n.t("nav.contact") }}</a>
     </nav>
     <div class="extra-buttons">
       <button class="lang-btn" @click="changeLang('fr')">FR</button>

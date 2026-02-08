@@ -10,31 +10,31 @@
       </div>
       <div class="hero-content">
         <div class="title-stack">
-          <h1 class="title-line">PROJECT</h1>
-          <h1 class="title-line accent">ARCHIVE</h1>
+          <h1 class="title-line">{{ $t('projects.hero.title') }}</h1>
+          <h1 class="title-line accent">{{ $t('projects.hero.subtitle') }}</h1>
         </div>
 
         <!-- Stats panel technique -->
         <div class="stats-panel">
           <div class="stat-item">
-            <span class="stat-key">TOTAL:</span>
+            <span class="stat-key">{{ $t('projects.hero.stats.total') }}:</span>
             <span class="stat-value">{{ projects.length }}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-key">STARS:</span>
+            <span class="stat-key">{{ $t('projects.hero.stats.stars') }}:</span>
             <span class="stat-value">{{ totalStars }}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-key">STATUS:</span>
-            <span class="stat-value blink">{{ loading ? 'LOADING' : 'READY' }}</span>
+            <span class="stat-key">{{ $t('projects.hero.stats.status') }}:</span>
+            <span class="stat-value blink">{{ loading ? $t('projects.hero.stats.loading') : $t('projects.hero.stats.ready') }}</span>
           </div>
         </div>
 
         <!-- Actions -->
         <div class="actions-panel">
           <button @click="refreshProjects" :disabled="loading" class="action-btn">
-            <span v-if="!loading">↻ REFRESH_DATA</span>
-            <span v-else>⟳ SYNCING...</span>
+            <span v-if="!loading">↻ {{ $t('projects.hero.actions.refresh') }}</span>
+            <span v-else>⟳ {{ $t('projects.hero.actions.syncing') }}</span>
           </button>
         </div>
       </div>
@@ -44,13 +44,13 @@
     <section class="projects-zone">
       <div class="section-marker">
         <span class="marker-number">01</span>
-        <span class="marker-title">REPOSITORIES</span>
+        <span class="marker-title">{{ $t('projects.section.marker') }}</span>
       </div>
 
       <!-- Loading state -->
       <div v-if="loading && projects.length === 0" class="loading-state">
         <div class="loading-indicator">
-          <span class="loading-text">FETCHING_PROJECTS</span>
+          <span class="loading-text">{{ $t('projects.section.loading') }}</span>
           <div class="loading-bar"></div>
         </div>
       </div>
@@ -60,7 +60,7 @@
         <div class="error-box">
           <span class="error-icon">⚠</span>
           <p class="error-message">{{ error }}</p>
-          <button @click="refreshProjects" class="retry-btn">RETRY_CONNECTION →</button>
+          <button @click="refreshProjects" class="retry-btn">{{ $t('projects.section.retry') }} →</button>
         </div>
       </div>
 
@@ -68,7 +68,7 @@
       <div v-else-if="projects.length === 0" class="empty-state">
         <div class="empty-box">
           <span class="empty-icon">⊘</span>
-          <p class="empty-message">NO_REPOSITORIES_FOUND</p>
+          <p class="empty-message">{{ $t('projects.section.empty') }}</p>
         </div>
       </div>
 
@@ -126,7 +126,7 @@
               rel="noopener noreferrer"
               class="card-link"
             >
-              VIEW_REPO →
+              {{ $t('projects.card.viewRepo') }} →
             </a>
           </div>
 
@@ -140,7 +140,7 @@
     <footer class="site-footer">
       <div class="footer-content">
         <span class="footer-text">© 2026 Gaël Röthlin</span>
-        <span class="footer-text">Data synced from GitHub API</span>
+        <span class="footer-text">{{ $t('projects.footer.synced') }}</span>
       </div>
     </footer>
   </div>
@@ -266,17 +266,6 @@ export default {
   padding: 120px 6% 80px;
   margin-top: 5rem;
   z-index: 1;
-}
-
-.back-btn {
-  position: absolute;
-  top: 32px;
-  left: 32px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--color-primary);
-  cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .hero-content {

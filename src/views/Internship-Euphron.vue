@@ -23,32 +23,32 @@
 
     <!-- Hero Section -->
     <section class="internship-hero">
-      <div class="back-btn" @click="goBack">
+      <a class="back-btn" href="/">
         ↼ {{ $t('common.back') }}
-      </div>
+      </a>
       <div class="hero-content">
         <div class="title-stack">
-          <h1 class="title-line">{{ $t('internshipPage.hero.title') }}</h1>
-          <h1 class="title-line accent">INTERNSHIP</h1>
+          <h1 class="title-line">{{ $t('internshipPage.euphron.hero.title') }}</h1>
+          <h1 class="title-line accent">{{ $t('internshipPage.euphron.hero.jobTitle') }}</h1>
         </div>
 
         <!-- Stats panel technique -->
         <div class="stats-panel">
           <div class="stat-item">
-            <span class="stat-key">ROLE:</span>
-            <span class="stat-value">{{ $t('internshipPage.hero.jobTitle') }}</span>
+            <span class="stat-key">{{ $t('internshipPage.euphron.hero.jobTitleLabel') }}:</span>
+            <span class="stat-value">{{ $t('internshipPage.euphron.hero.jobTitle') }}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-key">LOCATION:</span>
-            <span class="stat-value">{{ $t('internshipPage.hero.location') }}</span>
+            <span class="stat-key">{{ $t('internshipPage.euphron.hero.locationLabel') }}:</span>
+            <span class="stat-value">{{ $t('internshipPage.euphron.hero.location') }}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-key">DURATION:</span>
-            <span class="stat-value">{{ $t('internshipPage.hero.duration') }}</span>
+            <span class="stat-key">{{ $t('internshipPage.euphron.hero.durationLabel') }}:</span>
+            <span class="stat-value">{{ $t('internshipPage.euphron.hero.duration') }}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-key">STATUS:</span>
-            <span class="stat-value blink">COMPLETED</span>
+            <span class="stat-key">{{ $t('internshipPage.euphron.hero.statusLabel') }}:</span>
+            <span class="stat-value blink">{{ $t('internshipPage.euphron.hero.status') }}</span>
           </div>
         </div>
 
@@ -66,13 +66,13 @@
     <!-- Context Section -->
     <section id="context" class="context-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.context.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.context.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.context.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.context.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
-        <p class="content-text">{{ $t('internshipPage.context.description1') }}</p>
-        <p class="content-text">{{ $t('internshipPage.context.description2') }}</p>
+        <p class="content-text">{{ $t('internshipPage.euphron.context.description1') }}</p>
+        <p class="content-text">{{ $t('internshipPage.euphron.context.description2') }}</p>
         
         <div class="objectives-grid">
           <div class="objective-card">
@@ -80,30 +80,30 @@
               <span class="card-icon"></span>
               <span class="card-number">01</span>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.context.objective1Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.context.objective1Desc') }}</p>
+            <h4 class="card-title">{{ $t('internshipPage.euphron.context.objective1Title') }}</h4>
+            <p class="card-description">{{ $t('internshipPage.euphron.context.objective1Desc') }}</p>
           </div>
           <div class="objective-card">
             <div class="card-header">
               <span class="card-icon"></span>
               <span class="card-number">02</span>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.context.objective2Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.context.objective2Desc') }}</p>
+            <h4 class="card-title">{{ $t('internshipPage.euphron.context.objective2Title') }}</h4>
+            <p class="card-description">{{ $t('internshipPage.euphron.context.objective2Desc') }}</p>
           </div>
           <div class="objective-card">
             <div class="card-header">
               <span class="card-icon"></span>
               <span class="card-number">03</span>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.context.objective3Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.context.objective3Desc') }}</p>
+            <h4 class="card-title">{{ $t('internshipPage.euphron.context.objective3Title') }}</h4>
+            <p class="card-description">{{ $t('internshipPage.euphron.context.objective3Desc') }}</p>
           </div>
         </div>
         
         <div class="constraint-box">
-          <span class="constraint-label">{{ $t('internshipPage.context.constraintLabel') }}</span>
-          <span class="constraint-text">{{ $t('internshipPage.context.constraintText') }}</span>
+          <span class="constraint-label">{{ $t('internshipPage.euphron.context.constraintLabel') }}</span>
+          <span class="constraint-text">{{ $t('internshipPage.euphron.context.constraintText') }}</span>
         </div>
       </div>
     </section>
@@ -111,12 +111,12 @@
     <!-- Role Section -->
     <section id="role" class="role-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.role.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.role.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.role.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.role.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
-        <p class="content-text">{{ $t('internshipPage.role.description') }}</p>
+        <p class="content-text">{{ $t('internshipPage.euphron.role.description') }}</p>
         
         <div class="responsibilities-grid">
           <div class="responsibility-card">
@@ -124,32 +124,32 @@
               <span class="card-number">01</span>
               <span class="card-icon"></span>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.role.responsibility1Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.role.responsibility1Desc') }}</p>
+            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility1Title') }}</h4>
+            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility1Desc') }}</p>
           </div>
           <div class="responsibility-card">
             <div class="card-header">
               <span class="card-number">02</span>
               <span class="card-icon"></span>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.role.responsibility2Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.role.responsibility2Desc') }}</p>
+            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility2Title') }}</h4>
+            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility2Desc') }}</p>
           </div>
           <div class="responsibility-card">
             <div class="card-header">
               <span class="card-number">03</span>
               <span class="card-icon"></span>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.role.responsibility3Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.role.responsibility3Desc') }}</p>
+            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility3Title') }}</h4>
+            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility3Desc') }}</p>
           </div>
           <div class="responsibility-card">
             <div class="card-header">
               <span class="card-number">04</span>
               <span class="card-icon"></span>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.role.responsibility4Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.role.responsibility4Desc') }}</p>
+            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility4Title') }}</h4>
+            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility4Desc') }}</p>
           </div>
         </div>
       </div>
@@ -158,8 +158,8 @@
     <!-- Organization Section -->
     <section id="organization" class="organization-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.organization.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.organization.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.organization.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.organization.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
@@ -170,8 +170,8 @@
               <span class="marker-value">1-2</span>
             </div>
             <div class="timeline-content">
-              <h4 class="timeline-title">{{ $t('internshipPage.organization.week12Title') }}</h4>
-              <p class="timeline-description">{{ $t('internshipPage.organization.week12Desc') }}</p>
+              <h4 class="timeline-title">{{ $t('internshipPage.euphron.organization.week12Title') }}</h4>
+              <p class="timeline-description">{{ $t('internshipPage.euphron.organization.week12Desc') }}</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -180,8 +180,8 @@
               <span class="marker-value">3</span>
             </div>
             <div class="timeline-content">
-              <h4 class="timeline-title">{{ $t('internshipPage.organization.week3Title') }}</h4>
-              <p class="timeline-description">{{ $t('internshipPage.organization.week3Desc') }}</p>
+              <h4 class="timeline-title">{{ $t('internshipPage.euphron.organization.week3Title') }}</h4>
+              <p class="timeline-description">{{ $t('internshipPage.euphron.organization.week3Desc') }}</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -190,8 +190,8 @@
               <span class="marker-value">4-8</span>
             </div>
             <div class="timeline-content">
-              <h4 class="timeline-title">{{ $t('internshipPage.organization.week48Title') }}</h4>
-              <p class="timeline-description">{{ $t('internshipPage.organization.week48Desc') }}</p>
+              <h4 class="timeline-title">{{ $t('internshipPage.euphron.organization.week48Title') }}</h4>
+              <p class="timeline-description">{{ $t('internshipPage.euphron.organization.week48Desc') }}</p>
             </div>
           </div>
         </div>
@@ -199,9 +199,9 @@
         <div class="methodology-box">
           <div class="box-header">
             <span class="box-icon"></span>
-            <h4 class="box-title">{{ $t('internshipPage.organization.methodologyTitle') }}</h4>
+            <h4 class="box-title">{{ $t('internshipPage.euphron.organization.methodologyTitle') }}</h4>
           </div>
-          <p class="box-description">{{ $t('internshipPage.organization.methodologyDesc') }}</p>
+          <p class="box-description">{{ $t('internshipPage.euphron.organization.methodologyDesc') }}</p>
         </div>
       </div>
     </section>
@@ -209,75 +209,75 @@
     <!-- Tech Stack Section -->
     <section id="tech" class="tech-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.techStack.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.techStack.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.techStack.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.techStack.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
         <div class="tech-stack-grid">
           <div class="tech-stack-section">
-            <h3 class="stack-title">{{ $t('internshipPage.techStack.frontendTitle') }}</h3>
+            <h3 class="stack-title">{{ $t('internshipPage.euphron.techStack.frontendTitle') }}</h3>
             <div class="tech-list">
               <div class="tech-item">
                 <span class="tech-icon"></span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.frontend1Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.frontend1Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend1Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend1Desc') }}</p>
                 </div>
               </div>
               <div class="tech-item">
                 <span class="tech-icon"></span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.frontend2Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.frontend2Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend2Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend2Desc') }}</p>
                 </div>
               </div>
               <div class="tech-item">
                 <span class="tech-icon">󱇯</span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.frontend3Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.frontend3Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend3Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend3Desc') }}</p>
                 </div>
               </div>
               <div class="tech-item">
                 <span class="tech-icon"></span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.frontend4Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.frontend4Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend4Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend4Desc') }}</p>
                 </div>
               </div>
             </div>
           </div>
           
           <div class="tech-stack-section">
-            <h3 class="stack-title">{{ $t('internshipPage.techStack.backendTitle') }}</h3>
+            <h3 class="stack-title">{{ $t('internshipPage.euphron.techStack.backendTitle') }}</h3>
             <div class="tech-list">
               <div class="tech-item">
                 <span class="tech-icon"></span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.backend1Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.backend1Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend1Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend1Desc') }}</p>
                 </div>
               </div>
               <div class="tech-item">
                 <span class="tech-icon"></span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.backend2Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.backend2Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend2Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend2Desc') }}</p>
                 </div>
               </div>
               <div class="tech-item">
                 <span class="tech-icon"></span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.backend3Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.backend3Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend3Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend3Desc') }}</p>
                 </div>
               </div>
               <div class="tech-item">
                 <span class="tech-icon"></span>
                 <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.techStack.backend4Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.techStack.backend4Desc') }}</p>
+                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend4Name') }}</strong>
+                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend4Desc') }}</p>
                 </div>
               </div>
             </div>
@@ -287,9 +287,9 @@
         <div class="justification-box">
           <div class="box-header">
             <span class="box-icon">󰛨</span>
-            <h4 class="box-title">{{ $t('internshipPage.techStack.justificationTitle') }}</h4>
+            <h4 class="box-title">{{ $t('internshipPage.euphron.techStack.justificationTitle') }}</h4>
           </div>
-          <p class="box-description">{{ $t('internshipPage.techStack.justificationDesc') }}</p>
+          <p class="box-description">{{ $t('internshipPage.euphron.techStack.justificationDesc') }}</p>
         </div>
       </div>
     </section>
@@ -297,8 +297,8 @@
     <!-- Features Section -->
     <section id="features" class="features-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.features.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.features.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.features.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.features.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
@@ -306,44 +306,44 @@
           <div class="feature-category">
             <div class="category-header">
               <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.features.category1Title') }}</h3>
+              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category1Title') }}</h3>
             </div>
             <ul class="feature-list">
-              <li>{{ $t('internshipPage.features.category1Item1') }}</li>
-              <li>{{ $t('internshipPage.features.category1Item2') }}</li>
-              <li>{{ $t('internshipPage.features.category1Item3') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category1Item1') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category1Item2') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category1Item3') }}</li>
             </ul>
           </div>
           <div class="feature-category">
             <div class="category-header">
               <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.features.category2Title') }}</h3>
+              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category2Title') }}</h3>
             </div>
             <ul class="feature-list">
-              <li>{{ $t('internshipPage.features.category2Item1') }}</li>
-              <li>{{ $t('internshipPage.features.category2Item2') }}</li>
-              <li>{{ $t('internshipPage.features.category2Item3') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category2Item1') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category2Item2') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category2Item3') }}</li>
             </ul>
           </div>
           <div class="feature-category">
             <div class="category-header">
               <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.features.category3Title') }}</h3>
+              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category3Title') }}</h3>
             </div>
             <ul class="feature-list">
-              <li>{{ $t('internshipPage.features.category3Item1') }}</li>
-              <li>{{ $t('internshipPage.features.category3Item2') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category3Item1') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category3Item2') }}</li>
             </ul>
           </div>
           <div class="feature-category">
             <div class="category-header">
               <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.features.category4Title') }}</h3>
+              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category4Title') }}</h3>
             </div>
             <ul class="feature-list">
-              <li>{{ $t('internshipPage.features.category4Item1') }}</li>
-              <li>{{ $t('internshipPage.features.category4Item2') }}</li>
-              <li>{{ $t('internshipPage.features.category4Item3') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category4Item1') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category4Item2') }}</li>
+              <li>{{ $t('internshipPage.euphron.features.category4Item3') }}</li>
             </ul>
           </div>
         </div>
@@ -351,20 +351,20 @@
         <div class="highlight-box">
           <div class="box-header">
             <span class="box-icon">󰛨</span>
-            <h4 class="box-title">{{ $t('internshipPage.features.highlightTitle') }}</h4>
+            <h4 class="box-title">{{ $t('internshipPage.euphron.features.highlightTitle') }}</h4>
           </div>
-          <p class="box-description">{{ $t('internshipPage.features.highlightDesc') }}</p>
+          <p class="box-description">{{ $t('internshipPage.euphron.features.highlightDesc') }}</p>
         </div>
         
         <div class="progress-box">
           <div class="progress-header">
-            <h4 class="progress-title">{{ $t('internshipPage.features.progressTitle') }}</h4>
-            <span class="progress-percentage">{{ $t('internshipPage.features.progressPercentage') }}</span>
+            <h4 class="progress-title">{{ $t('internshipPage.euphron.features.progressTitle') }}</h4>
+            <span class="progress-percentage">{{ $t('internshipPage.euphron.features.progressPercentage') }}</span>
           </div>
           <div class="progress-bar">
             <div class="progress-fill" style="width: 70%"></div>
           </div>
-          <p class="progress-description">{{ $t('internshipPage.features.progressDesc') }}</p>
+          <p class="progress-description">{{ $t('internshipPage.euphron.features.progressDesc') }}</p>
         </div>
       </div>
     </section>
@@ -372,40 +372,40 @@
     <!-- Architecture Section -->
     <section id="architecture" class="architecture-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.architecture.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.architecture.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.architecture.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.architecture.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
         <div class="diagram-container">
           <img
             src="@/assets/stage/Diagram.png"
-            :alt="$t('internshipPage.architecture.diagramAlt')"
+            :alt="$t('internshipPage.euphron.architecture.diagramAlt')"
             class="architecture-diagram"
           />
           <div class="diagram-caption">
             <span class="caption-label">FIGURE 01:</span>
-            <em class="caption-text">{{ $t('internshipPage.architecture.diagramCaption') }}</em>
+            <em class="caption-text">{{ $t('internshipPage.euphron.architecture.diagramCaption') }}</em>
           </div>
         </div>
         
         <div class="architecture-description">
-          <p class="content-text">{{ $t('internshipPage.architecture.description') }}</p>
+          <p class="content-text">{{ $t('internshipPage.euphron.architecture.description') }}</p>
           
           <div class="architecture-sections">
             <div class="arch-section">
               <div class="section-header">
                 <span class="section-icon">󰛈</span>
-                <h4 class="section-title">{{ $t('internshipPage.architecture.section1Title') }}</h4>
+                <h4 class="section-title">{{ $t('internshipPage.euphron.architecture.section1Title') }}</h4>
               </div>
-              <p class="section-description">{{ $t('internshipPage.architecture.section1Desc') }}</p>
+              <p class="section-description">{{ $t('internshipPage.euphron.architecture.section1Desc') }}</p>
             </div>
             <div class="arch-section">
               <div class="section-header">
                 <span class="section-icon">⚡</span>
-                <h4 class="section-title">{{ $t('internshipPage.architecture.section2Title') }}</h4>
+                <h4 class="section-title">{{ $t('internshipPage.euphron.architecture.section2Title') }}</h4>
               </div>
-              <p class="section-description">{{ $t('internshipPage.architecture.section2Desc') }}</p>
+              <p class="section-description">{{ $t('internshipPage.euphron.architecture.section2Desc') }}</p>
             </div>
           </div>
         </div>
@@ -415,24 +415,24 @@
     <!-- Security Section -->
     <section id="security" class="security-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.security.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.security.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.security.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.security.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
-        <p class="content-text">{{ $t('internshipPage.security.intro') }}</p>
+        <p class="content-text">{{ $t('internshipPage.euphron.security.intro') }}</p>
         
         <div class="security-methods">
           <div class="security-method">
             <div class="method-header">
               <span class="method-number">01</span>
-              <h4 class="method-title">{{ $t('internshipPage.security.method1Title') }}</h4>
+              <h4 class="method-title">{{ $t('internshipPage.euphron.security.method1Title') }}</h4>
             </div>
-            <p class="method-description">{{ $t('internshipPage.security.method1Desc') }}</p>
+            <p class="method-description">{{ $t('internshipPage.euphron.security.method1Desc') }}</p>
             <div class="method-image-wrapper">
               <img
                 src="@/assets/stage/RegexCheck.png"
-                :alt="$t('internshipPage.security.method1Alt')"
+                :alt="$t('internshipPage.euphron.security.method1Alt')"
                 class="security-image"
               />
             </div>
@@ -441,18 +441,18 @@
           <div class="security-method">
             <div class="method-header">
               <span class="method-number">02</span>
-              <h4 class="method-title">{{ $t('internshipPage.security.method2Title') }}</h4>
+              <h4 class="method-title">{{ $t('internshipPage.euphron.security.method2Title') }}</h4>
             </div>
-            <p class="method-description">{{ $t('internshipPage.security.method2Desc') }}</p>
+            <p class="method-description">{{ $t('internshipPage.euphron.security.method2Desc') }}</p>
             <ul class="method-list">
-              <li>{{ $t('internshipPage.security.method2Item1') }}</li>
-              <li>{{ $t('internshipPage.security.method2Item2') }}</li>
-              <li>{{ $t('internshipPage.security.method2Item3') }}</li>
+              <li>{{ $t('internshipPage.euphron.security.method2Item1') }}</li>
+              <li>{{ $t('internshipPage.euphron.security.method2Item2') }}</li>
+              <li>{{ $t('internshipPage.euphron.security.method2Item3') }}</li>
             </ul>
             <div class="method-image-wrapper">
               <img
                 src="@/assets/stage/PreparedQuery.png"
-                :alt="$t('internshipPage.security.method2Alt')"
+                :alt="$t('internshipPage.euphron.security.method2Alt')"
                 class="security-image"
               />
             </div>
@@ -464,8 +464,8 @@
     <!-- Learning Section -->
     <section id="learning" class="learning-zone">
       <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.learning.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.learning.title').toUpperCase() }}</span>
+        <span class="marker-number">{{ $t('internshipPage.euphron.learning.sectionNumber') }}</span>
+        <span class="marker-title">{{ $t('internshipPage.euphron.learning.title').toUpperCase() }}</span>
       </div>
 
       <div class="content-block">
@@ -473,25 +473,25 @@
           <div class="learning-section">
             <div class="section-header">
               <span class="section-icon"></span>
-              <h3 class="section-title">{{ $t('internshipPage.learning.technicalTitle') }}</h3>
+              <h3 class="section-title">{{ $t('internshipPage.euphron.learning.technicalTitle') }}</h3>
             </div>
             <ul class="learning-list">
-              <li>{{ $t('internshipPage.learning.technical1') }}</li>
-              <li>{{ $t('internshipPage.learning.technical2') }}</li>
-              <li>{{ $t('internshipPage.learning.technical3') }}</li>
-              <li>{{ $t('internshipPage.learning.technical4') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.technical1') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.technical2') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.technical3') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.technical4') }}</li>
             </ul>
           </div>
           <div class="learning-section">
             <div class="section-header">
               <span class="section-icon"></span>
-              <h3 class="section-title">{{ $t('internshipPage.learning.softTitle') }}</h3>
+              <h3 class="section-title">{{ $t('internshipPage.euphron.learning.softTitle') }}</h3>
             </div>
             <ul class="learning-list">
-              <li>{{ $t('internshipPage.learning.soft1') }}</li>
-              <li>{{ $t('internshipPage.learning.soft2') }}</li>
-              <li>{{ $t('internshipPage.learning.soft3') }}</li>
-              <li>{{ $t('internshipPage.learning.soft4') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.soft1') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.soft2') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.soft3') }}</li>
+              <li>{{ $t('internshipPage.euphron.learning.soft4') }}</li>
             </ul>
           </div>
         </div>
@@ -499,11 +499,17 @@
         <div class="reflection-box">
           <div class="box-header">
             <span class="box-icon"></span>
-            <h4 class="box-title">{{ $t('internshipPage.learning.reflectionTitle') }}</h4>
+            <h4 class="box-title">{{ $t('internshipPage.euphron.learning.reflectionTitle') }}</h4>
           </div>
-          <p class="box-description">{{ $t('internshipPage.learning.reflectionDesc') }}</p>
+          <p class="box-description">{{ $t('internshipPage.euphron.learning.reflectionDesc') }}</p>
         </div>
       </div>
+    </section>
+
+    <section>
+      <a class="back-btn" href="/">
+        ↼ {{ $t('common.back') }}
+      </a>
     </section>
 
     <!-- Footer -->
@@ -529,14 +535,14 @@ export default {
   computed: {
     sections() {
       return [
-        { id: "context", label: this.$t('internshipPage.context.title') },
-        { id: "role", label: this.$t('internshipPage.role.title') },
-        { id: "organization", label: this.$t('internshipPage.organization.title') },
-        { id: "tech", label: this.$t('internshipPage.techStack.title') },
-        { id: "features", label: this.$t('internshipPage.features.title') },
-        { id: "architecture", label: this.$t('internshipPage.architecture.title') },
-        { id: "security", label: this.$t('internshipPage.security.title') },
-        { id: "learning", label: this.$t('internshipPage.learning.title') },
+        { id: "context", label: this.$t('internshipPage.euphron.context.title') },
+        { id: "role", label: this.$t('internshipPage.euphron.role.title') },
+        { id: "organization", label: this.$t('internshipPage.euphron.organization.title') },
+        { id: "tech", label: this.$t('internshipPage.euphron.techStack.title') },
+        { id: "features", label: this.$t('internshipPage.euphron.features.title') },
+        { id: "architecture", label: this.$t('internshipPage.euphron.architecture.title') },
+        { id: "security", label: this.$t('internshipPage.euphron.security.title') },
+        { id: "learning", label: this.$t('internshipPage.euphron.learning.title') },
       ];
     },
   },
@@ -609,6 +615,7 @@ export default {
   font-family: var(--font-sans);
   position: relative;
   overflow-x: hidden;
+  text-align: justify;
 }
 
 /* ========== GRILLE ========== */
@@ -635,6 +642,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  font-size: small;
 }
 
 .spybar-nav {
@@ -706,21 +714,6 @@ export default {
   z-index: 1;
 }
 
-.back-btn {
-  position: absolute;
-  top: 32px;
-  left: 32px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--color-primary);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-  transform: translateX(-4px);
-}
-
 .hero-content {
   max-width: 1600px;
   margin: 0 auto;
@@ -746,6 +739,8 @@ export default {
   font-family: "Bricolage Grotesque", sans-serif;
   color: var(--color-primary);
   -webkit-text-stroke: 0;
+  width:35%;
+  text-align: left;
 }
 
 /* Stats panel */
@@ -1030,7 +1025,6 @@ section {
   font-size: 20px;
   font-weight: 700;
   color: var(--color-text);
-  margin: 0 0 12px;
 }
 
 .timeline-description {
@@ -1446,6 +1440,19 @@ section {
   left: 0;
   color: var(--color-primary);
   font-weight: 700;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 40px;
+  padding: 12px 24px;
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 /* ========== FOOTER ========== */
