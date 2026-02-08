@@ -523,7 +523,28 @@ export default {
     return {
       mouseX: 0,
       mouseY: 0,
+      currentSection: "context",
     };
+  },
+  computed: {
+    sections() {
+      return [
+        { id: "context", label: this.$t('internshipPage.context.title') },
+        { id: "role", label: this.$t('internshipPage.role.title') },
+        { id: "organization", label: this.$t('internshipPage.organization.title') },
+        { id: "tech", label: this.$t('internshipPage.techStack.title') },
+        { id: "features", label: this.$t('internshipPage.features.title') },
+        { id: "architecture", label: this.$t('internshipPage.architecture.title') },
+        { id: "security", label: this.$t('internshipPage.security.title') },
+        { id: "learning", label: this.$t('internshipPage.learning.title') },
+      ];
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleSpybarScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.handleSpybarScroll);
   },
   methods: {
     updateCoords(e) {
@@ -532,6 +553,38 @@ export default {
     },
     goBack() {
       this.$router.back();
+    },
+    handleSpybarScroll() {
+      const sections = this.sections.map(s => ({
+        id: s.id,
+        element: document.getElementById(s.id),
+      }));
+
+      let currentSection = "context";
+      let closestDistance = Infinity;
+
+      sections.forEach(section => {
+        if (section.element) {
+          const rect = section.element.getBoundingClientRect();
+          const distance = Math.abs(rect.top - 100);
+
+          if (rect.top <= 100 && distance < closestDistance) {
+            closestDistance = distance;
+            currentSection = section.id;
+          } else if (rect.top > 100 && rect.top < closestDistance) {
+            closestDistance = rect.top;
+            currentSection = section.id;
+          }
+        }
+      });
+
+      this.currentSection = currentSection;
+    },
+    scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     },
   },
 };
@@ -570,6 +623,78 @@ export default {
   background-size: 40px 40px;
   z-index: 0;
   pointer-events: none;
+}
+
+/* ========== SPYBAR ========== */
+.spybar {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.spybar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.spybar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-muted);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+.spybar-link:hover {
+  color: var(--color-primary);
+}
+
+.spybar-link.active {
+  color: var(--color-primary);
+}
+
+.spybar-indicator {
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  order: 2;
+}
+
+.spybar-link.active .spybar-indicator {
+  background-color: var(--color-primary);
+  box-shadow: 0 0 16px rgba(79, 172, 254, 0.6);
+  width: 12px;
+  height: 12px;
+}
+
+.spybar-label {
+  order: 1;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: max-width 0.3s ease;
+  opacity: 0;
+}
+
+.spybar-link:hover .spybar-label,
+.spybar-link.active .spybar-label {
+  max-width: 150px;
+  opacity: 1;
 }
 
 /* ========== HERO SECTION ========== */
@@ -1271,9 +1396,10 @@ section {
 }
 
 .security-image {
-  width: 100%;
+  width: 50%;
   height: auto;
   display: block;
+  margin: 0 auto;
 }
 
 /* ========== LEARNING ========== */
@@ -1362,6 +1488,15 @@ section {
 }
 
 @media (max-width: 1024px) {
+  .spybar {
+    right: 20px;
+    gap: 16px;
+  }
+
+  .spybar-label {
+    max-width: 100px;
+  }
+
   .objectives-grid,
   .responsibilities-grid,
   .features-grid,
@@ -1385,6 +1520,43 @@ section {
 }
 
 @media (max-width: 768px) {
+  .spybar {
+    position: static;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 0;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    border-top: 1px solid rgba(79, 172, 254, 0.2);
+    border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+  }
+
+  .spybar-nav {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .spybar-link {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .spybar-label {
+    order: 1;
+    max-width: 100%;
+    opacity: 1;
+    font-size: 9px;
+  }
+
+  .spybar-indicator {
+    order: 2;
+  }
+
   .internship-hero {
     padding: 100px 5% 60px;
   }

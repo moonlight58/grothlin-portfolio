@@ -1,41 +1,185 @@
 {
-    "home": {
-        "panel": {
-            "role": "Développeur & Artiste",
-            "focus": "3ème année de BUT Informatique",
-            "status": "En stage à ANI & Low-Tech (12 Jan - 30 Avr)"
-        },
-        "body": {
-            "student": "Étudiant français en informatique",
-            "description": "Je suis toujours entrain d'essayer de nouvelles choses, avide d'apprendre.",
-            "why": "pourquoi_ce_portfolio",
-            "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels."
-        },
-        "internship": {
-            "ani": {
-                "mission": "Intégration dans le service ANI & Low-Tech, assistance technique au CROUS BFC et au développement d'une IA locale."
-            },
-            "euphron": {
-                "mission": "Réalisation d'une application de troc d'objets sportif pour étudiants en STAPS."
-            }
-        },
-        "projects": {
-            "spotcli": {
-                "status": "En Développement"
-            },
-            "dotic": {
-                "status": "Terminé"
-            },
-            "hfp": {
-                "status": "Terminé"
-            }
-        },
-        "contact": {
-            "title": "TRAVAILLONS ENSEMBLE !",
-            "description": "Vous avez un projet ? Contactez-moi pour en discuter."
-        }
+  "home": {
+    "panel": {
+      "role": "Développeur & Artiste",
+      "focus": "3ème année de BUT Informatique",
+      "status": "En stage à ANI & Low-Tech (12 Jan - 30 Avr)"
     },
-    "common": {
-        "back": "Retour"
+    "body": {
+      "student": "Étudiant français en informatique",
+      "description": "Je suis toujours entrain d'essayer de nouvelles choses, avide d'apprendre.",
+      "why": "pourquoi_ce_portfolio",
+      "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels."
+    },
+    "internship": {
+      "ani": {
+        "mission": "Intégration dans le service ANI & Low-Tech, assistance technique au CROUS BFC et au développement d'une IA locale."
+      },
+      "euphron": {
+        "mission": "Réalisation d'une application de troc d'objets sportif pour étudiants en STAPS."
+      }
+    },
+    "projects": {
+      "spotcli": {
+        "status": "En Développement"
+      },
+      "dotic": {
+        "status": "Terminé"
+      },
+      "hfp": {
+        "status": "Terminé"
+      }
+    },
+    "contact": {
+      "title": "TRAVAILLONS ENSEMBLE !",
+      "description": "Vous avez un projet ? Contactez-moi pour en discuter."
     }
+  },
+  "internshipPage": {
+    "hero": {
+      "title": "Euphron",
+      "jobTitle": "Stage de développement web full-stack",
+      "location": "Learning Centre Claude Oytana • Besançon, France",
+      "duration": "Avril 2025 - Mai 2025 • 8 semaines"
+    },
+    "context": {
+      "sectionNumber": "01",
+      "title": "Contexte & Objectifs",
+      "subtitle": "Mission et enjeux du projet",
+      "description1": "J'ai eu l'opportunité de travailler en tant que stagiaire web full-stack au Learning Centre Claude Oytana à Besançon, France, d'avril 2025 à mai 2025. Ma mission était de créer une application mobile appelée 'Euphron', permettant aux étudiants de l'Université de Franche-Comté de donner ou prendre des équipements sportifs d'occasion sur un système de don.",
+      "description2": "La création de cette application a été proposée par des étudiants en STAPS, suite à une étude de marché sur l'accès aux équipements sportifs dans leur cursus. Cette étude a révélé que, tandis que certaines écoles parviennent à fournir les équipements nécessaires à leurs étudiants, dans beaucoup d'autres, ce sont les étudiants eux-mêmes qui doivent financer leurs équipements.",
+      "objective1Title": "Promouvoir l'accès au sport",
+      "objective1Desc": "Pour tous les étudiants de Franche-Comté",
+      "objective2Title": "Encourager la solidarité",
+      "objective2Desc": "En facilitant l'échange d'équipements",
+      "objective3Title": "Promouvoir le réemploi",
+      "objective3Desc": "Dans une démarche éco-responsable",
+      "constraintLabel": "Contrainte principale :",
+      "constraintText": "Aucun gain monétaire autorisé - tout devait être gratuit, basé sur la solidarité étudiante."
+    },
+    "role": {
+      "sectionNumber": "02",
+      "title": "Mon rôle",
+      "subtitle": "Responsabilités & développement autonome",
+      "description": "J'ai été chargé de créer l'intégralité de l'application web (compatible ordinateur et mobile) de manière complètement autonome.",
+      "responsibility1Title": "Design visuel",
+      "responsibility1Desc": "Conception sur Figma pour validation du client",
+      "responsibility2Title": "Développement frontend",
+      "responsibility2Desc": "Interface utilisateur responsive",
+      "responsibility3Title": "Développement backend",
+      "responsibility3Desc": "API et logique métier",
+      "responsibility4Title": "Base de données",
+      "responsibility4Desc": "Conception et gestion complète"
+    },
+    "organization": {
+      "sectionNumber": "03",
+      "title": "Organisation",
+      "subtitle": "Planification & méthodologie",
+      "week12Title": "Semaines 1-2",
+      "week12Desc": "Préparation visuelle et définition des fonctionnalités",
+      "week3Title": "Semaine 3",
+      "week3Desc": "Recherche des technologies et réunions de validation",
+      "week48Title": "Semaines 4-8",
+      "week48Desc": "Développement (frontend, backend, base de données)",
+      "methodologyTitle": "Méthodologie",
+      "methodologyDesc": "Réunions hebdomadaires avec l'équipe de la bibliothèque et mon tuteur de stage. Utilisation de Git pour le versioning et Trello pour la gestion des tâches."
+    },
+    "techStack": {
+      "sectionNumber": "04",
+      "title": "Tech Stack",
+      "subtitle": "Technologies & architecture",
+      "frontendTitle": "Frontend",
+      "frontend1Name": "Vue.js 3",
+      "frontend1Desc": "Framework principal (Composition API, script setup)",
+      "frontend2Name": "Quasar Framework",
+      "frontend2Desc": "Framework UI pour la compatibilité mobile",
+      "frontend3Name": "Pinia",
+      "frontend3Desc": "Gestion d'état (remplacement de Vuex)",
+      "frontend4Name": "Socket.io-client",
+      "frontend4Desc": "Communication en temps réel",
+      "backendTitle": "Backend",
+      "backend1Name": "Node.js",
+      "backend1Desc": "Environnement d'exécution JavaScript",
+      "backend2Name": "Express.js",
+      "backend2Desc": "Framework web",
+      "backend3Name": "MySQL",
+      "backend3Desc": "Base de données relationnelle",
+      "backend4Name": "Socket.io",
+      "backend4Desc": "WebSocket pour le chat en temps réel",
+      "justificationTitle": "Justification du choix",
+      "justificationDesc": "J'ai privilégié Vue.js parce que je maîtrise bien ce framework, contrairement à Angular ou React. Quasar était le choix idéal pour la compatibilité mobile native, répondant parfaitement aux exigences du projet."
+    },
+    "features": {
+      "sectionNumber": "05",
+      "title": "Fonctionnalités",
+      "subtitle": "Développement & implémentation",
+      "category1Title": "Gestion des utilisateurs",
+      "category1Item1": "Inscription / Connexion",
+      "category1Item2": "Modification du profil",
+      "category1Item3": "Système d'authentification",
+      "category2Title": "Gestion des objets",
+      "category2Item1": "Ajout d'objets sportifs",
+      "category2Item2": "Modification / Suppression",
+      "category2Item3": "Système de catégories",
+      "category3Title": "Communication",
+      "category3Item1": "Chat en temps réel (Socket.IO)",
+      "category3Item2": "Messagerie utilisateur",
+      "category4Title": "Administration",
+      "category4Item1": "Gestion des catégories de sports",
+      "category4Item2": "Gestion des comptes utilisateur",
+      "category4Item3": "Modération du contenu",
+      "highlightTitle": "Partie la plus enrichissante",
+      "highlightDesc": "Développer le chat en temps réel avec Socket.IO était une première pour moi. L'excellente documentation m'a permis de comprendre rapidement les concepts et de mettre en place cette fonctionnalité avec succès.",
+      "progressTitle": "État de progression",
+      "progressDesc": "des fonctionnalités réalisées",
+      "progressPercentage": "70%"
+    },
+    "architecture": {
+      "sectionNumber": "06",
+      "title": "Architecture",
+      "subtitle": "Structure technique & flux de données",
+      "diagramAlt": "Diagramme d'architecture frontend/backend",
+      "diagramCaption": "Diagramme du flux de communication entre le frontend (Vue/Quasar) et le backend (Express, Socket.io, MySQL).",
+      "description": "L'architecture de l'application est basée sur une séparation claire entre le frontend, développé avec Quasar/Vue.js, et le backend, construit autour d'Express, Socket.io et MySQL.",
+      "section1Title": "Flux de données classique (HTTP)",
+      "section1Desc": "Lorsqu'un utilisateur interagit avec l'interface via son navigateur, ses actions sont traitées par les composants Vue, qui orchestrent l'affichage et la logique de l'application. Ces composants, lorsqu'ils ont besoin d'accéder aux données ou de déclencher des opérations côté serveur, font appel à des services JavaScript dédiés.",
+      "section2Title": "Communication en temps réel (WebSockets)",
+      "section2Desc": "En parallèle de ce fonctionnement traditionnel, l'application intègre également une dimension temps réel grâce à Socket.io. Pour des fonctionnalités comme le chat ou les notifications instantanées, les composants Vue communiquent avec le serveur via le client Socket.io."
+    },
+    "security": {
+      "sectionNumber": "07",
+      "title": "Sécurité",
+      "subtitle": "Protection & bonnes pratiques",
+      "intro": "Pendant le développement, j'ai appris l'importance de se protéger contre les injections SQL. J'ai implémenté une double protection :",
+      "method1Title": "1. Vérification frontend (Regex)",
+      "method1Desc": "Cette méthode frontend vérifie que l'utilisateur n'essaie pas de nuire au fonctionnement de l'application en utilisant une expression régulière. Cette expression vérifie que les champs (nom, email, téléphone) ne contiennent pas de caractères suspects comme ' \" ; -- / * , etc.",
+      "method1Alt": "Vérification Regex",
+      "method2Title": "2. Requêtes préparées (Backend)",
+      "method2Desc": "Les requêtes préparées (ou paramétrées) offrent une protection robuste car elles :",
+      "method2Item1": "Empêchent les injections SQL",
+      "method2Item2": "Sont supportées par tous les moteurs SQL modernes",
+      "method2Item3": "Constituent la base de tous les ORMs modernes",
+      "method2Alt": "Requête préparée"
+    },
+    "learning": {
+      "sectionNumber": "08",
+      "title": "Apprentissages",
+      "subtitle": "Compétences & retours d'expérience",
+      "technicalTitle": "Compétences techniques acquises",
+      "technical1": "Maîtrise de Socket.IO pour la communication en temps réel",
+      "technical2": "Approfondissement de la sécurité web (injections SQL, requêtes préparées)",
+      "technical3": "Expérience complète de développement full-stack",
+      "technical4": "Utilisation de Quasar pour le développement mobile",
+      "softTitle": "Compétences transférables",
+      "soft1": "Autonomie dans la gestion d'un projet complet",
+      "soft2": "Adaptabilité face aux changements de spécifications",
+      "soft3": "Communication client et gestion des attentes",
+      "soft4": "Prise d'initiative et proposition d'améliorations",
+      "reflectionTitle": "Si je devais recommencer",
+      "reflectionDesc": "J'aurais préféré travailler en équipe pour plus d'efficacité. En étant seul, je n'ai pas pu implémenter autant de fonctionnalités que souhaité, bien que cela m'ait permis de développer mon autonomie et ma capacité à gérer un projet dans son ensemble."
+    }
+  },
+  "common": {
+    "back": "Retour"
+  }
 }
