@@ -203,24 +203,6 @@
           </div>
         </div>
       </div>
-
-      <!-- UI/UX -->
-      <div class="work-category">
-        <h3 class="category-label">UI/UX DESIGN</h3>
-        <div class="design-showcase">
-          <div class="design-card" v-for="n in 4" :key="'design-' + n">
-            <div class="design-preview">
-              <div class="preview-placeholder">
-                <span class="placeholder-text">DESIGN {{ n }}</span>
-              </div>
-            </div>
-            <div class="design-info">
-              <span class="design-name">Design Project {{ n }}</span>
-              <span class="design-tool">Figma</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Skills Section - Format diagramme technique -->

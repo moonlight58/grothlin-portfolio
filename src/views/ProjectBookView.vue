@@ -272,7 +272,6 @@ export default {
   min-height: 60vh;
   position: relative;
   padding: 120px 6% 80px;
-  margin-top: 5rem;
   z-index: 1;
 }
 
