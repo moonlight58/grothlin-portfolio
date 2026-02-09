@@ -681,6 +681,7 @@ export default {
   border-radius: 50%;
   transition: all 0.3s ease;
   order: 2;
+  margin-left: auto;
 }
 
 .spybar-link.active .spybar-indicator {
@@ -688,6 +689,7 @@ export default {
   box-shadow: 0 0 16px rgba(79, 172, 254, 0.6);
   width: 12px;
   height: 12px;
+  margin-left: auto;
 }
 
 .spybar-label {
@@ -697,6 +699,7 @@ export default {
   white-space: nowrap;
   transition: max-width 0.3s ease;
   opacity: 0;
+  margin-right: auto;
 }
 
 .spybar-link:hover .spybar-label,
