@@ -169,6 +169,7 @@ export default {
   data() {
     return {
       projects: [],
+      rawProjects: [], // Store original descriptions with both languages
       loading: false,
       error: null,
       mouseX: 0,
@@ -176,8 +177,16 @@ export default {
     };
   },
   computed: {
+    currentLocale() {
+      return this.$i18n.locale;
+    },
     totalStars() {
       return this.projects.reduce((sum, project) => sum + (project.stars || 0), 0);
+    },
+  },
+  watch: {
+    currentLocale() {
+      this.parseProjectDescriptions();
     },
   },
   mounted() {
@@ -189,26 +198,8 @@ export default {
       this.error = null;
 
       try {
-        this.projects = await getPublicProjectsWithDescription(forceRefresh);
-
-        // parse projects description to either show FR: or EN: description based on i18n locale
-        // Project description format in GitHub should be: "FR: Description en français EN: Description in English"
-        this.projects = this.projects.map((project) => {
-          if (project.description) {
-            const frMatch = project.description.match(/FR:\s*([^EN]+)(?=EN:|$)/);
-            const enMatch = project.description.match(/EN:\s*(.+)/);
-
-            return {
-              ...project,
-              description: this.$i18n.locale === "fr" && frMatch
-                ? frMatch[1].trim()
-                : enMatch
-                ? enMatch[1].trim()
-                : project.description,
-            };
-          }
-          return project;
-        });
+        this.rawProjects = await getPublicProjectsWithDescription(forceRefresh);
+        this.parseProjectDescriptions();
       } catch (error) {
         this.error =
           "CONNECTION_ERROR: Unable to fetch repositories. Please retry.";
@@ -216,6 +207,26 @@ export default {
       } finally {
         this.loading = false;
       }
+    },
+    parseProjectDescriptions() {
+      // parse projects description to either show FR: or EN: description based on i18n locale
+      // Project description format in GitHub should be: "FR: Description en français EN: Description in English"
+      this.projects = this.rawProjects.map((project) => {
+        if (project.description) {
+          const frMatch = project.description.match(/FR:\s*(.+?)\s*EN:/);
+          const enMatch = project.description.match(/EN:\s*(.+)$/);
+
+          return {
+            ...project,
+            description: this.$i18n.locale === "fr" && frMatch
+              ? frMatch[1].trim()
+              : enMatch
+              ? enMatch[1].trim()
+              : project.description,
+          };
+        }
+        return project;
+      });
     },
     refreshProjects() {
       clearProjectsCache();

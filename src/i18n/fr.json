@@ -232,7 +232,8 @@
     "section": {
       "marker": "DÉPÔTS GITHUB",
       "loading": "RÉCUPÉRATION_DES_PROJETS...",
-      "retry": "RÉESSAYER"
+      "retry": "RÉESSAYER",
+      "empty": "AUCUN_DÉPÔT_TROUVÉ"
     },
     "card": {
       "viewRepo": "VOIR_LE_PROJET"
