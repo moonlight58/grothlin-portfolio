@@ -25,7 +25,12 @@ const routes = [
     path: "/internship/euphron",
     name: "euphron-internship",
     component: () => import("../views/Internship-Euphron.vue"),
-  }
+  },
+  {
+    path: "/internship/ani",
+    name: "ani-internship",
+    component: () => import("../views/Internship-ANI.vue"),
+  },
 ];
 
 const router = createRouter({

@@ -119,7 +119,9 @@
             <span class="prompt">$</span> cat {{ $i18n.t("home.body.why") }}.txt
           </p>
           <p class="terminal-output">{{ $i18n.t("home.body.why_desc") }}</p>
-          <p class="terminal-output cursor-blink">_</p>
+          <p class="terminal-output">
+            <span class="prompt">$</span> 
+            <span class="cursor-blink"> _</span></p>
         </div>
       </div>
     </section>
@@ -424,9 +426,10 @@ const formData = ref({
 // Skills data (exemples)
 const frontendSkills = ref([
   { name: "VueJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", color: "65, 184, 131" },
-  { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg", color: "97, 218, 251" },
   { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", color: "38, 77, 228" },
   { name: "Quasar", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/quasar/quasar-plain.svg", color: "0, 102, 204" },
+  { name: "babylonJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babylonjs/babylonjs-original.svg", color: "255, 102, 0" },
+  { name: "ThreeJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg", color: "255, 255, 255" },
 ]);
 
 const backendSkills = ref([
@@ -441,9 +444,10 @@ const backendSkills = ref([
 const tools = ref([
   { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "0, 123, 193" },
   { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", color: "240, 80, 51" },
+  { name: "ProxMox", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/proxmox/proxmox-original-wordmark.svg", color: "229, 112, 0" },
   { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", color: "0, 117, 181" },
   { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", color: "255, 0, 102" },
-  { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "0, 0, 0" },
+  { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "255, 255, 255" },
   { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 153, 0" },
   { name: "Neovim", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg", color: "43, 145, 175" },
   { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", color: "30, 30, 30" }
@@ -452,7 +456,7 @@ const tools = ref([
 const { t } = useI18n();
 
 const internships = computed(() => [
-  { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026", link: "/intership/ani" },
+  { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026", link: "/internship/ani" },
   { name: "Euphron", mission: t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025", link: "/internship/euphron" },
 ]);
 
@@ -530,20 +534,6 @@ const scrollToSection = (sectionId) => {
   font-family: var(--font-sans);
   position: relative;
   overflow-x: hidden;
-}
-
-/* ========== GRILLE ========== */
-.grid-layer {
-  position: fixed;
-  inset: 0;
-  background-image: linear-gradient(
-      rgba(79, 172, 254, 0.02) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(79, 172, 254, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: 0;
-  pointer-events: none;
 }
 
 /* ========== HERO SECTION ========== */
@@ -703,7 +693,6 @@ const scrollToSection = (sectionId) => {
 .bio-text {
   font-size: 14px;
   line-height: 1.7;
-  color: var(--color-muted);
   margin: 8px 0;
 }
 

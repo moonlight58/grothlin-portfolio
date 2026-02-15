@@ -63,6 +63,46 @@
     }
   },
   "internshipPage": {
+    "ani": {
+      "hero": {
+        "title": "ANI & Low-Tech",
+        "jobTitleLabel": "ROLE",
+        "jobTitle": "Internship • Technical & Development",
+        "locationLabel": "LOCATION",
+        "location": "ANI & Low-Tech • Dijon, France",
+        "durationLabel": "DURATION",
+        "duration": "January 12 - April 30, 2026 • 15+ weeks",
+        "statusLabel": "STATUS",
+        "status": "ONGOING"
+      },
+      "context": {
+        "sectionNumber": "01",
+        "title": "Context & Mission",
+        "subtitle": "Project mission and stakes",
+        "description1": "I am currently carrying out a 15+ week internship at ANI & Low-Tech in Dijon, France, starting from January 12, 2026. ANI & Low-Tech is an organization dedicated to accessible technology and digital innovation with a focus on sustainability and inclusivity.",
+        "description2": "My mission encompasses technical assistance at CROUS BFC (the university services center), integration into the ANI & Low-Tech service environment, and the development of a local AI solution tailored to the organization's needs.",
+        "objective1Title": "Technical support",
+        "objective1Desc": "Provide assistance to CROUS BFC users",
+        "objective2Title": "Service integration",
+        "objective2Desc": "Integrate into ANI & Low-Tech operations",
+        "objective3Title": "Develop AI solution",
+        "objective3Desc": "Create a local AI tailored to organizational needs",
+        "objective4Title": "Make the FabLab more accessible to everyone",
+        "objective4Desc": "Re-work the tools of the immersion room and the OpenLab"
+      },
+      "role": {
+        "sectionNumber": "02",
+        "title": "My Role",
+        "subtitle": "Responsibilities & tasks",
+        "description": "Throughout this internship, I am developing a comprehensive understanding of the organization while contributing to multiple technical initiatives and support functions.",
+        "responsibility1Title": "Technical Assistance",
+        "responsibility1Desc": "Provide support to CROUS BFC and ANI & Low-Tech users, resolving technical issues and optimizing workflows.",
+        "responsibility2Title": "AI Development",
+        "responsibility2Desc": "Design and implement a local AI solution that meets the organization's specific requirements without relying on external cloud services.",
+        "responsibility3Title": "Service Integration",
+        "responsibility3Desc": "Learn the organization's processes and integrate seamlessly into the ANI & Low-Tech team."
+      }
+    },
     "euphron": {
       "hero": {
         "title": "Euphron",

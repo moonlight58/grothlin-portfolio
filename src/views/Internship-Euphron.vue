@@ -516,7 +516,7 @@
     <footer class="site-footer">
       <div class="footer-content">
         <span class="footer-text">© 2026 Gaël Röthlin</span>
-        <span class="footer-text">Euphron Project Documentation</span>
+        <span class="footer-text">Euphron Internship Documentation</span>
       </div>
     </footer>
   </div>
@@ -524,7 +524,7 @@
 
 <script>
 export default {
-  name: "InternshipView",
+  name: "InternshipEuphron",
   data() {
     return {
       mouseX: 0,
@@ -597,46 +597,15 @@ export default {
 </script>
 
 <style scoped>
-/* ========== VARIABLES ========== */
-:root {
-  --color-bg: #0a0e1a;
-  --color-text: #e8eef5;
-  --color-muted: #8b95a8;
-  --color-primary: #4facfe;
-  --font-sans: "Chivo", sans-serif;
-  --font-mono: "Space Mono", monospace;
-}
-
-/* ========== BASE ========== */
-.blueprint-internship {
-  min-height: 100vh;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  position: relative;
-  overflow-x: hidden;
-  text-align: justify;
-}
-
-/* ========== GRILLE ========== */
-.grid-layer {
-  position: fixed;
-  inset: 0;
-  background-image: linear-gradient(
-      rgba(79, 172, 254, 0.02) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(79, 172, 254, 0.02) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: 0;
-  pointer-events: none;
+p {
+    text-align: justify;
 }
 
 /* ========== SPYBAR ========== */
 .spybar {
   position: fixed;
   right: 40px;
-  top: 50%;
+  top: 70%;
   transform: translateY(-50%);
   z-index: 100;
   display: flex;
@@ -853,7 +822,6 @@ section {
 .content-text {
   font-size: 16px;
   line-height: 1.8;
-  color: var(--color-muted);
   margin-bottom: 24px;
 }
 

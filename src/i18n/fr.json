@@ -63,6 +63,46 @@
     }
   },
   "internshipPage": {
+    "ani": {
+      "hero": {
+        "title": "ANI & Low-Tech",
+        "jobTitleLabel": "RÔLE",
+        "jobTitle": "Stage • Technique & Développement",
+        "locationLabel": "LOCALISATION",
+        "location": "ANI & Low-Tech • Dijon, France",
+        "durationLabel": "DURÉE",
+        "duration": "12 janvier - 30 avril 2026 • 15+ semaines",
+        "statusLabel": "STATUT",
+        "status": "EN COURS"
+      },
+      "context": {
+        "sectionNumber": "01",
+        "title": "Contexte & Mission",
+        "subtitle": "Mission et enjeux du projet",
+        "description1": "Je réalise actuellement un stage de 15+ semaines à ANI & Low-Tech à Dijon, France, à partir du 12 janvier 2026. ANI & Low-Tech est une organisation dédiée à la technologie accessible et à l'innovation numérique en se concentrant sur la durabilité et l'inclusivité.",
+        "description2": "Ma mission englobe l'assistance technique au CROUS BFC (centre d'accueil des étudiants), l'intégration au service ANI & Low-Tech, et le développement d'une solution IA locale adaptée aux besoins de l'organisation.",
+        "objective1Title": "Support technique",
+        "objective1Desc": "Fournir une assistance aux utilisateurs du CROUS BFC",
+        "objective2Title": "Intégration au service",
+        "objective2Desc": "S'intégrer aux opérations d'ANI & Low-Tech",
+        "objective3Title": "Développer une solution IA",
+        "objective3Desc": "Créer une IA locale adaptée aux besoins de l'organisation et du CROUS BFC",
+        "objective4Title": "Rendre le FabLab plus accessible à tout le monde",
+        "objective4Desc": "Retravailler les outils de la salle d'immersion et de l'OpenLab"
+      },
+      "role": {
+        "sectionNumber": "02",
+        "title": "Mon rôle",
+        "subtitle": "Responsabilités & tâches",
+        "description": "Tout au long de ce stage, je développe une compréhension approfondie de l'organisation tout en contribuant à plusieurs initiatives techniques et fonctions de support.",
+        "responsibility1Title": "Assistance technique",
+        "responsibility1Desc": "Fournir du support aux utilisateurs du CROUS BFC et d'ANI & Low-Tech, résoudre les problèmes techniques et optimiser les flux de travail.",
+        "responsibility2Title": "Développement IA",
+        "responsibility2Desc": "Concevoir et implémenter une solution IA locale répondant aux besoins spécifiques de l'organisation sans dépendre de services cloud externes.",
+        "responsibility3Title": "Intégration au service",
+        "responsibility3Desc": "Comprendre les processus de l'organisation et s'intégrer de manière transparente à l'équipe ANI & Low-Tech."
+      }
+    },
     "euphron": {
       "hero": {
         "title": "Euphron",
