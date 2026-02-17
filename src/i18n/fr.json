@@ -20,9 +20,13 @@
         "title": "STAGES",
         "viewDetails": "VOIR_LES_DÉTAILS"
       },
+      "school": {
+        "title": "ÉTUDES"
+      },
       "student": "Étudiant français en informatique",
-      "description": "Je suis toujours entrain d'essayer de nouvelles choses, avide d'apprendre.",
+      "description": "Grâce à la veille informatique que je fais depuis plusieurs années, j'ai pu acquérir une solide base de connaissances dans divers domaines de l'informatique, me permettant d'être polyvalent et adaptable à différents projets.",
       "why": "pourquoi_ce_portfolio",
+      "projects": "Mes projets",
       "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels.",
       "viewProject": "VOIR_LE_PROJET",
       "viewAllProjects": "VOIR_TOUS_LES_PROJETS"
@@ -33,6 +37,20 @@
       },
       "euphron": {
         "mission": "Réalisation d'une application de troc d'objets sportif pour étudiants en STAPS."
+      }
+    },
+    "school": {
+      "univ": {
+        "name": "Université de Franche-Comté",
+        "location": "Besançon, France",
+        "description": "Obtention du diplôme universitaire de technologie (DUT) en informatique en 2025. Actuellement en troisième année de BUT Informatique.",
+        "status": "En cours"
+      },
+      "lycee": {
+        "name": "Lycée Polyvalent Edouard Belin",
+        "location": "Besançon, France",
+        "description": "Obtention du baccalauréat scientifique (STI2D) avec mention bien en 2023.",
+        "status": "Terminé"
       }
     },
     "projects": {

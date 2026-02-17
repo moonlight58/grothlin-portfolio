@@ -3,7 +3,6 @@
     <!-- Grille blueprint subtile -->
     <div class="grid-layer"></div>
 
-
     <!-- Hero Section - Layout totalement différent -->
     <section class="hero-zone">
       <div class="hero-content">
@@ -135,7 +134,7 @@
 
       <!-- Projects Grid -->
       <div class="work-category">
-        <h3 class="category-label">Projects</h3>
+        <h3 class="category-label">{{ $i18n.t("home.body.projects") }}</h3>
         <div class="blueprint-grid">
           <div
             class="blueprint-card"
@@ -165,7 +164,7 @@
               </div>
             </div>
             <div class="card-footer">
-              <a href="#" class="card-link">{{ $i18n.t("home.body.viewProject") }} ⇁</a>
+              <a :href="project.link" class="card-link">{{ $i18n.t("home.body.viewProject") }} ⇁</a>
             </div>
           </div>
         </div>
@@ -174,32 +173,56 @@
         </div>
       </div>
 
-      <!-- Internship -->
-      <div class="work-category">
-        <h3 class="category-label">{{ $i18n.t("home.body.internship.title") }}</h3>
-        <div class="timeline-container">
-          <div
-            class="timeline-item"
-            v-for="internship in internships"
-            :key="internship.name"
-          >
-            <div class="timeline-marker"></div>
-            <div class="timeline-content">
-              <div class="timeline-date">{{ internship.date }}</div>
-              <h4 class="timeline-title">{{ internship.name }}</h4>
-              <p class="timeline-description">
-                {{ internship.mission }}
-              </p>
-              <div class="timeline-tech">
-                <span
-                  class="tech-badge"
-                  v-for="tech in internship.tech"
-                  :key="tech"
-                  >{{ tech }}</span
-                >
+      <div class="work-column">
+        <!-- Internship -->
+        <div class="work-category">
+          <h3 class="category-label">{{ $i18n.t("home.body.internship.title") }}</h3>
+          <div class="timeline-container">
+            <div
+              class="timeline-item"
+              v-for="internship in internships"
+              :key="internship.name"
+            >
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">{{ internship.date }}</div>
+                <h4 class="timeline-title">{{ internship.name }}</h4>
+                <p class="timeline-description">
+                  {{ internship.mission }}
+                </p>
+                <div class="timeline-tech">
+                  <span
+                    class="tech-badge"
+                    v-for="tech in internship.tech"
+                    :key="tech"
+                    >{{ tech }}</span
+                  >
+                </div>
+                <div class="redirect-link">
+                  <a :href="internship.link" class="card-link">{{ $i18n.t("home.body.internship.viewDetails") }} ⇁</a>
+                </div>
               </div>
-              <div class="redirect-link">
-                <a :href="internship.link" class="card-link">{{ $i18n.t("home.body.internship.viewDetails") }} ⇁</a>
+            </div>
+          </div>
+        </div>
+
+        <hr class="work-divider" />
+
+        <!-- Parcours Educatif -->
+        <div class="school-category">
+          <h3 class="category-label">{{ $i18n.t("home.body.school.title") }}</h3>
+          <div class="timeline-container">
+            <div class="timeline-item"
+              v-for="school in schools"
+              :key="school.name"
+            >
+              <div class="timeline-marker"></div>
+              <div class="timeline-content">
+                <div class="timeline-date">{{ school.date }}</div>
+                <h4 class="timeline-title">{{ school.name }}</h4>
+                <p class="timeline-description">
+                  {{ school.description }}
+                </p>
               </div>
             </div>
           </div>
@@ -458,6 +481,11 @@ const { t } = useI18n();
 const internships = computed(() => [
   { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026", link: "/internship/ani" },
   { name: "Euphron", mission: t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025", link: "/internship/euphron" },
+]);
+
+const schools = computed(() => [
+  { name: t("home.school.univ.name"), description: t("home.school.univ.description"), date: "2022 - 2026", status: t("home.school.univ.status") },
+  { name: t("home.school.lycee.name"), description: t("home.school.lycee.description"), date: "2019 - 2022", status: t("home.school.lycee.status") },
 ]);
 
 const projects = computed(() => [
@@ -887,8 +915,29 @@ section {
 }
 
 /* ========== WORK SECTION ========== */
-.work-category {
+
+/* 2 equals columns */
+.work-column {
+  display: grid;
+  grid-template-columns: 1fr 0.1fr 1fr;
+  gap: 80px;
+  margin-top: 170px;
   margin-bottom: 100px;
+}
+
+.work-category {
+  min-width: 0;
+}
+
+.school-category {
+  min-width: 0;
+}
+
+.work-divider {
+  border: none;
+  border-left: 1px solid rgba(79, 172, 254, 0.2);
+  height: auto;
+  margin: 0;
 }
 
 .category-label {
