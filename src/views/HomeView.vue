@@ -479,13 +479,13 @@ const tools = ref([
 const { t } = useI18n();
 
 const internships = computed(() => [
-  { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: "2025 - 2026", link: "/internship/ani" },
-  { name: "Euphron", mission: t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: "2024 - 2025", link: "/internship/euphron" },
+  { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: t("home.internship.ani.date"), link: "/internship/ani" },
+  { name: "Euphron", mission: t("home.internship.euphron.mission"), tech: ["Quasar", "VueJS", "MySQL"], date: t("home.internship.euphron.date"), link: "/internship/euphron" },
 ]);
 
 const schools = computed(() => [
-  { name: t("home.school.univ.name"), description: t("home.school.univ.description"), date: "2022 - 2026", status: t("home.school.univ.status") },
-  { name: t("home.school.lycee.name"), description: t("home.school.lycee.description"), date: "2019 - 2022", status: t("home.school.lycee.status") },
+  { name: t("home.school.univ.name"), description: t("home.school.univ.description"), date: "2023 - 2026", status: t("home.school.univ.status") },
+  { name: t("home.school.lycee.name"), description: t("home.school.lycee.description"), date: "2020 - 2023", status: t("home.school.lycee.status") },
 ]);
 
 const projects = computed(() => [

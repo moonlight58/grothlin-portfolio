@@ -33,10 +33,12 @@
     },
     "internship": {
       "ani": {
-        "mission": "Integration in the ANI & Low-Tech service, technical assistance at CROUS BFC and development of a local AI."
+        "mission": "Integration in the ANI & Low-Tech service, technical assistance at CROUS BFC and development of a local AI.",
+        "date": "January 2026 - April 2026"
       },
       "euphron": {
-        "mission": "Development of a sports equipment exchange application for STAPS students."
+        "mission": "Development of a sports equipment exchange application for STAPS students.",
+        "date": "April 2025 - May 2025"
       }
     },
     "school": {
