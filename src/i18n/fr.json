@@ -56,13 +56,16 @@
       }
     },
     "projects": {
+      "sagittarius": {
+        "description": "Un assistant privé, indépendant du modèle, pour le travail que vous effectuez chaque jour. Exécutez vos propres modèles. Maîtrisez votre contexte.",
+        "status": "En Développement"
+      },
       "spotcli": {
+        "description": "Une interface en ligne de commande pour Spotify, permettant aux utilisateurs de contrôler leur musique et gérer leurs playlists directement depuis le terminal.",
         "status": "En Développement"
       },
       "dotic": {
-        "status": "Terminé"
-      },
-      "hfp": {
+        "description": "Une application Python pour créer et gérer des motifs de points dans une grille. Elle permet aux utilisateurs de générer, visualiser et analyser des motifs de points pour diverses applications.",
         "status": "Terminé"
       }
     },
@@ -296,7 +299,7 @@
       "empty": "AUCUN_DÉPÔT_TROUVÉ"
     },
     "card": {
-      "viewRepo": "VOIR_LE_PROJET"
+      "viewRepo": "VOIR_SUR_GITHUB"
     },
     "footer": {
       "synced": "Données synchronisées depuis l'API GitHub"

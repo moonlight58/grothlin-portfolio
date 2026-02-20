@@ -164,7 +164,7 @@
               </div>
             </div>
             <div class="card-footer">
-              <a :href="project.link" class="card-link">{{ $i18n.t("home.body.viewProject") }} ⇁</a>
+              <a :href="project.github" class="card-link">{{ $i18n.t("home.body.viewProject") }} ⇁</a>
             </div>
           </div>
         </div>
@@ -489,9 +489,9 @@ const schools = computed(() => [
 ]);
 
 const projects = computed(() => [
-  { name: "SpotCLI", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/spotcli.png", description: "", tech: ["C", "curl", "SpotifyAPI"], status: t("home.projects.spotcli.status"), github: "https://github.com/moonlight58/SpotCLI.git"},
-  { name: "DotIC", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/dotic.png", description: "", tech: ["Python", "NumPy", "Matplotlib", "OpenCV"], status: t("home.projects.dotic.status"), github: "https://github.com/moonlight58/DotIC.git"},
-  { name: "HFP Script", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/hfp-disable-autoscript.png", description: "", tech: ["Powershell"], status: t("home.projects.hfp.status"), github: "https://github.com/moonlight58/HFP-Disable-AutoScript.git"}
+  { name: "Sagittarius", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/sagittarius.png", description: t("home.projects.sagittarius.description"), tech: ["Ollama", "VueJS"], status: t("home.projects.sagittarius.status"), github: "https://github.com/moonlight58/sagittarius.git"},
+  { name: "SpotCLI", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/spotcli.png", description: t("home.projects.spotcli.description"), tech: ["C", "curl", "SpotifyAPI"], status: t("home.projects.spotcli.status"), github: "https://github.com/moonlight58/SpotCLI.git"},
+  { name: "DotIC", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/dotic.png", description: t("home.projects.dotic.description"), tech: ["Python", "NumPy", "Matplotlib", "OpenCV"], status: t("home.projects.dotic.status"), github: "https://github.com/moonlight58/DotIC.git"},
 ]);
 
 // Méthodes
@@ -938,6 +938,22 @@ section {
   border-left: 1px solid rgba(79, 172, 254, 0.2);
   height: auto;
   margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .work-column {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    margin-top: 80px;
+  }
+
+  .work-divider {
+    border-left: none;
+    border-top: 1px solid rgba(79, 172, 254, 0.2);
+    height: 0;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .category-label {

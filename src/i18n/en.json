@@ -56,13 +56,16 @@
       }
     },
     "projects": {
+      "sagittarius": {
+        "description": "A private, model-agnostic assistant for the work you do evert day. Run your own models. Own your context.",
+        "status": "In Development"
+      },
       "spotcli": {
+        "description": "A command-line interface for Spotify, allowing users to control their music and manage playlists directly from the terminal.",
         "status": "In Development"
       },
       "dotic": {
-        "status": "Completed"
-      },
-      "hfp": {
+        "description": "A Python application for creating and managing dot patterns in a grid. It allows users to generate, visualize and analyze dot patterns for various applications.",
         "status": "Completed"
       }
     },
@@ -296,7 +299,7 @@
       "empty": "NO_REPOSITORIES_FOUND"
     },
     "card": {
-      "viewRepo": "VIEW_REPO"
+      "viewRepo": "VIEW_ON_GITHUB"
     },
     "footer": {
       "synced": "Data synced from GitHub API"
