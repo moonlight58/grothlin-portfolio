@@ -83,11 +83,6 @@
             <img src="../assets/email.svg" alt="Email" />
           </a>
         </div>
-
-        <!-- Spotify en position flottante -->
-        <div class="spotify-widget">
-          <SpotifyNowPlaying />
-        </div>
       </div>
 
       <!-- Scroll indicator -->
@@ -164,7 +159,13 @@
               </div>
             </div>
             <div class="card-footer">
-              <a :href="project.github" class="card-link">{{ $i18n.t("home.body.viewProject") }} ⇁</a>
+              <button 
+                @click="openProjectModal(project)" 
+                class="card-link"
+                style="background: none; border: none; cursor: pointer; padding: 0;"
+              >
+                {{ $i18n.t("home.body.viewProject") }} ⇁
+              </button>
             </div>
           </div>
         </div>
@@ -422,12 +423,21 @@
       </div>
     </footer>
   </div>
+  
+  <ProjectModal 
+    :isOpen="modalOpen"
+    :projectName="selectedProject?.name?.toLowerCase()"
+    :language="$i18n.locale"
+    @close="closeProjectModal"
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import NavBar from "@/components/NavBar.vue";
+import ProjectModal from "@/components/ProjectModal.vue";
+
 
 // État
 const mouseX = ref(0);
@@ -436,8 +446,9 @@ const showForm = ref(false);
 const isSubmitting = ref(false);
 const statusMessage = ref("");
 const statusClass = ref("");
-
 const workSection = ref(null);
+const selectedProject = ref(null);
+const modalOpen = ref(false);
 
 // Données du formulaire
 const formData = ref({
@@ -550,6 +561,16 @@ const scrollToSection = (sectionId) => {
       }
     });
   });
+};
+
+const openProjectModal = (project) => {
+  selectedProject.value = project;
+  modalOpen.value = true;
+};
+
+const closeProjectModal = () => {
+  modalOpen.value = false;
+  selectedProject.value = null;
 };
 </script>
 
