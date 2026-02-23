@@ -301,6 +301,12 @@
       "retry": "RETRY_CONNECTION",
       "empty": "NO_REPOSITORIES_FOUND"
     },
+    "filter": {
+      "byStatus": "FILTER_BY_STATUS",
+      "byTech": "FILTER_BY_TECH",
+      "searchPlaceholder": "Search technologies...",
+      "reset": "Reset filters"
+    },
     "card": {
       "viewRepo": "VIEW_ON_GITHUB"
     },

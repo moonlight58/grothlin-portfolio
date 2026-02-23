@@ -301,6 +301,12 @@
       "retry": "RÉESSAYER",
       "empty": "AUCUN_DÉPÔT_TROUVÉ"
     },
+    "filter": {
+      "byStatus": "FILTRER_PAR_STATUT",
+      "byTech": "FILTRER_PAR_TECHNOLOGIE",
+      "searchPlaceholder": "Chercher une technologie...",
+      "reset": "Réinitialiser les filtres"
+    },
     "card": {
       "viewRepo": "VOIR_SUR_GITHUB"
     },

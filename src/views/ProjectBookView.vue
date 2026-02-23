@@ -49,6 +49,56 @@
         <span class="marker-title">{{ $t('projects.section.marker') }}</span>
       </div>
 
+      <!-- Filter Panel -->
+      <div v-if="projects.length > 0" class="filter-panel">
+        <div class="filter-group">
+          <div class="filter-header">
+            <span class="filter-title">{{ $t('projects.filter.byStatus') }}</span>
+            <button class="filter-reset" @click="resetFilters" v-if="hasActiveFilters">↻</button>
+          </div>
+          <div class="filter-buttons">
+            <button
+              v-for="status in availableStatuses"
+              :key="status"
+              :class="['filter-btn', { active: selectedStatuses.includes(status) }]"
+              @click="toggleStatus(status)"
+            >
+              {{ status }}
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-header">
+            <span class="filter-title">{{ $t('projects.filter.byTech') }}</span>
+          </div>
+          <div class="filter-search">
+            <input
+              v-model="techSearch"
+              type="text"
+              :placeholder="$t('projects.filter.searchPlaceholder')"
+              class="filter-input"
+            />
+          </div>
+          <div class="filter-buttons">
+            <button
+              v-for="tech in filteredAvailableTechs"
+              :key="tech"
+              :class="['filter-btn', { active: selectedTechs.includes(tech) }]"
+              @click="toggleTech(tech)"
+            >
+              {{ tech }}
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-stats">
+          <span v-if="filteredProjects.length !== projects.length">
+            Showing {{ filteredProjects.length }} of {{ projects.length }} projects
+          </span>
+        </div>
+      </div>
+
       <!-- Loading state -->
       <div v-if="loading && projects.length === 0" class="loading-state">
         <div class="loading-indicator">
@@ -74,10 +124,18 @@
         </div>
       </div>
 
+      <!-- Empty filtered state -->
+      <div v-else-if="(selectedStatuses.length > 0 || selectedTechs.length > 0 || techSearch) && filteredProjects.length === 0" class="empty-state">
+        <div class="empty-box">
+          <span class="empty-icon">⊘</span>
+          <p class="empty-message">No projects match your filters. Try adjusting your selection.</p>
+        </div>
+      </div>
+
       <!-- Projects Grid -->
-      <div v-else class="blueprint-grid">
+      <div v-else-if="filteredProjects.length > 0" class="blueprint-grid">
         <article
-          v-for="(project, index) in projects"
+          v-for="(project, index) in filteredProjects"
           :key="project.id"
           class="blueprint-card"
           :data-index="String(index + 1).padStart(2, '0')"
@@ -174,6 +232,9 @@ export default {
       error: null,
       mouseX: 0,
       mouseY: 0,
+      selectedStatuses: [],
+      selectedTechs: [],
+      techSearch: '',
     };
   },
   computed: {
@@ -182,6 +243,73 @@ export default {
     },
     totalStars() {
       return this.projects.reduce((sum, project) => sum + (project.stars || 0), 0);
+    },
+    availableStatuses() {
+      const statuses = new Set();
+      this.projects.forEach(project => {
+        if (project.status) {
+          statuses.add(project.status);
+        }
+      });
+      return Array.from(statuses).sort();
+    },
+    availableTechs() {
+      const techs = new Set();
+      this.projects.forEach(project => {
+        if (project.topics && Array.isArray(project.topics)) {
+          project.topics.forEach(topic => techs.add(topic));
+        }
+      });
+      return Array.from(techs).sort();
+    },
+    filteredAvailableTechs() {
+      if (!this.techSearch) return this.availableTechs;
+      const search = this.techSearch.toLowerCase();
+      return this.availableTechs.filter(tech => 
+        tech.toLowerCase().includes(search)
+      );
+    },
+    filteredProjects() {
+      return this.projects.filter(project => {
+        // Filter by status if any are selected
+        if (this.selectedStatuses.length > 0) {
+          if (!project.status || !this.selectedStatuses.includes(project.status)) {
+            return false;
+          }
+        }
+        
+        // Filter by tech if any are selected
+        if (this.selectedTechs.length > 0) {
+          if (!project.topics || !Array.isArray(project.topics)) {
+            return false;
+          }
+          const hasMatchingTech = this.selectedTechs.some(tech =>
+            project.topics.includes(tech)
+          );
+          if (!hasMatchingTech) {
+            return false;
+          }
+        }
+
+        // Filter by tech search input (case-insensitive)
+        if (this.techSearch) {
+          if (!project.topics || !Array.isArray(project.topics)) {
+            return false;
+          }
+          const search = this.techSearch.toLowerCase();
+          const hasMatchingSearch = project.topics.some(topic =>
+            topic.toLowerCase().includes(search)
+          );
+          if (!hasMatchingSearch) {
+            return false;
+          }
+        }
+        
+        return true;
+      });
+    },
+    hasActiveFilters() {
+      return this.selectedStatuses.length > 0 || this.selectedTechs.length > 0 || this.techSearch.length > 0;
     },
   },
   watch: {
@@ -209,12 +337,24 @@ export default {
       }
     },
     parseProjectDescriptions() {
-      // parse projects description to either show FR: or EN: description based on i18n locale
-      // Project description format in GitHub should be: "FR: Description en français EN: Description in English"
+      // parse projects description to extract status and localized descriptions
+      // Project description format in GitHub should be: "FR: Description en français EN: Description in English [STATUS: In Development|Completed]"
       this.projects = this.rawProjects.map((project) => {
-        if (project.description) {
-          const frMatch = project.description.match(/FR:\s*(.+?)\s*EN:/);
-          const enMatch = project.description.match(/EN:\s*(.+)$/);
+        let description = project.description || '';
+        let status = null;
+
+        // Extract status if present
+        const statusMatch = description.match(/\[STATUS:\s*(.+?)\]/);
+        if (statusMatch) {
+          status = statusMatch[1].trim();
+          // Remove status from description
+          description = description.replace(/\s*\[STATUS:.+?\]/, '');
+        }
+
+        // Parse language-specific descriptions
+        if (description) {
+          const frMatch = description.match(/FR:\s*(.+?)\s*EN:/);
+          const enMatch = description.match(/EN:\s*(.+)$/);
 
           return {
             ...project,
@@ -222,11 +362,37 @@ export default {
               ? frMatch[1].trim()
               : enMatch
               ? enMatch[1].trim()
-              : project.description,
+              : description,
+            status: status || 'Active',
           };
         }
-        return project;
+        
+        return {
+          ...project,
+          status: status || 'Active',
+        };
       });
+    },
+    toggleStatus(status) {
+      const index = this.selectedStatuses.indexOf(status);
+      if (index > -1) {
+        this.selectedStatuses.splice(index, 1);
+      } else {
+        this.selectedStatuses.push(status);
+      }
+    },
+    toggleTech(tech) {
+      const index = this.selectedTechs.indexOf(tech);
+      if (index > -1) {
+        this.selectedTechs.splice(index, 1);
+      } else {
+        this.selectedTechs.push(tech);
+      }
+    },
+    resetFilters() {
+      this.selectedStatuses = [];
+      this.selectedTechs = [];
+      this.techSearch = '';
     },
     refreshProjects() {
       clearProjectsCache();
@@ -406,6 +572,15 @@ export default {
   padding-bottom: 16px;
 }
 
+.section-marker {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 60px;
+  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+  padding-bottom: 16px;
+}
+
 .marker-number {
   font-family: var(--font-mono);
   font-size: 48px;
@@ -420,6 +595,124 @@ export default {
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--color-text);
+}
+
+/* ========== FILTER PANEL ========== */
+.filter-panel {
+  background: rgba(79, 172, 254, 0.03);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  padding: 32px;
+  margin-bottom: 60px;
+  border-radius: 4px;
+}
+
+.filter-group {
+  margin-bottom: 32px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.filter-title {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 2px;
+}
+
+.filter-reset {
+  background: transparent;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--color-primary);
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.filter-reset:hover {
+  background: rgba(79, 172, 254, 0.1);
+  border-color: var(--color-primary);
+}
+
+.filter-search {
+  margin-bottom: 16px;
+}
+
+.filter-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(79, 172, 254, 0.05);
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: rgba(79, 172, 254, 0.08);
+  box-shadow: 0 0 12px rgba(79, 172, 254, 0.2);
+}
+
+.filter-input::placeholder {
+  color: rgba(139, 149, 168, 0.5);
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filter-btn {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+.filter-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.filter-btn.active {
+  background: rgba(79, 172, 254, 0.25);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+}
+
+.filter-stats {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(79, 172, 254, 0.1);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-muted);
 }
 
 /* ========== STATES ========== */
@@ -741,6 +1034,15 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
   }
+
+  .filter-buttons {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -764,6 +1066,23 @@ export default {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+  }
+
+  .filter-panel {
+    padding: 20px;
+  }
+
+  .filter-group {
+    margin-bottom: 20px;
+  }
+
+  .filter-buttons {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 6px 10px;
+    font-size: 9px;
   }
 }
 
