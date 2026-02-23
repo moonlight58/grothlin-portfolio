@@ -54,4 +54,4 @@ Core functionality is complete. Possible next steps include adding a background 
 
 
 ## 󰊤 Github
-> [Découvrez le code sur GitHub](https://github.com/moonlight58/dotic)
+> [Check out the code on GitHub](https://github.com/moonlight58/dotic)

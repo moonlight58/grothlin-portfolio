@@ -54,5 +54,11 @@ Entièrement développé en **C**, avec libcurl pour les requêtes HTTP, json-c 
 
 Les fonctionnalités principales sont complètes et fonctionnelles. Des types de recherche supplémentaires (playlists, livres audio) et une interface TUI plus riche sont prévus pour la prochaine phase.
 
+## 󰐎 Démo
+
+SpotCLI en action est montré dans les captures d'écran ci-dessous. La première image montre la fonctionnalité de recherche, tandis que la seconde affiche l'interface du lecteur avec les informations sur la piste actuelle et les contrôles de lecture.
+![SpotCLI in action](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/spotcli-1.png)
+![SpotCLI Player](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/spotcli-2.png)
+
 ## 󰊤 Github
 > [Découvrez le code sur GitHub](https://github.com/moonglight58/spotcli)

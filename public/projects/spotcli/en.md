@@ -54,6 +54,12 @@ Built entirely in **C**, using libcurl for HTTP requests, json-c for JSON parsin
 
 Core features are complete and functional. Extended search types (playlists, audiobooks) and a richer TUI interface are planned for the next phase.
 
+## 󰐎 Preview
+
+SpotCLI in action is shown in the screenshots below. The first image shows the search functionality, while the second image displays the player interface with current track information and playback controls.
+![SpotCLI in action](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/spotcli-1.png)
+![SpotCLI Player](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/spotcli-2.png)
+
 ## 󰊤 Github
 
 > [Check out the code on GitHub](https://github.com/moonlight58/spotcli)

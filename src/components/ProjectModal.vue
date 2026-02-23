@@ -122,6 +122,12 @@ watch(() => props.language, loadMarkdown);
   margin-bottom: 12px;
 }
 
+.markdown-content hr {
+  border: none;
+  border-top: 1px solid rgba(79, 172, 254, 0.2);
+  margin: 24px 0;
+}
+
 .markdown-content p {
   margin: 12px 0;
 }
@@ -172,6 +178,17 @@ watch(() => props.language, loadMarkdown);
   border: 1px solid rgba(79, 172, 254, 0.2);
   padding: 8px;
   text-align: left;
+}
+
+.markdown-content a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.markdown-content img {
+  max-width: 100%;
+  border-radius: 4px;
+  margin: 16px 0;
 }
 
 .modal-fade-enter-active,

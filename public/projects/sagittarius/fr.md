@@ -53,6 +53,11 @@ Développé avec **Vue 3**, stylisé en CSS pur, propulsé par **Ollama** côté
 
 En développement actif — l'espace de travail Calendrier et le support des pièces jointes sont prévus pour la suite.
 
+## 󰐎 Démo 
+
+En ligne disponible sur [sagittarius.grothlin.fr](https://sagittarius.grothlin.fr) (fonctionnalités IA désactivées, mais l'interface est consultable).
+
+![Démo de l'interface de sagittarius](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/sagittarius-preview-1.GIF)
 
 ## 󰊤 Github
-> [Découvrez le code sur GitHub](https://github.com/moonglight58/sagittarius)
+> [Découvrez le code sur GitHub](https://github.com/moonlight58/sagittarius)

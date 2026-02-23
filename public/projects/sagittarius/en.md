@@ -53,6 +53,12 @@ Built with **Vue 3**, styled with custom CSS, powered by **Ollama** on the backe
 
 Actively in development — the Calendar workspace and file attachment support are planned next.
 
+## 󰐎 Preview
+
+Available online at [sagittarius.grothlin.fr](https://sagittarius.grothlin.fr) (AI features disabled, but the interface is fully accessible).
+
+![Preview of sagittarius](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/sagittarius-preview-1.GIF)
+
 
 ## 󰊤 Github
-> [Découvrez le code sur GitHub](https://github.com/moonglight58/sagittarius)
+> [Check out the code on GitHub](https://github.com/moonlight58/sagittarius)
