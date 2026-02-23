@@ -57,7 +57,7 @@ watch(() => props.projectName, loadMarkdown);
 watch(() => props.language, loadMarkdown);
 </script>
 
-<style scoped>
+<style>
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -148,6 +148,23 @@ watch(() => props.language, loadMarkdown);
 
 .markdown-content li {
   margin: 6px 0;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+
+.markdown-content thead {
+  background: rgba(79, 172, 254, 0.1);
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid rgba(79, 172, 254, 0.2);
+  padding: 8px;
+  text-align: left;
 }
 
 .modal-fade-enter-active,

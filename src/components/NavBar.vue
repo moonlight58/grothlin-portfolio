@@ -50,6 +50,7 @@ export default {
     },
     changeLang(lang) {
       this.$i18n.locale = lang;
+      localStorage.setItem('preferred-language', lang);
     },
   },
 };
