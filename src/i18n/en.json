@@ -78,8 +78,11 @@
       "toggleButton": "OPEN_CONTACT_FORM",
       "form": {
         "name": "NAME",
+        "namePlaceholder": "Your name",
         "email": "EMAIL",
+        "emailPlaceholder": "Your email address",
         "message": "MESSAGE",
+        "messagePlaceholder": "Your message...",
         "submit": "SEND_MESSAGE",
         "submitting": "SENDING..."
       }

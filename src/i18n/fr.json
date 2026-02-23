@@ -78,8 +78,11 @@
       "toggleButton": "OUVRIR_FORMULAIRE_CONTACT",
       "form": {
         "name": "NOM",
+        "namePlaceholder": "Votre nom",
         "email": "EMAIL",
+        "emailPlaceholder": "Votre adresse email",
         "message": "MESSAGE",
+        "messagePlaceholder": "Votre message...",
         "submit": "ENVOYER_MESSAGE",
         "submitting": "ENVOI_EN_COURS..."
       }

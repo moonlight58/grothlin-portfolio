@@ -362,7 +362,7 @@
                 id="name"
                 name="name"
                 v-model="formData.name"
-                placeholder="Votre nom"
+                :placeholder="$t('home.contact.form.namePlaceholder')"
                 required
               />
             </div>
@@ -374,7 +374,7 @@
                 id="email"
                 name="email"
                 v-model="formData.email"
-                placeholder="votre@email.com"
+                :placeholder="$t('home.contact.form.emailPlaceholder')"
                 required
               />
             </div>
@@ -385,7 +385,7 @@
                 id="message"
                 name="message"
                 v-model="formData.message"
-                placeholder="Votre message..."
+                :placeholder="$t('home.contact.form.messagePlaceholder')"
                 rows="5"
                 required
               ></textarea>

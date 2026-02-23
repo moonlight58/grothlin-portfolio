@@ -12,11 +12,6 @@ const routes = [
     redirect: "/",
   },
   {
-    path: "/about",
-    name: "about",
-    component: () => import("../views/AboutView.vue"),
-  },
-  {
     path: "/projects",
     name: "projects",
     component: () => import("../views/ProjectBookView.vue"),
