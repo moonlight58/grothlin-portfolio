@@ -4,7 +4,7 @@
 
 ---
 
-## What is it?
+##  What is it?
 
 DotIC is a desktop application I built in Python that takes any image and recreates it using only dots. The darker areas of the original photo become large, dense dots — the lighter areas become small, barely visible ones. The result is a style reminiscent of pointillist painting.
 
@@ -12,7 +12,7 @@ The application has a full graphical interface, so no technical knowledge is nee
 
 ---
 
-## What does it do?
+##  What does it do?
 
 You load any photo, adjust a handful of sliders, and DotIC generates the dotted version in real time. The main settings include:
 
@@ -25,7 +25,7 @@ Once the result looks right, the image can be exported as PNG or JPEG.
 
 ---
 
-## Key highlights
+## 󱕅 Key highlights
 
 - **Real-time progress** — a progress bar tracks the generation as it runs, since processing a fine grid can take a few seconds
 - **Non-blocking UI** — image generation runs in a background thread so the interface stays responsive throughout
@@ -34,7 +34,7 @@ Once the result looks right, the image can be exported as PNG or JPEG.
 
 ---
 
-## What I learned
+## 󱉟 What I learned
 
 This project was an exploration of **image processing and generative art**. The main challenge was translating the abstract concept of pointillism into a concrete algorithm — figuring out how to map pixel brightness to dot size in a way that produces a visually pleasing result.
 
@@ -42,12 +42,16 @@ It also pushed me to think about **UI responsiveness**: running a heavy computat
 
 ---
 
-## Stack
+## 󰓌 Stack
 
 Built with **Python**, using OpenCV for image loading and processing, Pillow for drawing and export, and Tkinter for the graphical interface.
 
 ---
 
-## Status
+## 󱖫 Status
 
 Core functionality is complete. Possible next steps include adding a background color picker, support for non-square grids, and a batch processing mode for multiple images.
+
+
+## 󰊤 Github
+> [Découvrez le code sur GitHub](https://github.com/moonlight58/dotic)

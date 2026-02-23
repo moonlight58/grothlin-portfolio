@@ -4,7 +4,7 @@
 
 ---
 
-## What is it?
+##  What is it?
 
 Sagittarius is a web application I designed and built from scratch as a personal project. The idea came from a simple frustration: most AI assistants require a paid subscription and send your conversations to external servers.
 
@@ -14,7 +14,7 @@ A live preview is available at [sagittarius.grothlin.fr](https://sagittarius.gro
 
 ---
 
-## What does it do?
+##  What does it do?
 
 The application is organized around **workspaces** — dedicated environments each tailored to a specific task:
 
@@ -26,7 +26,7 @@ Each workspace keeps its own conversation history, so you can switch between con
 
 ---
 
-## Key highlights
+## 󱕅 Key highlights
 
 - **Full privacy** — all AI processing happens on your machine via [Ollama](https://ollama.com), an open-source local model runner
 - **Model flexibility** — works with any compatible AI model (Mistral, LLaMA, Gemma, etc.), switchable at any time
@@ -35,7 +35,7 @@ Each workspace keeps its own conversation history, so you can switch between con
 
 ---
 
-## What I learned
+## 󱉟 What I learned
 
 This project pushed me to work with real-time data streaming (the AI response appears word by word, like typing), state management across multiple chat sessions, and building a UI that feels polished without relying on any component library.
 
@@ -43,12 +43,16 @@ It also made me think seriously about **product design** — how to present comp
 
 ---
 
-## Stack
+## 󰓌 Stack
 
 Built with **Vue 3**, styled with custom CSS, powered by **Ollama** on the backend.
 
 ---
 
-## Status
+## 󱖫 Status
 
 Actively in development — the Calendar workspace and file attachment support are planned next.
+
+
+## 󰊤 Github
+> [Découvrez le code sur GitHub](https://github.com/moonglight58/sagittarius)

@@ -126,6 +126,13 @@ watch(() => props.language, loadMarkdown);
   margin: 12px 0;
 }
 
+.markdown-content blockquote {
+  border-left: 4px solid rgba(79, 172, 254, 0.3);
+  padding-left: 16px;
+  color: var(--color-muted);
+  margin: 16px 0;
+}
+
 .markdown-content code {
   background: rgba(79, 172, 254, 0.1);
   padding: 2px 6px;

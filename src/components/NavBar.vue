@@ -10,8 +10,18 @@
       <a href="/#contact" class="nav-link">04_{{ $i18n.t("nav.contact") }}</a>
     </nav>
     <div class="extra-buttons">
-      <button class="lang-btn" @click="changeLang('fr')">FR</button>
-      <button class="lang-btn" @click="changeLang('en')">EN</button>
+      <button 
+        class="lang-btn" 
+        :class="{ active: $i18n.locale === 'fr' }"
+        @click="changeLang('fr')">
+        FR
+      </button>
+      <button 
+        class="lang-btn" 
+        :class="{ active: $i18n.locale === 'en' }"
+        @click="changeLang('en')">
+        EN
+      </button>
     </div>
   </header>
 </template>
@@ -118,15 +128,28 @@ header.scrolled {
 .lang-btn {
   font-family: var(--font-mono);
   font-size: 12px;
-  color: var(--color-muted);
-  background: none;
-  border: none;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: rgba(79, 172, 254, 0.1);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  padding: 8px 14px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .lang-btn:hover {
   color: var(--color-primary);
+  background: rgba(79, 172, 254, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.4);
+}
+
+.lang-btn.active {
+  color: var(--color-primary);
+  background: rgba(79, 172, 254, 0.25);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 12px rgba(79, 172, 254, 0.6);
 }
 
 .blueprint-header {

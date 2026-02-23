@@ -4,7 +4,7 @@
 
 ---
 
-## C'est quoi ?
+##  C'est quoi ?
 
 Sagittarius est une application web que j'ai conçue et développée de zéro dans le cadre d'un projet personnel. L'idée est venue d'une frustration simple : la plupart des assistants IA nécessitent un abonnement payant et envoient vos conversations sur des serveurs externes.
 
@@ -14,7 +14,7 @@ Une preview est disponible sur [sagittarius.grothlin.fr](https://sagittarius.gro
 
 ---
 
-## À quoi ça sert ?
+##  À quoi ça sert ?
 
 L'application est organisée autour d'**espaces de travail** — des environnements dédiés, chacun adapté à une tâche précise :
 
@@ -26,7 +26,7 @@ Chaque espace de travail conserve son propre historique de conversation, ce qui 
 
 ---
 
-## Points forts
+## 󱕅 Points forts
 
 - **Vie privée totale** — tout le traitement IA se fait sur votre machine via [Ollama](https://ollama.com), un moteur de modèles open-source
 - **Flexibilité des modèles** — compatible avec n'importe quel modèle IA (Mistral, LLaMA, Gemma, etc.), changeable à tout moment
@@ -35,7 +35,7 @@ Chaque espace de travail conserve son propre historique de conversation, ce qui 
 
 ---
 
-## Ce que j'ai appris
+## 󱉟 Ce que j'ai appris
 
 Ce projet m'a poussé à travailler avec le streaming de données en temps réel (la réponse de l'IA s'affiche mot par mot, comme si elle tapait), la gestion d'état entre plusieurs sessions de chat, et la construction d'une interface qui se sent aboutie sans s'appuyer sur une librairie de composants.
 
@@ -43,12 +43,16 @@ Il m'a aussi amené à réfléchir sérieusement au **design produit** — comme
 
 ---
 
-## Stack
+## 󰓌 Stack
 
 Développé avec **Vue 3**, stylisé en CSS pur, propulsé par **Ollama** côté backend.
 
 ---
 
-## Statut
+## 󱖫 Statut
 
 En développement actif — l'espace de travail Calendrier et le support des pièces jointes sont prévus pour la suite.
+
+
+## 󰊤 Github
+> [Découvrez le code sur GitHub](https://github.com/moonglight58/sagittarius)

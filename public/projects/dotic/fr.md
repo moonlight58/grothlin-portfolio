@@ -4,7 +4,7 @@
 
 ---
 
-## C'est quoi ?
+##  C'est quoi ?
 
 DotIC est une application de bureau que j'ai développée en Python, qui prend n'importe quelle image et la recrée en utilisant uniquement des points. Les zones sombres de la photo originale deviennent de grands points denses — les zones claires de petits points à peine visibles. Le résultat évoque le style de la peinture pointilliste.
 
@@ -12,7 +12,7 @@ L'application dispose d'une interface graphique complète, donc aucune connaissa
 
 ---
 
-## À quoi ça sert ?
+##  À quoi ça sert ?
 
 On charge une photo, on ajuste quelques curseurs, et DotIC génère la version pointillée. Les principaux réglages incluent :
 
@@ -25,7 +25,7 @@ Une fois le résultat satisfaisant, l'image peut être exportée en PNG ou JPEG.
 
 ---
 
-## Points forts
+## 󱕅 Points forts
 
 - **Progression en temps réel** — une barre de progression suit la génération au fil de son avancement, le traitement d'une grille très fine pouvant prendre quelques secondes
 - **Interface non bloquante** — la génération s'exécute dans un thread en arrière-plan pour que l'interface reste réactive pendant tout le traitement
@@ -34,7 +34,7 @@ Une fois le résultat satisfaisant, l'image peut être exportée en PNG ou JPEG.
 
 ---
 
-## Ce que j'ai appris
+## 󱉟 Ce que j'ai appris
 
 Ce projet était une exploration du **traitement d'image et de l'art génératif**. Le principal défi était de traduire le concept abstrait du pointillisme en algorithme concret — trouver comment convertir la luminosité d'un pixel en taille de point d'une façon visuellement agréable.
 
@@ -42,12 +42,16 @@ Il m'a aussi poussé à réfléchir à la **réactivité de l'interface** : exé
 
 ---
 
-## Stack
+## 󰓌 Stack
 
 Développé en **Python**, avec OpenCV pour le chargement et le traitement d'images, Pillow pour le dessin et l'export, et Tkinter pour l'interface graphique.
 
 ---
 
-## Statut
+## 󱖫 Statut
 
 Les fonctionnalités principales sont complètes. Les prochaines évolutions possibles incluent un sélecteur de couleur de fond, le support de grilles non carrées, et un mode de traitement par lot pour plusieurs images.
+
+
+## 󰊤 Github
+> [Découvrez le code sur GitHub](https://github.com/moonlight58/dotic)

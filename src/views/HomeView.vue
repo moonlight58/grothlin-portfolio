@@ -59,8 +59,14 @@
 
         <!-- Bio en bas à gauche -->
         <div class="bio-compact">
-          <p class="bio-text">{{ $i18n.t("home.body.student") }}</p>
-          <p class="bio-text">{{ $i18n.t("home.body.description") }}</p>
+          <div class="bio-intro">
+            <div class="bio-icon"></div>
+            <p class="bio-text">{{ $i18n.t("home.body.student") }}</p>
+          </div>
+          <div class="bio-intro">
+            <div class="bio-icon">󰓾</div>
+            <p class="bio-text">{{ $i18n.t("home.body.description") }}</p>
+          </div>
         </div>
 
         <!-- Actions sociales minimalistes -->
@@ -242,7 +248,7 @@
         <!-- Frontend -->
         <div class="skill-block">
           <div class="block-header">
-            <div class="block-icon">{'}</div>
+            <div class="block-icon"></div>
             <h3 class="block-title">FRONTEND</h3>
           </div>
           <div class="block-content">
@@ -352,6 +358,7 @@
             data-netlify="true"
             class="contact-form"
             @submit.prevent="handleSubmit"
+            netlify
           >
             <input type="hidden" name="form-name" value="contact" />
 
@@ -736,13 +743,28 @@ const closeProjectModal = () => {
   position: absolute;
   left: 0;
   bottom: 10%;
-  max-width: 400px;
+  max-width: 530px;
+  text-align: justify;
+}
+
+.bio-intro {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 15px;
+}
+
+.bio-icon {
+  font-size: 24px;
+  color: var(--color-primary);
 }
 
 .bio-text {
+  font-family: var(--font-sans);
   font-size: 14px;
-  line-height: 1.7;
-  margin: 8px 0;
+  color: var(--color-muted);
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Social compact */
@@ -752,6 +774,7 @@ const closeProjectModal = () => {
   bottom: 10%;
   display: flex;
   gap: 16px;
+  margin-top: 20px;
 }
 
 .social-item {

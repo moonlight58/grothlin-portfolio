@@ -4,7 +4,7 @@
 
 ---
 
-## C'est quoi ?
+##  C'est quoi ?
 
 SpotCLI est une application en ligne de commande que j'ai développée en C, qui permet de contrôler Spotify entièrement depuis un terminal. Elle se connecte à l'API Spotify via une authentification OAuth2 et offre un contrôle complet sur sa musique sans jamais ouvrir l'application Spotify.
 
@@ -12,7 +12,7 @@ C'était un défi assumé : construire quelque chose de complet, dans un langage
 
 ---
 
-## À quoi ça sert ?
+##  À quoi ça sert ?
 
 SpotCLI propose deux façons d'interagir avec lui. Il est possible d'utiliser des commandes rapides directement depuis le terminal — rechercher un morceau ou vérifier ce qui est en train de jouer, par exemple — ou de basculer vers un menu interactif qui guide à travers toutes les fonctionnalités disponibles.
 
@@ -27,7 +27,7 @@ Les fonctionnalités principales incluent :
 
 ---
 
-## Points forts
+## 󱕅 Points forts
 
 - **Écrit en C** — le projet entier est construit sans framework de haut niveau, ce qui a nécessité une gestion manuelle de la mémoire et des requêtes HTTP
 - **Flux OAuth2 complet** — l'authentification fonctionne en ouvrant une URL dans le navigateur, puis SpotCLI démarre un serveur HTTP local pour intercepter le callback et échanger automatiquement le code contre un token
@@ -36,7 +36,7 @@ Les fonctionnalités principales incluent :
 
 ---
 
-## Ce que j'ai appris
+## 󱉟 Ce que j'ai appris
 
 Ce projet m'a obligé à réfléchir sérieusement à **l'architecture logicielle en C** — organiser une grande base de code en modules logiques (authentification, HTTP, wrappers API, interface) sans les filets de sécurité que les langages de plus haut niveau offrent.
 
@@ -44,12 +44,15 @@ Travailler directement avec les requêtes HTTP, le parsing JSON et OAuth2 m'a é
 
 ---
 
-## Stack
+## 󰓌 Stack
 
 Entièrement développé en **C**, avec libcurl pour les requêtes HTTP, json-c pour le parsing JSON, et ncurses pour l'interface terminal.
 
 ---
 
-## Statut
+## 󱖫 Statut
 
 Les fonctionnalités principales sont complètes et fonctionnelles. Des types de recherche supplémentaires (playlists, livres audio) et une interface TUI plus riche sont prévus pour la prochaine phase.
+
+## 󰊤 Github
+> [Découvrez le code sur GitHub](https://github.com/moonglight58/spotcli)

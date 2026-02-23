@@ -4,7 +4,7 @@
 
 ---
 
-## What is it?
+##  What is it?
 
 SpotCLI is a command-line application I built in C that lets you control Spotify entirely from a terminal. It connects to the Spotify API using OAuth2 authentication and gives you full control over your music without ever opening the Spotify app.
 
@@ -12,7 +12,7 @@ This was a deliberate challenge: build something feature-complete, in a low-leve
 
 ---
 
-## What does it do?
+##  What does it do?
 
 SpotCLI offers two ways to interact with it. You can use quick commands directly from the terminal — for example, searching for a track or checking what's currently playing — or switch to an interactive menu that guides you through all available features.
 
@@ -27,7 +27,7 @@ The main capabilities include:
 
 ---
 
-## Key highlights
+## 󱕅 Key highlights
 
 - **Written in C** — the entire project is built without any high-level framework, which required careful memory management and manual HTTP request handling
 - **Real OAuth2 flow** — authentication works by opening a browser URL, then SpotCLI launches a local HTTP server to catch the callback and exchange it for a token automatically
@@ -36,7 +36,7 @@ The main capabilities include:
 
 ---
 
-## What I learned
+## 󱉟 What I learned
 
 This project forced me to think carefully about **software architecture in C** — organizing a large codebase into logical modules (authentication, HTTP, API wrappers, UI) without the safety nets that higher-level languages provide.
 
@@ -44,12 +44,16 @@ Working directly with HTTP requests, JSON parsing, and OAuth2 also gave me a muc
 
 ---
 
-## Stack
+## 󰓌 Stack
 
 Built entirely in **C**, using libcurl for HTTP requests, json-c for JSON parsing, and ncurses for the terminal interface.
 
 ---
 
-## Status
+## 󱖫 Status
 
 Core features are complete and functional. Extended search types (playlists, audiobooks) and a richer TUI interface are planned for the next phase.
+
+## 󰊤 Github
+
+> [Check out the code on GitHub](https://github.com/moonlight58/spotcli)
