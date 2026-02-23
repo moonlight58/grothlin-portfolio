@@ -60,6 +60,8 @@ SpotCLI in action is shown in the screenshots below. The first image shows the s
 ![SpotCLI in action](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/spotcli-1.png)
 ![SpotCLI Player](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/spotcli-2.png)
 
+---
+
 ## 󰊤 Github
 
 > [Check out the code on GitHub](https://github.com/moonlight58/spotcli)

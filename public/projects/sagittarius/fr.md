@@ -59,5 +59,7 @@ En ligne disponible sur [sagittarius.grothlin.fr](https://sagittarius.grothlin.f
 
 ![Démo de l'interface de sagittarius](https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/preview/sagittarius-preview-1.GIF)
 
+---
+
 ## 󰊤 Github
 > [Découvrez le code sur GitHub](https://github.com/moonlight58/sagittarius)
