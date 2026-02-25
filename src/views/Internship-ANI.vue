@@ -142,18 +142,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <span class="footer-text">© 2026 Gaël Röthlin</span>
-        <span class="footer-text">ANI & Low-Tech Internship Documentation</span>
-      </div>
-    </footer>
+    <FooterComponent />
   </div>
 </template>
 
 <script>
+import FooterComponent from "@/components/FooterComponent.vue";
+
 export default {
   name: "InternshipANI",
+  components: {
+    FooterComponent,
+  },
   data() {
     return {
       mouseX: 0,
@@ -237,6 +237,18 @@ p {
   font-size: small;
 }
 
+@media (max-width: 1024px) {
+  .spybar {
+    right: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .spybar {
+    display: none;
+  }
+}
+
 .spybar-nav {
   display: flex;
   flex-direction: column;
@@ -307,6 +319,25 @@ p {
   z-index: 1;
 }
 
+@media (max-width: 1024px) {
+  .internship-hero {
+    padding: 100px 5% 70px;
+  }
+}
+
+@media (max-width: 768px) {
+  .internship-hero {
+    min-height: auto;
+    padding: 60px 5% 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .internship-hero {
+    padding: 40px 4% 30px;
+  }
+}
+
 .hero-content {
   max-width: 1600px;
   margin: 0 auto;
@@ -328,12 +359,39 @@ p {
   -webkit-text-stroke: 2px var(--color-primary);
 }
 
+@media (max-width: 768px) {
+  .title-line {
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    -webkit-text-stroke: 1.5px var(--color-primary);
+  }
+}
+
+@media (max-width: 480px) {
+  .title-line {
+    font-size: clamp(1.5rem, 5vw, 2.2rem);
+    -webkit-text-stroke: 1px var(--color-primary);
+  }
+}
+
 .title-line.accent {
   font-family: "Bricolage Grotesque", sans-serif;
   color: var(--color-primary);
   -webkit-text-stroke: 0;
-  width:35%;
+  width: 35%;
   text-align: left;
+}
+
+@media (max-width: 768px) {
+  .title-line.accent {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-line.accent {
+    width: 100%;
+  }
 }
 
 /* Stats panel */
@@ -348,6 +406,31 @@ p {
   border: 1px solid rgba(79, 172, 254, 0.2);
   padding: 32px;
   min-width: 320px;
+  max-width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .stats-panel {
+    position: relative;
+    min-width: auto;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-panel {
+    padding: 24px;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-panel {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
 }
 
 .stat-item {
@@ -355,6 +438,20 @@ p {
   justify-content: space-between;
   font-family: var(--font-mono);
   font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .stat-item {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-item {
+    flex-direction: column;
+    gap: 4px;
+    font-size: 10px;
+  }
 }
 
 .stat-key {
@@ -367,6 +464,13 @@ p {
   font-weight: 700;
   text-align: right;
   max-width: 200px;
+}
+
+@media (max-width: 480px) {
+  .stat-value {
+    max-width: 100%;
+    text-align: left;
+  }
 }
 
 .stat-icon {
@@ -396,6 +500,24 @@ section {
   z-index: 1;
 }
 
+@media (max-width: 1024px) {
+  section {
+    padding: 80px 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 50px 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding: 40px 4%;
+  }
+}
+
 .section-marker {
   display: flex;
   align-items: center;
@@ -403,6 +525,21 @@ section {
   margin-bottom: 60px;
   border-bottom: 1px solid rgba(79, 172, 254, 0.2);
   padding-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .section-marker {
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-marker {
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
 }
 
 .marker-number {
@@ -413,12 +550,38 @@ section {
   opacity: 0.3;
 }
 
+@media (max-width: 768px) {
+  .marker-number {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marker-number {
+    font-size: 24px;
+  }
+}
+
 .marker-title {
   font-family: var(--font-mono);
   font-size: 32px;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .marker-title {
+    font-size: 20px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marker-title {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
 }
 
 .content-block {
@@ -432,12 +595,48 @@ section {
   margin-bottom: 24px;
 }
 
+@media (max-width: 768px) {
+  .content-text {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-text {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+}
+
 /* ========== OBJECTIVES GRID ========== */
 .objectives-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
   margin: 40px 0;
+}
+
+@media (max-width: 1024px) {
+  .objectives-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .objectives-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .objectives-grid {
+    margin: 30px 0;
+  }
 }
 
 .objective-card {
@@ -447,10 +646,28 @@ section {
   transition: all 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .objective-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .objective-card {
+    padding: 16px;
+  }
+}
+
 .objective-card:hover {
   border-color: var(--color-primary);
   background: rgba(79, 172, 254, 0.06);
   transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  .objective-card:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .objective-card .card-header {
@@ -460,8 +677,26 @@ section {
   margin-bottom: 20px;
 }
 
+@media (max-width: 480px) {
+  .objective-card .card-header {
+    margin-bottom: 16px;
+  }
+}
+
 .card-icon {
   font-size: 32px;
+}
+
+@media (max-width: 768px) {
+  .card-icon {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-icon {
+    font-size: 20px;
+  }
 }
 
 .card-number {
@@ -471,6 +706,12 @@ section {
   font-weight: 700;
 }
 
+@media (max-width: 480px) {
+  .card-number {
+    font-size: 12px;
+  }
+}
+
 .card-title {
   font-size: 20px;
   font-weight: 700;
@@ -478,11 +719,38 @@ section {
   margin: 0 0 12px;
 }
 
+@media (max-width: 768px) {
+  .card-title {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-title {
+    font-size: 15px;
+    margin: 0 0 8px;
+  }
+}
+
 .card-description {
   font-size: 14px;
   line-height: 1.7;
   color: var(--color-muted);
   margin: 0;
+}
+
+@media (max-width: 768px) {
+  .card-description {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-description {
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }
 
 /* ========== RESPONSIBILITIES GRID ========== */
@@ -493,6 +761,26 @@ section {
   margin-top: 40px;
 }
 
+@media (max-width: 1024px) {
+  .responsibilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .responsibilities-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsibilities-grid {
+    margin-top: 30px;
+  }
+}
+
 .responsibility-card {
   background: rgba(79, 172, 254, 0.03);
   border: 1px solid rgba(79, 172, 254, 0.2);
@@ -500,10 +788,28 @@ section {
   transition: all 0.3s ease;
 }
 
+@media (max-width: 768px) {
+  .responsibility-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .responsibility-card {
+    padding: 16px;
+  }
+}
+
 .responsibility-card:hover {
   border-color: var(--color-primary);
   background: rgba(79, 172, 254, 0.06);
   transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+  .responsibility-card:hover {
+    transform: translateY(-2px);
+  }
 }
 
 .responsibility-card .card-header {
@@ -513,25 +819,42 @@ section {
   margin-bottom: 20px;
 }
 
+@media (max-width: 480px) {
+  .responsibility-card .card-header {
+    margin-bottom: 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .hero-content {
     grid-template-columns: 1fr;
   }
 
   .internship-hero {
-    padding: 60px 30px 40px;
-  }
-
-  .context-zone {
-    padding: 50px 30px;
+    padding: 60px 5% 40px;
   }
 
   .title-line {
     font-size: 2.5rem;
   }
 
-  .spybar {
-    left: 10px;
+  p {
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  p {
+    text-align: left;
+  }
+
+  .title-stack {
+    margin-bottom: 40px;
+  }
+
+  .back-btn {
+    font-size: 13px;
+    padding: 8px 16px;
   }
 }
 </style>

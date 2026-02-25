@@ -8,7 +8,7 @@
   "home": {
     "panel": {
       "roleTitle": "RÔLE",
-      "role": "Développeur & Artiste",
+      "role": "Étudiant en BUT informatique",
       "focusTitle": "ÉTUDES",
       "focus": "3ème année de BUT Informatique",
       "statusTitle": "STATUT",
@@ -23,7 +23,7 @@
       "school": {
         "title": "ÉTUDES"
       },
-      "student": "Étudiant français en informatique",
+      "student": "Développeur full-stack, intrigué de la cybersécurité et passionné de l'open-source",
       "description": "Mon objectif est de réaliser des projets qui sont utiles à tous et pour tous",
       "why": "pourquoi_ce_portfolio",
       "projects": "Mes projets",
@@ -313,6 +313,20 @@
     "footer": {
       "synced": "Données synchronisées depuis l'API GitHub"
     }
+  },
+  "footer": {
+    "description": "Développeur full-stack & intrigué en cybersécurité",
+    "aboutLink": "À Propos",
+    "contactLink": "Contact",
+    "projectsLink": "Projets",
+    "connectHeading": "Connecter",
+    "github": "GitHub",
+    "instagram": "Instagram",
+    "email": "E-mail",
+    "copyright": "© 2026 Gaël Röthlin",
+    "allRightsReserved": "Tous droits réservés",
+    "backToTop": "↑ Haut",
+    "credit": "Conçu & développé avec Vue.js"
   },
   "common": {
     "back": "Retour"

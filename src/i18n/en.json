@@ -8,7 +8,7 @@
   "home": {
     "panel": {
       "roleTitle": "ROLE",
-      "role": "Software Developper & Digital Artist",
+      "role": "French Computer Science student",
       "focusTitle": "FOCUS",
       "focus": "3rd year of Computer Science degree",
       "statusTitle": "STATUS",
@@ -23,7 +23,7 @@
       "school": {
         "title": "EDUCATION"
       },
-      "student": "French Computer Science student",
+      "student": "Full-stack developer, cybersecurity enthusiast and open-source lover",
       "description": "My objective is to create projects that are useful to everyone and for everyone",
       "why": "why_this_portfolio",
       "projects": "My projects",
@@ -313,6 +313,20 @@
     "footer": {
       "synced": "Data synced from GitHub API"
     }
+  },
+  "footer": {
+    "description": "Full-stack developer & cybersecurity enthusiast",
+    "aboutLink": "About",
+    "contactLink": "Contact",
+    "projectsLink": "Projects",
+    "connectHeading": "Connect",
+    "github": "GitHub",
+    "instagram": "Instagram",
+    "email": "Email",
+    "copyright": "© 2026 Gaël Röthlin",
+    "allRightsReserved": "All rights reserved",
+    "backToTop": "↑ Top",
+    "credit": "Designed & built with Vue.js"
   },
   "common": {
     "back": "Back"

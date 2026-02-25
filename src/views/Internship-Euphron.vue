@@ -176,7 +176,7 @@
           </div>
           <div class="timeline-item">
             <div class="timeline-marker">
-              <span class="marker-label">WEEK</span>
+              <span class="marker-label">WEEK</span>
               <span class="marker-value">3</span>
             </div>
             <div class="timeline-content">
@@ -513,18 +513,18 @@
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <span class="footer-text">© 2026 Gaël Röthlin</span>
-        <span class="footer-text">Euphron Internship Documentation</span>
-      </div>
-    </footer>
+    <FooterComponent />
   </div>
 </template>
 
 <script>
+import FooterComponent from "@/components/FooterComponent.vue";
+
 export default {
   name: "InternshipEuphron",
+  components: {
+    FooterComponent,
+  },
   data() {
     return {
       mouseX: 0,

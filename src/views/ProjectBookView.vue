@@ -7,7 +7,7 @@
     <section class="projects-hero">
       <div class="hero-content">
 
-      <div class="back-btn" @click="goBack">
+      <div class="back-btn" @click="goBack" role="button" tabindex="0" @keydown.enter="goBack" @keydown.space="goBack" aria-label="Go back to previous page">
         ↼ {{ $t('common.back') }}
       </div>
 
@@ -34,7 +34,12 @@
 
         <!-- Actions -->
         <div class="actions-panel">
-          <button @click="refreshProjects" :disabled="loading" class="action-btn">
+          <button 
+            @click="refreshProjects" 
+            :disabled="loading" 
+            class="action-btn"
+            :aria-label="loading ? 'Syncing projects...' : 'Refresh projects data'"
+          >
             <span v-if="!loading">↻ {{ $t('projects.hero.actions.refresh') }}</span>
             <span v-else>⟳ {{ $t('projects.hero.actions.syncing') }}</span>
           </button>
@@ -54,7 +59,12 @@
         <div class="filter-group">
           <div class="filter-header">
             <span class="filter-title">{{ $t('projects.filter.byStatus') }}</span>
-            <button class="filter-reset" @click="resetFilters" v-if="hasActiveFilters">↻</button>
+            <button 
+              class="filter-reset" 
+              @click="resetFilters" 
+              v-if="hasActiveFilters"
+              aria-label="Reset all filters"
+            >↻</button>
           </div>
           <div class="filter-buttons">
             <button
@@ -62,6 +72,8 @@
               :key="status"
               :class="['filter-btn', { active: selectedStatuses.includes(status) }]"
               @click="toggleStatus(status)"
+              :aria-pressed="selectedStatuses.includes(status)"
+              :aria-label="`Filter by ${status} status`"
             >
               {{ status }}
             </button>
@@ -78,6 +90,7 @@
               type="text"
               :placeholder="$t('projects.filter.searchPlaceholder')"
               class="filter-input"
+              aria-label="Search for technologies"
             />
           </div>
           <div class="filter-buttons">
@@ -86,6 +99,8 @@
               :key="tech"
               :class="['filter-btn', { active: selectedTechs.includes(tech) }]"
               @click="toggleTech(tech)"
+              :aria-pressed="selectedTechs.includes(tech)"
+              :aria-label="`Filter by ${tech} technology`"
             >
               {{ tech }}
             </button>
@@ -99,11 +114,27 @@
         </div>
       </div>
 
-      <!-- Loading state -->
-      <div v-if="loading && projects.length === 0" class="loading-state">
-        <div class="loading-indicator">
-          <span class="loading-text">{{ $t('projects.section.loading') }}</span>
-          <div class="loading-bar"></div>
+      <!-- Loading state with skeleton cards -->
+      <div v-if="loading && projects.length === 0" class="blueprint-grid">
+        <div v-for="i in 6" :key="`skeleton-${i}`" class="blueprint-card skeleton-card">
+          <div class="card-header">
+            <div class="skeleton-text skeleton-number"></div>
+            <div class="skeleton-text skeleton-badge"></div>
+          </div>
+          <div class="card-body">
+            <div class="skeleton-text skeleton-title"></div>
+            <div class="skeleton-text skeleton-description"></div>
+            <div class="skeleton-text skeleton-description short"></div>
+            <div class="skeleton-tags">
+              <div class="skeleton-tag"></div>
+              <div class="skeleton-tag"></div>
+              <div class="skeleton-tag"></div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="skeleton-text skeleton-stats"></div>
+            <div class="skeleton-text skeleton-link"></div>
+          </div>
         </div>
       </div>
 
@@ -112,7 +143,11 @@
         <div class="error-box">
           <span class="error-icon">⚠</span>
           <p class="error-message">{{ error }}</p>
-          <button @click="refreshProjects" class="retry-btn">{{ $t('projects.section.retry') }} →</button>
+          <button 
+            @click="refreshProjects" 
+            class="retry-btn"
+            aria-label="Retry fetching projects"
+          >{{ $t('projects.section.retry') }} →</button>
         </div>
       </div>
 
@@ -182,6 +217,7 @@
             </div>
             <a
               :href="project.url"
+              :aria-label="`View ${project.name} repository on GitHub`"
               target="_blank"
               rel="noopener noreferrer"
               class="card-link"
@@ -197,18 +233,13 @@
     </section>
 
     <section class="back-section">
-      <div class="back-btn" @click="goBack">
+      <div class="back-btn" @click="goBack" role="button" tabindex="0" @keydown.enter="goBack" @keydown.space="goBack" aria-label="Go back to previous page">
         ↼ {{ $t('common.back') }}
       </div>
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <span class="footer-text">© 2026 Gaël Röthlin</span>
-        <span class="footer-text">{{ $t('projects.footer.synced') }}</span>
-      </div>
-    </footer>
+    <FooterComponent />
   </div>
 </template>
 
@@ -218,11 +249,13 @@ import {
   clearProjectsCache,
 } from "@/services/githubService.js";
 import NavBar from "@/components/NavBar.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 
 export default {
   name: "ProjectBookView",
   components: {
     NavBar,
+    FooterComponent,
   },
   data() {
     return {
@@ -810,6 +843,101 @@ export default {
   color: var(--color-bg);
 }
 
+/* ========== SKELETON LOADING STATES ========== */
+.skeleton-card {
+  background: linear-gradient(
+    90deg,
+    rgba(79, 172, 254, 0.03),
+    rgba(79, 172, 254, 0.1),
+    rgba(79, 172, 254, 0.03)
+  );
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s infinite;
+  pointer-events: none;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-text {
+  height: 16px;
+  background: rgba(79, 172, 254, 0.15);
+  border-radius: 4px;
+  margin-bottom: 12px;
+  animation: skeletonPulse 1.5s infinite;
+}
+
+@keyframes skeletonPulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.skeleton-number {
+  width: 40px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+.skeleton-badge {
+  width: 60px;
+  height: 16px;
+}
+
+.skeleton-title {
+  height: 24px;
+  width: 80%;
+  margin-bottom: 16px;
+}
+
+.skeleton-description {
+  height: 14px;
+  margin-bottom: 8px;
+}
+
+.skeleton-description.short {
+  width: 60%;
+  margin-bottom: 16px;
+}
+
+.skeleton-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.skeleton-tag {
+  height: 24px;
+  width: 70px;
+  border-radius: 4px;
+  background: rgba(79, 172, 254, 0.15);
+  animation: skeletonPulse 1.5s infinite;
+}
+
+.skeleton-stats {
+  width: 100px;
+  height: 14px;
+  margin-bottom: 12px;
+}
+
+.skeleton-link {
+  width: 120px;
+  height: 14px;
+}
+
 /* ========== PROJECTS GRID ========== */
 .blueprint-grid {
   display: grid;
@@ -999,28 +1127,10 @@ export default {
 }
 
 /* ========== FOOTER ========== */
-.site-footer {
-  padding: 40px 6%;
-  border-top: 1px solid rgba(79, 172, 254, 0.1);
-  position: relative;
-  z-index: 1;
-}
 
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
+.blueprint-card:hover .card-overlay {
+  opacity: 1;
 }
-
-.footer-text {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-muted);
-}
-
-/* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
   .stats-panel,
   .actions-panel {

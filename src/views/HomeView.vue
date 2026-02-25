@@ -74,25 +74,29 @@
           <a
             href="https://www.instagram.com/osiris._25"
             target="_blank"
+            rel="noopener noreferrer"
             class="social-item"
+            aria-label="Visit Instagram profile"
           >
             <img src="../assets/instagram.svg" alt="Instagram" />
           </a>
           <a
             href="https://github.com/moonlight58"
             target="_blank"
+            rel="noopener noreferrer"
             class="social-item"
+            aria-label="Visit GitHub profile"
           >
             <img src="../assets/github.svg" alt="GitHub" />
           </a>
-          <a href="#contact" class="social-item">
+          <a href="#contact" class="social-item" aria-label="Go to contact section">
             <img src="../assets/email.svg" alt="Email" />
           </a>
         </div>
       </div>
 
       <!-- Scroll indicator -->
-      <div class="scroll-indicator" @click="scrollToWork">
+      <div class="scroll-indicator" @click="scrollToWork" role="button" tabindex="0" aria-label="Scroll to work section" @keydown.enter="scrollToWork" @keydown.space="scrollToWork">
         <span class="scroll-text">SCROLL</span>
         <div class="scroll-line"></div>
       </div>
@@ -112,7 +116,8 @@
             <span class="rectangle reduce"></span>
             <span class="rectangle expand"></span>
           </div>
-          <span class="terminal-title">~ about.sh</span>
+          <span class="terminal-title">~/grothlin/about.sh</span>
+          <span class="dot active blink"></span>
         </div>
         <div class="terminal-body">
           <p class="terminal-line">
@@ -169,6 +174,7 @@
                 @click="openProjectModal(project)" 
                 class="card-link"
                 style="background: none; border: none; cursor: pointer; padding: 0;"
+                :aria-label="`View details for ${project.name} project`"
               >
                 {{ $i18n.t("home.body.viewProject") }} ⇁
               </button>
@@ -176,7 +182,7 @@
           </div>
         </div>
         <div class="more-projects">
-          <a href="/projects" class="card-link">{{ $i18n.t("home.body.viewAllProjects") }} ⇁</a>
+          <a href="/projects" class="card-link" aria-label="View all projects">{{ $i18n.t("home.body.viewAllProjects") }} ⇁</a>
         </div>
       </div>
 
@@ -206,7 +212,7 @@
                   >
                 </div>
                 <div class="redirect-link">
-                  <a :href="internship.link" class="card-link">{{ $i18n.t("home.body.internship.viewDetails") }} ⇁</a>
+                  <a :href="internship.link" class="card-link" :aria-label="`View details for ${internship.name} internship`">{{ $i18n.t("home.body.internship.viewDetails") }} ⇁</a>
                 </div>
               </div>
             </div>
@@ -334,17 +340,21 @@
             <a
               href="https://www.instagram.com/osiris._25"
               target="_blank"
+              rel="noopener noreferrer"
               class="social-link"
+              aria-label="Visit Instagram profile (opens in new tab)"
             >
-              <img src="../assets/instagram.svg" alt="Instagram" />
+              <img src="../assets/instagram.svg" alt="" />
               <span>Instagram</span>
             </a>
             <a
               href="https://github.com/moonlight58"
               target="_blank"
+              rel="noopener noreferrer"
               class="social-link"
+              aria-label="Visit GitHub profile (opens in new tab)"
             >
-              <img src="../assets/github.svg" alt="GitHub" />
+              <img src="../assets/github.svg" alt="" />
               <span>GitHub</span>
             </a>
           </div>
@@ -353,12 +363,14 @@
         <!-- Droite : Formulaire -->
         <div class="contact-form-wrapper" v-if="showForm">
           <form
+            id="contact-form"
             name="contact"
             method="POST"
             data-netlify="true"
             class="contact-form"
             @submit.prevent="handleSubmit"
             netlify
+            aria-label="Contact form"
           >
             <input type="hidden" name="form-name" value="contact" />
 
@@ -371,6 +383,7 @@
                 v-model="formData.name"
                 :placeholder="$t('home.contact.form.namePlaceholder')"
                 required
+                aria-required="true"
               />
             </div>
 
@@ -383,6 +396,7 @@
                 v-model="formData.email"
                 :placeholder="$t('home.contact.form.emailPlaceholder')"
                 required
+                aria-required="true"
               />
             </div>
 
@@ -395,6 +409,7 @@
                 :placeholder="$t('home.contact.form.messagePlaceholder')"
                 rows="5"
                 required
+                aria-required="true"
               ></textarea>
             </div>
 
@@ -402,6 +417,7 @@
               type="submit"
               class="submit-button"
               :disabled="isSubmitting"
+              aria-label="Submit contact form"
             >
               <span v-if="!isSubmitting">{{ $i18n.t("home.contact.form.submit") }}</span>
               <span v-else>{{ $i18n.t("home.contact.form.submitting") }}</span>
@@ -412,10 +428,8 @@
             </div>
           </form>
         </div>
-
-        <!-- Bouton toggle formulaire si fermé -->
         <div v-else class="form-toggle">
-          <button @click="toggleFormVisibility" class="toggle-button">
+          <button @click="toggleFormVisibility" class="toggle-button" :aria-label="`${showForm ? 'Hide' : 'Show'} contact form`">
             {{ $t('home.contact.toggleButton') }}
           </button>
         </div>
@@ -423,12 +437,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="site-footer">
-      <div class="footer-content">
-        <span class="footer-text">© 2026 Gaël Röthlin</span>
-        <span class="footer-text">Designed & Built with Vue.js</span>
-      </div>
-    </footer>
+    <FooterComponent />
   </div>
   
   <ProjectModal 
@@ -442,8 +451,10 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
+import { getPublicProjectsWithDescription } from "@/services/githubService";
 import NavBar from "@/components/NavBar.vue";
 import ProjectModal from "@/components/ProjectModal.vue";
+import FooterComponent from "@/components/FooterComponent.vue";
 
 
 // État
@@ -464,7 +475,7 @@ const formData = ref({
   message: "",
 });
 
-// Skills data (exemples)
+// Skills data
 const frontendSkills = ref([
   { name: "VueJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", color: "65, 184, 131" },
   { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", color: "38, 77, 228" },
@@ -643,7 +654,7 @@ const closeProjectModal = () => {
   background: rgba(79, 172, 254, 0.03);
   border: 1px solid rgba(79, 172, 254, 0.2);
   padding: 32px;
-  min-width: 320px;
+  min-width: 470px;
 }
 
 .meta-item {
@@ -903,6 +914,16 @@ section {
   width: 16px;
   height: 8px;
   border-radius: 2px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.dot.active {
+  background: rgba(54, 255, 54, 1);
 }
 
 .rectangle.close {
@@ -1506,27 +1527,6 @@ section {
   color: var(--color-bg);
 }
 
-/* ========== FOOTER ========== */
-.site-footer {
-  padding: 40px 6%;
-  border-top: 1px solid rgba(79, 172, 254, 0.1);
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-text {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-muted);
-}
-
-/* ========== RESPONSIVE ========== */
 @media (max-width: 1200px) {
   .name-line {
     font-size: clamp(3rem, 10vw, 8rem);
@@ -1616,12 +1616,6 @@ section {
   .blueprint-grid,
   .design-showcase {
     grid-template-columns: 1fr;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
   }
 }
 
