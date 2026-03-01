@@ -348,7 +348,7 @@ const commands = {
     if (commands[command]) {
       return [
         // max 20 lines of manual
-        { text: `Manual for command: ${command}`, class: 'output-heading' },
+        { text: `${t('home.body.terminal.command.man.header')} ${command}`, class: 'output-heading' },
         { text: t(`home.body.terminal.command.man.name`), class: 'output-muted' },
         { text: t(`home.body.terminal.command.man.${command}.name`), class: 'output-default' },
         { text: "<br>", class: 'output-default' },

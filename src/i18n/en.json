@@ -69,6 +69,7 @@
         },
         "command": {
           "man": {
+            "header": "Manual for command:",
             "name": "NAME",
             "synopsis": "SYNOPSIS",
             "description": "DESCRIPTION",

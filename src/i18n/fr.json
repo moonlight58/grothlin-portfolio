@@ -68,6 +68,7 @@
         },
         "command": {
           "man": {
+            "header": "Manuel pour la commande :",
             "name": "NOM",
             "synopsis": "SYNOPSIS",
             "description": "DESCRIPTION",
@@ -77,7 +78,7 @@
               "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande affiche une liste des commandes disponibles ou des informations détaillées sur une commande spécifique lorsqu'elle est utilisée avec un argument. Elle sert de guide pour aider les utilisateurs à comprendre comment interagir avec le terminal et quelles commandes ils peuvent utiliser pour explorer le contenu de ce site portfolio."
             },
             "whoami": {
-              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span>",
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:Corpsey3_shy: <span class=\"cmd-name\">whoami</span>",
               "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span> [options]",
               "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande affiche un bref résumé de qui je suis, y compris mon rôle de développeur full-stack, mon enthousiasme pour la cybersécurité et les projets open-source, mon statut académique actuel en tant qu'étudiant en 3ème année d'informatique à l'Université de Franche-Comté, et ma localisation à Besançon, France."
             },

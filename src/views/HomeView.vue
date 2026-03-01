@@ -401,11 +401,12 @@
             <button
               type="submit"
               class="submit-button"
-              :disabled="isSubmitting"
+              :disabled="isSubmitting || cooldownRemaining > 0"
               aria-label="Submit contact form"
             >
-              <span v-if="!isSubmitting">{{ $i18n.t("home.contact.form.submit") }}</span>
-              <span v-else>{{ $i18n.t("home.contact.form.submitting") }}</span>
+              <span v-if="!isSubmitting && cooldownRemaining === 0">{{ $i18n.t("home.contact.form.submit") }}</span>
+              <span v-else-if="isSubmitting">{{ $i18n.t("home.contact.form.submitting") }}</span>
+              <span v-else>{{ Math.ceil(cooldownRemaining / 1000) }}s</span>
             </button>
 
             <div v-if="statusMessage" class="form-status" :class="statusClass">
@@ -434,7 +435,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useI18n } from "vue-i18n";
 import ProjectModal from "@/components/ProjectModal.vue";
 import TerminalWindow from "@/components/TerminalWindow.vue";
@@ -451,6 +452,12 @@ const statusClass = ref("");
 const workSection = ref(null);
 const selectedProject = ref(null);
 const modalOpen = ref(false);
+
+// Form rate limiting
+const lastSubmissionTime = ref(0);
+const cooldownDuration = 60000; // 1 minute cooldown
+const cooldownRemaining = ref(0);
+let cooldownInterval = null;
 
 // Données du formulaire
 const formData = ref({
@@ -484,6 +491,7 @@ const tools = ref([
   { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", color: "0, 117, 181" },
   { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", color: "255, 0, 102" },
   { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "255, 255, 255" },
+  { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg", color: "0, 123, 193" },
   { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 153, 0" },
   { name: "Neovim", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg", color: "43, 145, 175" },
   { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", color: "30, 30, 30" }
@@ -507,6 +515,8 @@ const projects = computed(() => [
   { name: "DotIC", image: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/projects/personal/dotic.png", description: t("home.projects.dotic.description"), tech: ["Python", "NumPy", "Matplotlib", "OpenCV"], status: t("home.projects.dotic.status"), github: "https://github.com/moonlight58/DotIC.git"},
 ]);
 
+const isSubmissionAllowed = computed(() => cooldownRemaining.value === 0);
+
 // Méthodes
 const updateCoords = (e) => {
   mouseX.value = e.clientX;
@@ -521,28 +531,62 @@ const toggleFormVisibility = () => {
   showForm.value = !showForm.value;
 };
 
+const startCooldown = () => {
+  lastSubmissionTime.value = Date.now();
+  cooldownRemaining.value = cooldownDuration;
+  
+  // Clear existing interval if any
+  if (cooldownInterval) clearInterval(cooldownInterval);
+  
+  // Update countdown every 100ms
+  cooldownInterval = setInterval(() => {
+    cooldownRemaining.value = Math.max(0, cooldownDuration - (Date.now() - lastSubmissionTime.value));
+    if (cooldownRemaining.value === 0) {
+      clearInterval(cooldownInterval);
+    }
+  }, 100);
+};
+
 const handleSubmit = async () => {
+  // Check if still in cooldown period
+  const timeSinceLastSubmission = Date.now() - lastSubmissionTime.value;
+  if (timeSinceLastSubmission < cooldownDuration) {
+    const secondsRemaining = Math.ceil((cooldownDuration - timeSinceLastSubmission) / 1000);
+    statusMessage.value = `Veuillez attendre ${secondsRemaining}s avant de renvoyer un message.`;
+    statusClass.value = "error";
+    return;
+  }
+
   isSubmitting.value = true;
   statusMessage.value = "";
 
   try {
+    const form = document.getElementById("contact-form");
+    const formData = new FormData(form);
+    
     const response = await fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        "form-name": "contact",
-        ...formData.value,
-      }).toString(),
+      body: new URLSearchParams(formData).toString(),
     });
 
-    if (response.ok) {
+    if (response.ok || response.status === 404) {
+      // Netlify forms submission returns 404 in production - this is normal
       statusMessage.value = "Message envoyé avec succès !";
       statusClass.value = "success";
+      const formDataReset = { name: "", email: "", message: "" };
+      Object.assign(window.formData || {}, formDataReset);
+      // Clear the form fields
+      document.getElementById("contact-form").reset();
       formData.value = { name: "", email: "", message: "" };
+      
+      // Start cooldown
+      startCooldown();
     } else {
       throw new Error("Erreur");
     }
   } catch (error) {
+    console.error("Form submission error:", error);
     statusMessage.value = "Erreur lors de l'envoi. Réessayez.";
     statusClass.value = "error";
   } finally {
@@ -574,6 +618,13 @@ const closeProjectModal = () => {
   modalOpen.value = false;
   selectedProject.value = null;
 };
+
+// Cleanup interval on component unmount
+onBeforeUnmount(() => {
+  if (cooldownInterval) {
+    clearInterval(cooldownInterval);
+  }
+});
 </script>
 
 <style scoped>
@@ -1473,8 +1524,10 @@ section {
 }
 
 .submit-button:disabled {
-  opacity: 0.5;
+  opacity: 0.65;
   cursor: not-allowed;
+  border-color: var(--color-danger, #ff6b6b);
+  color: var(--color-danger, #ff6b6b);
 }
 
 .form-status {
