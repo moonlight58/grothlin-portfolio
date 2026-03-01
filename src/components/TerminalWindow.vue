@@ -102,7 +102,7 @@ const commands = {
   // any command with the flag --help or -h will display the help for this command
   help: (args) => { 
     return [
-      { text: 'Available commands:', class: 'output-heading' },
+      { text: t('home.body.terminal.help.name'), class: 'output-heading' },
       { text: t('home.body.terminal.help.description'), class: 'output-default' },
       { text: t('home.body.terminal.help.whoami'), class: 'output-default' },
       { text: t('home.body.terminal.help.nitch'), class: 'output-default' },

@@ -37,6 +37,7 @@
       "viewAllProjects": "VIEW_ALL_PROJECTS",
       "terminal": {
         "help": {
+          "name": "Available commands:",
           "description": "&nbsp;&nbsp;<span class=\"cmd-name\">help</span>                      — show this list of available commands",
           "whoami": "&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span>                    — who am I?",
           "nitch": "&nbsp;&nbsp;<span class=\"cmd-name\">nitch</span>                     — personal info (inspired by neofetch)",
@@ -62,8 +63,8 @@
           }
         },
         "whoami": {
-          "description": "full-stack developer · cybersec enthusiast · open-source lover",
-          "current": "currently: 3rd year BUT Informatique @ Université de Franche-Comté",
+          "description": "full-stack developer - cybersec enthusiast - open-source lover",
+          "current": "currently: 3rd year BUT Informatique at Université de Franche-Comté",
           "location": "location: Besançon, FR"
         },
         "command": {
