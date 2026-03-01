@@ -25,11 +25,70 @@
       },
       "student": "Développeur full-stack, intrigué de la cybersécurité et passionné de l'open-source",
       "description": "Mon objectif est de réaliser des projets qui sont utiles à tous et pour tous",
+      "terminalHint": "Tapez 'cat pourquoi_ce_portfolio.txt' pour en savoir plus sur moi et ce site !",
+      "terminalHint2": "Ou : 'help' pour voir les commandes disponibles",
       "why": "pourquoi_ce_portfolio",
       "projects": "Mes projets",
       "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels.",
       "viewProject": "VOIR_LE_PROJET",
-      "viewAllProjects": "VOIR_TOUS_LES_PROJETS"
+      "viewAllProjects": "VOIR_TOUS_LES_PROJETS",
+      "terminal": {
+        "help": {
+          "description": "&nbsp;&nbsp;<span class=\"cmd-name\">help</span>                 — affiche cette liste de commandes disponibles",
+          "whoami": "&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span>               — affiche qui je suis",
+          "nitch": "&nbsp;&nbsp;<span class=\"cmd-name\">nitch</span>                — affiche des informations personnels (inspiré de neofetch)",
+          "ls": "&nbsp;&nbsp;<span class=\"cmd-name\">ls</span>                   — liste les fichiers",
+          "cat": "&nbsp;&nbsp;<span class=\"cmd-name\">cat &lt;file&gt;</span>           — affiche le contenu d'un fichier",
+          "internship": "&nbsp;&nbsp;<span class=\"cmd-name\">stage &lt;organisation&gt;</span> — affiche les détails de mes stages",
+          "clear": "&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>                — efface le terminal"
+        },
+        "whoami": {
+          "description": "développeur full-stack · passionné de cybersécurité · amoureux de l'open-source",
+          "current": "actuellement : 3ème année BUT Informatique @ Université de Franche-Comté",
+          "location": "localisation : Besançon, FR"
+        },
+        "command": {
+          "internship": {
+            "ani": {
+              "company": "Entreprise : ANI & Low-Tech",
+              "duration": "Durée : Janvier 2026 - Avril 2026",
+              "description": "Mission : Assistance technique au CROUS BFC, intégration au service ANI & Low-Tech, développement d'une solution IA locale."
+            },
+            "euphron": {
+              "company": "Entreprise : Euphron (Learning Centre Claude Oytana)",
+              "duration": "Durée : Avril 2025 - Mai 2025",
+              "description": "Mission : Création d'une application de troc d'objets sportif pour les étudiants en STAPS de l'Université de Franche-Comté."
+            }
+          },
+          "nitch": {
+            "years": "ans",
+            "months": "mois",
+            "firstname": {
+              "label": " prénom",
+              "value": "Gaël"
+            },
+            "lastname": {
+              "label": " nom",
+              "value": "Röthlin"
+            },
+            "age": {
+              "label": "󱑁 âge"
+            },
+            "lang": {
+              "label": " langues",
+              "value": "FRA, ENG, NOR (en apprentissage)"
+            },
+            "degree": {
+              "label": "󰑴 diplôme",
+              "value": "Bachelor Universitaire de Technologie Informatique (en cours)"
+            },
+            "status": {
+              "label": "󱖫 statut",
+              "text": "En stage à ANI & Low-Tech"
+            }
+          } 
+        }
+      }
     },
     "internship": {
       "ani": {

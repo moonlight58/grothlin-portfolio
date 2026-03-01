@@ -109,26 +109,7 @@
         <span class="marker-title">{{ $i18n.t("nav.about") }}</span>
       </div>
 
-      <div class="terminal-window">
-        <div class="terminal-header">
-          <div class="terminal-dots">
-            <span class="rectangle close"></span>
-            <span class="rectangle reduce"></span>
-            <span class="rectangle expand"></span>
-          </div>
-          <span class="terminal-title">~/grothlin/about.sh</span>
-          <span class="dot active blink"></span>
-        </div>
-        <div class="terminal-body">
-          <p class="terminal-line">
-            <span class="prompt">$</span> cat {{ $i18n.t("home.body.why") }}.txt
-          </p>
-          <p class="terminal-output">{{ $i18n.t("home.body.why_desc") }}</p>
-          <p class="terminal-output">
-            <span class="prompt">$</span> 
-            <span class="cursor-blink"> _</span></p>
-        </div>
-      </div>
+      <TerminalWindow />
     </section>
 
     <!-- Work Section - Format grille blueprint -->
@@ -451,9 +432,8 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
-import { getPublicProjectsWithDescription } from "@/services/githubService";
-import NavBar from "@/components/NavBar.vue";
 import ProjectModal from "@/components/ProjectModal.vue";
+import TerminalWindow from "@/components/TerminalWindow.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 
 
@@ -960,7 +940,6 @@ section {
 
 .terminal-output {
   color: var(--color-muted);
-  line-height: 1.8;
   margin: 0;
 }
 
