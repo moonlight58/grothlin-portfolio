@@ -386,10 +386,6 @@ function scrollToBottom() {
     terminalBody.value.scrollTop = terminalBody.value.scrollHeight;
   }
 }
-
-onMounted(() => {
-  focusInput();
-});
 </script>
 
 <style scoped>
