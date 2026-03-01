@@ -56,9 +56,13 @@
       <!-- Hint message when empty -->
       <div v-if="history.length === 0" class="terminal-hint">
         <span class="hint-text">{{ $t ? $t('home.body.terminalHint') : 'Try typing: cat pourquoi_ce_portfolio.txt' }}</span><br>
-        <span class="hint-text">{{ $t ? $t('home.body.terminalHint2') : 'Or: help to see available commands' }}</span>
+        <span class="hint-text">{{ $t ? $t('home.body.terminalHint2') : 'Or: help to see available commands' }}</span><br>
+        <span class="hint-text">{{ $t ? $t('home.body.terminalHint3') : 'NB: type clear to clear the terminal and see these hints again' }}</span>
       </div>
     </div>
+  </div>
+  <div class="terminal-footer">
+    <p class="output-muted">{{ $t ? $t('home.body.terminalFooter') : 'This terminal is just for fun and is not a real terminal !' }}</p>
   </div>
 </template>
 
@@ -440,6 +444,13 @@ onMounted(() => {
 }
 
 .dot.active { background: rgba(54, 255, 54, 1); }
+
+.terminal-footer {
+  font-size: small;
+  text-align: center;
+  padding: 12px 20px;
+  font-style: italic;
+}
 
 .blink {
   animation: blink 1.5s infinite;

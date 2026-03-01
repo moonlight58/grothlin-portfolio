@@ -27,6 +27,8 @@
       "description": "Mon objectif est de réaliser des projets qui sont utiles à tous et pour tous",
       "terminalHint": "Tapez 'cat pourquoi_ce_portfolio.txt' pour en savoir plus sur moi et ce site !",
       "terminalHint2": "Ou : 'help' pour voir les commandes disponibles",
+      "terminalHint3": "NB : Tapez 'clear' pour réinitialiser le terminal et revoir ces messages d'aide",
+      "terminalFooter": "Ce terminal est juste pour le plaisir et n'est pas un vrai terminal !",
       "why": "pourquoi_ce_portfolio",
       "projects": "Mes projets",
       "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels.",
