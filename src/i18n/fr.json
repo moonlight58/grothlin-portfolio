@@ -42,7 +42,18 @@
           "ls": "&nbsp;&nbsp;<span class=\"cmd-name\">ls</span>                   — liste les fichiers",
           "cat": "&nbsp;&nbsp;<span class=\"cmd-name\">cat &lt;file&gt;</span>           — affiche le contenu d'un fichier",
           "internship": "&nbsp;&nbsp;<span class=\"cmd-name\">stage &lt;organisation&gt;</span> — affiche les détails de mes stages",
-          "clear": "&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>                — efface le terminal"
+          "clear": "&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>                — efface le terminal",
+          "errors": {
+            "catMissingOperand": "cat : argument manquant",
+            "catFileNotFound": "Fichier ou répertoire introuvable",
+            "rmFileNotFound": "impossible de supprimer",
+            "sudoAuth": "Vraiment ? Pourquoi donc ?",
+            "sudoNuking": "Suppression du système...",
+            "sudoKidding": "Je plaisante, je ne ferai pas ça :)",
+            "sudoCommandNotFound": "sudo : commande non trouvée",
+            "internshipMissingOperand": "stage : argument manquant",
+            "bashCommandNotFound": "bash : commande non trouvée"
+          }
         },
         "whoami": {
           "description": "développeur full-stack · passionné de cybersécurité · amoureux de l'open-source",

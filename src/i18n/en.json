@@ -42,7 +42,18 @@
           "ls": "&nbsp;&nbsp;<span class=\"cmd-name\">ls</span>                        — list files",
           "cat": "&nbsp;&nbsp;<span class=\"cmd-name\">cat &lt;file&gt;</span>                — read a file",
           "internship": "&nbsp;&nbsp;<span class=\"cmd-name\">internship &lt;organisation&gt;</span> — view internship details",
-          "clear": "&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>                     — clear terminal"
+          "clear": "&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>                     — clear terminal",
+          "errors": {
+            "catMissingOperand": "cat: missing operand",
+            "catFileNotFound": "No such file or directory",
+            "rmFileNotFound": "cannot remove",
+            "sudoAuth": "Really? Why though?",
+            "sudoNuking": "Nuking the system...",
+            "sudoKidding": "Just kidding, I won't do that :)",
+            "sudoCommandNotFound": "sudo: command not found",
+            "internshipMissingOperand": "internship: missing operand",
+            "bashCommandNotFound": "bash: command not found"
+          }
         },
         "whoami": {
           "description": "full-stack developer · cybersec enthusiast · open-source lover",
@@ -342,8 +353,8 @@
   },
   "projects": {
     "hero": {
-      "title": "Archived",
-      "subtitle": "Projects",
+      "title": "My Projects",
+      "subtitle": "Archived",
       "stats": {
         "total": "REPOSITORIES",
         "stars": "TOTAL STARS",

@@ -171,7 +171,7 @@ const commands = {
 
   cat: (args) => {
     if (!args || args.length === 0) {
-      return [{ text: 'cat: missing operand', class: 'output-error' }];
+      return [{ text: t('home.body.terminal.help.errors.catMissingOperand'), class: 'output-error' }];
     }
     const file = args[0];
     if (file === 'pourquoi_ce_portfolio.txt') {
@@ -191,7 +191,7 @@ const commands = {
         { text: "and personal projects, and serve as a showcase of my journey.", class: 'output-default' },
       ];
     }
-    return [{ text: `cat: ${file}: No such file or directory`, class: 'output-error' }];
+    return [{ text: `cat: ${file}: ${t('home.body.terminal.help.errors.catFileNotFound')}`, class: 'output-error' }];
   },
 
   // joke rm -rf /
@@ -202,33 +202,33 @@ const commands = {
         { text: 'Nice try though >:(', class: 'output-muted' },
       ];
     }
-    return [{ text: `rm: cannot remove '${args.join(' ')}': No such file or directory`, class: 'output-error' }];
+    return [{ text: `rm: ${t('home.body.terminal.help.errors.rmFileNotFound')} '${args.join(' ')}': ${t('home.body.terminal.help.errors.catFileNotFound')}`, class: 'output-error' }];
   },
 
   // joke sudo rm -rf /
   sudo: (args) => {
     if (args[0] === 'rm' && args[1] === '-rf' && args[2] === '/') {
       return [
-        { text: 'sudo: Really ? Why though ?', class: 'output-error' },
-        { text: 'Nuking the system...', class: 'output-muted' },
+        { text: `sudo: ${t('home.body.terminal.help.errors.sudoAuth')}`, class: 'output-error' },
+        { text: t('home.body.terminal.help.errors.sudoNuking'), class: 'output-muted' },
         setTimeout(() => {
           history.value.push({
             output: [
-              { text: 'Just kidding, I won\'t do that :)', class: 'output-muted' },
+              { text: t('home.body.terminal.help.errors.sudoKidding'), class: 'output-muted' },
             ]
           });
         }, 2000)        
       ];
     }
-    return [{ text: `sudo: command not found: ${args[0]}`, class: 'output-error' }];
+    return [{ text: `sudo: ${t('home.body.terminal.help.errors.sudoCommandNotFound')}: ${args[0]}`, class: 'output-error' }];
   },
 
   // french command
   stage: (args) => {
     if (!args || args.length === 0) {
       return [
-        { text: 'stage: argument manquant', class: 'output-error' },
-        { text: 'Usage: stage [organisation]', class: 'output-default' },
+        { text: t('home.body.terminal.help.errors.internshipMissingOperand'), class: 'output-error' },
+        { text: 'Usage: stage [organisation] [flag]', class: 'output-default' },
         { text: 'Organisations disponibles :', class: 'output-default' },
         { text: '- ANI & Low-Tech', class: 'output-default' },
         { text: '- Euphron', class: 'output-default' },
@@ -275,8 +275,8 @@ const commands = {
   internship: (args) => {
     if (!args || args.length === 0) {
       return [
-        { text: 'internship: missing operand', class: 'output-error' },
-        { text: 'Usage: internship [company]', class: 'output-default' },
+        { text: t('home.body.terminal.help.errors.internshipMissingOperand'), class: 'output-error' },
+        { text: 'Usage: internship [organisation] [flag]', class: 'output-default' },
         { text: 'Available companies:', class: 'output-default' },
         { text: '- ANI & Low-Tech', class: 'output-default' },
         { text: '- Euphron', class: 'output-default' },
@@ -341,7 +341,7 @@ function executeCommand(raw) {
   if (commands[cmd]) {
     output = commands[cmd](args);
   } else {
-    output = [{ text: `bash: command not found: ${cmd}`, class: 'output-error' }];
+    output = [{ text: `bash: ${t('home.body.terminal.help.errors.bashCommandNotFound')}: ${cmd}`, class: 'output-error' }];
   }
 
   history.value.push({ command: trimmed, output });
