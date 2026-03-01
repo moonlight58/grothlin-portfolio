@@ -32,12 +32,16 @@
             <span class="meta-key">{{ $i18n.t("home.panel.locationTitle") }}:</span>
             <span class="meta-value">Besançon, FR</span>
           </div>
+          <!-- Nota bene for BUT definition -->
+          <div class="meta-note">
+            {{ $i18n.t("home.panel.butNote") }}
+          </div>
         </div>
 
         <!-- Avatar en position absolue style "blueprint annotation" -->
         <div class="avatar-blueprint">
           <div class="avatar-container">
-            <img src="../assets/moon-pfp.jpg" alt="Gaël Röthlin" />
+            <img src="../assets/profile_img.jpg" alt="Gaël Röthlin" />
             <!-- Lignes d'annotation blueprint -->
             <svg class="annotation-lines" viewBox="0 0 200 200">
               <line x1="0" y1="100" x2="50" y2="100" class="dimension-line" />
@@ -666,6 +670,17 @@ const closeProjectModal = () => {
   100% {
     opacity: 0.3;
   }
+}
+
+.meta-note {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.5px;
+  right: 0;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(79, 172, 254, 0.15);
 }
 
 /* Avatar blueprint */

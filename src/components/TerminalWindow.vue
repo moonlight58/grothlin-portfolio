@@ -99,30 +99,38 @@ function handleTerminalMousedown(e) {
 }
 
 const commands = {
-  help: () => [
-    { text: 'Available commands:', class: 'output-heading' },
-    { text: t('home.body.terminal.help.description'), class: 'output-default' },
-    { text: t('home.body.terminal.help.whoami'), class: 'output-default' },
-    { text: t('home.body.terminal.help.nitch'), class: 'output-default' },
-    { text: t('home.body.terminal.help.ls'), class: 'output-default' },
-    { text: t('home.body.terminal.help.cat'), class: 'output-default' },
-    { text: t('home.body.terminal.help.internship'), class: 'output-default' },
-    { text: t('home.body.terminal.help.clear'), class: 'output-default' },
-  ],
+  // any command with the flag --help or -h will display the help for this command
+  help: (args) => { 
+    return [
+      { text: 'Available commands:', class: 'output-heading' },
+      { text: t('home.body.terminal.help.description'), class: 'output-default' },
+      { text: t('home.body.terminal.help.whoami'), class: 'output-default' },
+      { text: t('home.body.terminal.help.nitch'), class: 'output-default' },
+      { text: t('home.body.terminal.help.ls'), class: 'output-default' },
+      { text: t('home.body.terminal.help.cat'), class: 'output-default' },
+      { text: t('home.body.terminal.help.internship'), class: 'output-default' },
+      { text: t('home.body.terminal.help.man'), class: 'output-default'},
+      { text: t('home.body.terminal.help.clear'), class: 'output-default' },
+    ]
+  },
 
-  whoami: () => [
-    { text: '<span class="output-accent">Gaël Röthlin</span>', class: 'output-default' },
-    { text: t('home.body.terminal.whoami.description'), class: 'output-muted' },
-    { text: t('home.body.terminal.whoami.current'), class: 'output-muted' },
-    { text: t('home.body.terminal.whoami.location'), class: 'output-muted' },
-  ],
+  whoami: (args) => {
+    return [
+      { text: '<span class="output-accent">Gaël Röthlin</span>', class: 'output-default' },
+      { text: t('home.body.terminal.whoami.description'), class: 'output-muted' },
+      { text: t('home.body.terminal.whoami.current'), class: 'output-muted' },
+      { text: t('home.body.terminal.whoami.location'), class: 'output-muted' },
+    ]
+},
 
-  ls: () => [
-    { text: 'why_this_portfolio.txt', class: 'output-default' },
-    { text: 'pourquoi_ce_portfolio.txt', class: 'output-default' },
-  ],
+  ls: (args) => {
+    return [
+      { text: 'why_this_portfolio.txt', class: 'output-default' },
+      { text: 'pourquoi_ce_portfolio.txt', class: 'output-default' },
+    ]
+  },
 
-  nitch: () => {
+  nitch: (args) => {
     const uptime = calculateUptime();
     
     function createNitchLine(label, padSpace, value) {
@@ -198,8 +206,8 @@ const commands = {
   rm: (args) => {
     if (args[0] === '-rf' && args[1] === '/') {
       return [
-        { text: 'rm: it is not possible to remove the root directory without sudo', class: 'output-error' },
-        { text: 'Nice try though >:(', class: 'output-muted' },
+        { text: t('home.body.terminal.help.errors.rm'), class: 'output-error' },
+        { text: t('home.body.terminal.help.errors.rmNuking'), class: 'output-muted' },
       ];
     }
     return [{ text: `rm: ${t('home.body.terminal.help.errors.rmFileNotFound')} '${args.join(' ')}': ${t('home.body.terminal.help.errors.catFileNotFound')}`, class: 'output-error' }];
@@ -317,6 +325,42 @@ const commands = {
         { text: t('home.body.terminal.command.internship.euphron.description'), class: 'output-default' },
       ];
     }
+  },
+
+  // man command
+  man : (args) => {
+    if (!args || args.length === 0) {
+      return [
+        { text: t('home.body.terminal.help.errors.manMissingOperand'), class: 'output-error' },
+        { text: 'Usage: man [command]', class: 'output-default' },
+        { text: 'Available commands:', class: 'output-default' },
+        { text: '- help', class: 'output-default' },
+        { text: '- whoami', class: 'output-default' },
+        { text: '- nitch', class: 'output-default' },
+        { text: '- ls', class: 'output-default' },
+        { text: '- cat', class: 'output-default' },
+        { text: '- stage', class: 'output-default' },
+        { text: '- internship', class: 'output-default' },
+      ]
+    }
+
+    const command = args[0].toLowerCase();
+    if (commands[command]) {
+      return [
+        // max 20 lines of manual
+        { text: `Manual for command: ${command}`, class: 'output-heading' },
+        { text: t(`home.body.terminal.command.man.name`), class: 'output-muted' },
+        { text: t(`home.body.terminal.command.man.${command}.name`), class: 'output-default' },
+        { text: "<br>", class: 'output-default' },
+        { text: t(`home.body.terminal.command.man.synopsis`), class: 'output-muted' },
+        { text: t(`home.body.terminal.command.man.${command}.synopsis`), class: 'output-default' },
+        { text: "<br>", class: 'output-default' },
+        { text: t(`home.body.terminal.command.man.description`), class: 'output-muted' },
+        { text: t(`home.body.terminal.command.man.${command}.description`), class: 'output-default' },
+      ];
+    } else {
+      return [{ text: `${t('home.body.terminal.help.errors.manCommandNotFound')}: ${command}`, class: 'output-error' }];
+    }
   }
 };
 
@@ -334,6 +378,21 @@ function executeCommand(raw) {
 
   if (cmd === 'clear') {
     history.value = [];
+    return;
+  }
+
+  // Check for help flags (-h or --help)
+  if (args.includes('-h') || args.includes('--help')) {
+    let output;
+    if (commands['man']) {
+      output = commands['man']([cmd]);
+    } else {
+      output = [{ text: 'man command not found', class: 'output-error' }];
+    }
+    history.value.push({ command: trimmed, output });
+    nextTick(() => {
+      scrollToBottom();
+    });
     return;
   }
 

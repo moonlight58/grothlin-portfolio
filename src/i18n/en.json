@@ -10,10 +10,11 @@
       "roleTitle": "ROLE",
       "role": "French Computer Science student",
       "focusTitle": "FOCUS",
-      "focus": "3rd year of Computer Science degree",
+      "focus": "3rd year of BUT* in Computer Science",
       "statusTitle": "STATUS",
       "status": "Internship at ANI & Low-Tech (12 Jan - 30 Apr)",
-      "locationTitle": "LOCATION"
+      "locationTitle": "LOCATION",
+      "butNote": "* BUT = University Bachelor of Technology"
     },
     "body": {
       "internship": {
@@ -42,17 +43,22 @@
           "ls": "&nbsp;&nbsp;<span class=\"cmd-name\">ls</span>                        — list files",
           "cat": "&nbsp;&nbsp;<span class=\"cmd-name\">cat &lt;file&gt;</span>                — read a file",
           "internship": "&nbsp;&nbsp;<span class=\"cmd-name\">internship &lt;organisation&gt;</span> — view internship details",
+          "man": "&nbsp;&nbsp;<span class=\"cmd-name\">man &lt;command&gt;</span>             — show manual for a command",
           "clear": "&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>                     — clear terminal",
           "errors": {
             "catMissingOperand": "cat: missing operand",
             "catFileNotFound": "No such file or directory",
             "rmFileNotFound": "cannot remove",
+            "rm": "rm: it is not possible to remove the root directory without sudo",
+            "rmNuking": "Nice try though >:(",
             "sudoAuth": "Really? Why though?",
             "sudoNuking": "Nuking the system...",
             "sudoKidding": "Just kidding, I won't do that :)",
             "sudoCommandNotFound": "sudo: command not found",
             "internshipMissingOperand": "internship: missing operand",
-            "bashCommandNotFound": "bash: command not found"
+            "manMissingOperand": "man: missing operand",
+            "bashCommandNotFound": "bash: command not found",
+            "manCommandNotFound": "man: command not found"
           }
         },
         "whoami": {
@@ -61,6 +67,60 @@
           "location": "location: Besançon, FR"
         },
         "command": {
+          "man": {
+            "name": "NAME",
+            "synopsis": "SYNOPSIS",
+            "description": "DESCRIPTION",
+            "help": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">help</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">help</span> [command]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command provides a list of available commands or detailed information about a specific command when used with an argument. It serves as a guide to help users understand how to interact with the terminal and what commands they can use to explore the content of this portfolio website."
+            },
+            "whoami": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span> - Display the effective user name and some basic info about me",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span> [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command displays a brief summary of who I am, including my role as a full-stack developer, my enthusiasm for cybersecurity and open-source projects, my current academic status as a 3rd year Computer Science student at the Université de Franche-Comté, and my location in Besançon, France."
+            },
+            "nitch": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">nitch</span> - Display a summary of my personal information in a stylish format (inspired by neofetch)",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">nitch</span> [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command displays a styled summary of my personal information, including my name, age, programming languages, degree, and current status."
+            },
+            "ls": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">ls</span> - List files in the current directory",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">ls</span> [options] [directory]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command lists the files in the current directory. In this portfolio terminal, it will show a list of files that represent different sections of the website, such as 'why_this_portfolio.txt', 'my_projects.txt', etc. Each file can be read with the 'cat' command to learn more about that section."
+            },
+            "cat": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">cat</span> - Concatenate and display file contents",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">cat</span> [options] [file...]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command reads the contents of a specified file and displays it in the terminal. In this portfolio terminal, you can use 'cat' followed by the name of a file (e.g., 'cat why_this_portfolio.txt') to read more about that section of the website."
+            },
+            "internship": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">internship</span> - Display details about my internships",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">internship</span> [organization] [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command provides detailed information about my internships. When used with the name of an organization (e.g., 'internship ANI'), it will display the mission, duration and description of the internship I completed at that organization."
+            },
+            "stage": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">stage</span> - Alias for 'internship'",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">stage</span> [organization] [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command is a french alias for 'internship' and provides the same functionality. It allows users to view details about my internships by specifying the organization name."
+            },
+            "clear": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span> - Clear the terminal screen",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command clears all the text from the terminal screen, providing a clean slate for new commands and outputs. It does not affect any underlying data or state, but simply removes the current display of text in the terminal window."
+            },
+            "rm": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">rm</span> - Remove files or directories (not really in this terminal :) )",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">rm</span> [options] [file...]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command is typically used to remove files or directories in a real terminal. However, in this portfolio terminal, it is just for fun and will not actually delete anything. It serves as an Easter egg for users who try to use it, providing humorous responses instead of performing any real file deletion."
+            },
+            "sudo": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">sudo</span> - Execute a command with superuser privileges (not really in this terminal :) )",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">sudo</span> [command]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;This command is used in real terminals to execute commands with elevated privileges. However, in this portfolio terminal, it is just for fun and will not actually grant any superuser access. It serves as an Easter egg for users who try to use it, providing humorous responses instead of performing any real privileged operations."}
+          },
           "internship": {
             "ani": {
               "company": "Company: ANI & Low-Tech",

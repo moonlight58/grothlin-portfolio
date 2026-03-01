@@ -8,12 +8,13 @@
   "home": {
     "panel": {
       "roleTitle": "RÔLE",
-      "role": "Étudiant en BUT informatique",
+      "role": "Étudiant en BUT* informatique",
       "focusTitle": "ÉTUDES",
-      "focus": "3ème année de BUT Informatique",
+      "focus": "3ème année de BUT* Informatique",
       "statusTitle": "STATUT",
       "status": "En stage à ANI & Low-Tech (12 Jan - 30 Avr)",
-      "locationTitle": "LOCALISATION"
+      "locationTitle": "LOCALISATION",
+      "butNote": "* BUT = Bachelor Universitaire de Technologie"
     },
     "body": {
       "internship": {
@@ -40,19 +41,23 @@
           "whoami": "&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span>               — affiche qui je suis",
           "nitch": "&nbsp;&nbsp;<span class=\"cmd-name\">nitch</span>                — affiche des informations personnels (inspiré de neofetch)",
           "ls": "&nbsp;&nbsp;<span class=\"cmd-name\">ls</span>                   — liste les fichiers",
-          "cat": "&nbsp;&nbsp;<span class=\"cmd-name\">cat &lt;file&gt;</span>           — affiche le contenu d'un fichier",
+          "cat": "&nbsp;&nbsp;<span class=\"cmd-name\">cat &lt;fichier&gt;</span>        — affiche le contenu d'un fichier",
           "internship": "&nbsp;&nbsp;<span class=\"cmd-name\">stage &lt;organisation&gt;</span> — affiche les détails de mes stages",
+          "man": "&nbsp;&nbsp;<span class=\"cmd-name\">man &lt;commande&gt;</span>       — affiche le manuel d'une commande",
           "clear": "&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>                — efface le terminal",
           "errors": {
             "catMissingOperand": "cat : argument manquant",
             "catFileNotFound": "Fichier ou répertoire introuvable",
             "rmFileNotFound": "impossible de supprimer",
+            "rm": "rm : il n'est pas possible de supprimer le répertoire racine sans sudo",
+            "rmNuking": "Bien essayé quand même >:(",
             "sudoAuth": "Vraiment ? Pourquoi donc ?",
             "sudoNuking": "Suppression du système...",
             "sudoKidding": "Je plaisante, je ne ferai pas ça :)",
             "sudoCommandNotFound": "sudo : commande non trouvée",
             "internshipMissingOperand": "stage : argument manquant",
-            "bashCommandNotFound": "bash : commande non trouvée"
+            "bashCommandNotFound": "bash : commande non trouvée",
+            "manCommandNotFound": "man : commande non trouvée"
           }
         },
         "whoami": {
@@ -61,6 +66,61 @@
           "location": "localisation : Besançon, FR"
         },
         "command": {
+          "man": {
+            "name": "NOM",
+            "synopsis": "SYNOPSIS",
+            "description": "DESCRIPTION",
+            "help": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">help</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">help</span> [command]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande affiche une liste des commandes disponibles ou des informations détaillées sur une commande spécifique lorsqu'elle est utilisée avec un argument. Elle sert de guide pour aider les utilisateurs à comprendre comment interagir avec le terminal et quelles commandes ils peuvent utiliser pour explorer le contenu de ce site portfolio."
+            },
+            "whoami": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">whoami</span> [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande affiche un bref résumé de qui je suis, y compris mon rôle de développeur full-stack, mon enthousiasme pour la cybersécurité et les projets open-source, mon statut académique actuel en tant qu'étudiant en 3ème année d'informatique à l'Université de Franche-Comté, et ma localisation à Besançon, France."
+            },
+            "ls": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">ls</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">ls</span> [options] [directory]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande liste les fichiers dans le répertoire actuel. Dans ce terminal de portfolio, elle affichera une liste de fichiers qui représentent différentes sections du site web, telles que 'pourquoi_ce_portfolio.txt', 'mes_projets.txt', etc. Chaque fichier peut être lu avec la commande 'cat' pour en savoir plus sur cette section."
+            },
+            "cat": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">cat</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">cat</span> [options] [file...]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande lit le contenu d'un fichier spécifié et l'affiche dans le terminal. Dans ce terminal de portfolio, vous pouvez utiliser 'cat' suivi du nom d'un fichier (par exemple, 'cat pourquoi_ce_portfolio.txt') pour lire plus d'informations sur cette section du site web."
+            },
+            "internship": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">internship</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">internship</span> [organization] [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande est un alias anglais pour 'stage' et fournit la même fonctionnalité. Elle permet aux utilisateurs de voir les détails de mes stages en spécifiant le nom de l'organisation."
+            },
+            "stage": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">stage</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">stage</span> [organization] [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande fournit des informations détaillées sur mes stages. Lorsqu'elle est utilisée avec le nom d'une organisation (par exemple, 'stage ANI'), elle affichera la mission, la durée et la description du stage que j'ai réalisé dans cette organisation."
+            },
+            "nitch": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">nitch</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">nitch</span> [options]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande affiche un résumé stylisé de mes informations personnelles, y compris mon nom, mon âge, les langages de programmation que je connais, mon diplôme et mon statut actuel."
+            },
+            "clear": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-dim\">clear</span>",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande efface tout le texte de l'écran du terminal, offrant une toile propre pour de nouvelles commandes et sorties. Elle n'affecte aucune donnée ou état sous-jacent, mais supprime simplement l'affichage actuel du texte dans la fenêtre du terminal."
+            },
+            "rm": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">rm</span> - Supprimer des fichiers ou des répertoires (pas vraiment dans ce terminal :) )",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">rm</span> [options] [file...]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande est généralement utilisée pour supprimer des fichiers ou des répertoires dans un terminal réel. Cependant, dans ce terminal de portfolio, elle est juste pour le plaisir et ne supprimera rien du tout. Elle sert d'Easter Egg pour les utilisateurs qui essaient de l'utiliser, fournissant des réponses humoristiques au lieu d'effectuer une véritable suppression de fichier."
+            },
+            "sudo": {
+              "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">sudo</span> - Exécuter une commande avec des privilèges de superutilisateur (pas vraiment dans ce terminal :) )",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">sudo</span> [command]",
+              "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande est utilisée dans les terminaux réels pour exécuter des commandes avec des privilèges élevés. Cependant, dans ce terminal de portfolio, elle est juste pour le plaisir et ne donnera pas réellement d'accès superutilisateur. Elle sert d'Easter Egg pour les utilisateurs qui essaient de l'utiliser, fournissant des réponses humoristiques au lieu d'effectuer de véritables opérations privilégiées."
+            }
+          },
           "internship": {
             "ani": {
               "company": "Entreprise : ANI & Low-Tech",
