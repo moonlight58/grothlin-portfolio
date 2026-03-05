@@ -497,7 +497,9 @@ const tools = ref([
   { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg", color: "0, 123, 193" },
   { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 153, 0" },
   { name: "Neovim", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neovim/neovim-original.svg", color: "43, 145, 175" },
-  { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", color: "30, 30, 30" }
+  { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", color: "30, 30, 30" },
+  { name: "Netlify", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg", color: "14, 216, 212" },
+  { name: "Ollama", icon: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/devicons/icons/ollama/ollama.svg", color: "255, 255, 255" }
 ]);
 
 const { t } = useI18n();
@@ -803,7 +805,7 @@ onBeforeUnmount(() => {
   position: absolute;
   left: 0;
   bottom: 10%;
-  max-width: 530px;
+  max-width: 30vw;
   text-align: justify;
 }
 
@@ -1622,6 +1624,7 @@ section {
     left: auto;
     right: auto;
     bottom: auto;
+    max-width: 100vw;
   }
 
   .contact-layout,

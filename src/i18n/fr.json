@@ -99,7 +99,7 @@
             },
             "stage": {
               "name": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">stage</span>",
-              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">stage</span> [organization] [options]",
+              "synopsis": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class=\"cmd-name\">stage</span> [organisation] [options]",
               "description": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cette commande fournit des informations détaillées sur mes stages. Lorsqu'elle est utilisée avec le nom d'une organisation (par exemple, 'stage ANI'), elle affichera la mission, la durée et la description du stage que j'ai réalisé dans cette organisation."
             },
             "nitch": {

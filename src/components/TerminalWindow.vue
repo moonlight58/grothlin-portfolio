@@ -247,11 +247,22 @@ const commands = {
       ];
     }
 
-    const organisation = args[0].toLowerCase();
-    const redirectIndex = args.indexOf('--redirect');
+    const listArguments = ['--list', '-l'];
+    if (listArguments.some(arg => args.includes(arg))) {
+      return [
+        { text: 'Organisations disponibles :', class: 'output-default' },
+        { text: '- ANI & Low-Tech', class: 'output-default' },
+        { text: '- Euphron', class: 'output-default' },
+      ];
+    };
+
+    const organisation = args[0].toLowerCase();   
+    const redirectIndex = ['--redirect', '-r'];
 
     if (organisation === 'ani' || organisation === 'low-tech' || organisation === 'ani&low-tech' || organisation === 'ani&lowtech' || organisation === 'ani-lowtech' || organisation === 'anilowtech') {
-      if (redirectIndex !== -1) {
+
+      // check arg --redirect or -r to open the presentation in a new tab
+      if (redirectIndex.some(arg => args.includes(arg))) {
         // open /internship/ani in a new tab
         window.open('/internship/ani', '_blank');
         return [{ text: 'Redirection vers la présentation de stage...', class: 'output-default' }];
@@ -265,7 +276,7 @@ const commands = {
     }
 
     if (organisation === 'euphron') {
-      if (redirectIndex !== -1) {
+      if (redirectIndex.some(arg => args.includes(arg))) {
         // open /internship/euphron in a new tab
         window.open('/internship/euphron', '_blank');
         return [{ text: 'Redirection vers la présentation de stage...', class: 'output-default' }];
@@ -295,11 +306,19 @@ const commands = {
       ];
     }
 
-    const organisation = args[0].toLowerCase();
-    const redirectIndex = args.indexOf('--redirect');
+    if (listArguments.some(arg => args.includes(arg))) {
+      return [
+        { text: 'Available organisations :', class: 'output-default' },
+        { text: '- ANI & Low-Tech', class: 'output-default' },
+        { text: '- Euphron', class: 'output-default' },
+      ];
+    };
+
+    const organisation = args[0].toLowerCase();   
+    const redirectIndex = ['--redirect', '-r'];
 
     if (organisation === 'ani' || organisation === 'low-tech' || organisation === 'ani&low-tech' || organisation === 'ani&lowtech' || organisation === 'ani-lowtech' || organisation === 'anilowtech') {
-      if (redirectIndex !== -1) {
+      if (redirectIndex.some(arg => args.includes(arg))) {
         // open /internship/ani in a new tab
         window.open('/internship/ani', '_blank');
         return [{ text: 'Redirecting to internship presentation...', class: 'output-default' }];
@@ -313,7 +332,7 @@ const commands = {
     }
 
     if (organisation === 'euphron') {
-      if (redirectIndex !== -1) {
+      if (redirectIndex.some(arg => args.includes(arg))) {
         // open /internship/euphron in a new tab
         window.open('/internship/euphron', '_blank');
         return [{ text: 'Redirecting to internship presentation...', class: 'output-default' }];
@@ -400,7 +419,7 @@ function executeCommand(raw) {
   if (commands[cmd]) {
     output = commands[cmd](args);
   } else {
-    output = [{ text: `bash: ${t('home.body.terminal.help.errors.bashCommandNotFound')}: ${cmd}`, class: 'output-error' }];
+    output = [{ text: `${t('home.body.terminal.help.errors.bashCommandNotFound')}: ${cmd}`, class: 'output-error' }];
   }
 
   history.value.push({ command: trimmed, output });
