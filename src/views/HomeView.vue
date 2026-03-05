@@ -351,6 +351,7 @@
             id="contact-form"
             name="contact"
             method="POST"
+            data-netlify-recaptcha="true"
             data-netlify="true"
             class="contact-form"
             @submit.prevent="handleSubmit"
@@ -398,6 +399,8 @@
               ></textarea>
             </div>
 
+            <div data-netlify-recaptcha="true"></div>
+
             <button
               type="submit"
               class="submit-button"
@@ -406,7 +409,7 @@
             >
               <span v-if="!isSubmitting && cooldownRemaining === 0">{{ $i18n.t("home.contact.form.submit") }}</span>
               <span v-else-if="isSubmitting">{{ $i18n.t("home.contact.form.submitting") }}</span>
-              <span v-else>{{ Math.ceil(cooldownRemaining / 1000) }}s</span>
+              <span v-else>{{ $i18n.t("home.contact.form.preventSpam") }} {{ Math.ceil(cooldownRemaining / 1000) }}s</span>
             </button>
 
             <div v-if="statusMessage" class="form-status" :class="statusClass">
@@ -572,7 +575,7 @@ const handleSubmit = async () => {
 
     if (response.ok || response.status === 404) {
       // Netlify forms submission returns 404 in production - this is normal
-      statusMessage.value = "Message envoyé avec succès !";
+      statusMessage.value = t('home.contact.form.success');
       statusClass.value = "success";
       const formDataReset = { name: "", email: "", message: "" };
       Object.assign(window.formData || {}, formDataReset);

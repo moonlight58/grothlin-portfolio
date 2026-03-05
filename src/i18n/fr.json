@@ -218,7 +218,10 @@
         "message": "MESSAGE",
         "messagePlaceholder": "Votre message...",
         "submit": "ENVOYER_MESSAGE",
-        "submitting": "ENVOI_EN_COURS..."
+        "submitting": "ENVOI_EN_COURS...",
+        "preventSpam": "Pour éviter le spam, vous devrez attendre",
+        "success": "MESSAGE_ENVOYÉ_AVEC_SUCCÈS",
+        "error": "ERREUR_LORS_DE_L'ENVOI"
       }
     }
   },

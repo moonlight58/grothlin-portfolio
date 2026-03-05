@@ -46,10 +46,11 @@
     <!-- built files will be auto injected -->
     
     <!-- Hidden form for Netlify to detect -->
-    <form name="contact" netlify hidden>
+    <form name="contact" netlify hidden data-netlify-recaptcha="true">
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="text" name="message" />
+      <div data-netlify-recaptcha="true"></div>
     </form>
     
     <!-- Structured Data (JSON-LD) -->
