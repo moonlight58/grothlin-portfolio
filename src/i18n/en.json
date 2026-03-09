@@ -17,6 +17,7 @@
       "butNote": "* BUT = University Bachelor of Technology"
     },
     "body": {
+      "downloadCV": "DOWNLOAD_CV",
       "internship": {
         "title": "INTERNSHIP",
         "viewDetails": "VIEW_DETAILS"

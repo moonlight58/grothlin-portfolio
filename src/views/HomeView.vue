@@ -71,6 +71,18 @@
             <div class="bio-icon">󰓾</div>
             <p class="bio-text">{{ $i18n.t("home.body.description") }}</p>
           </div>
+          <div class="bio-intro">
+            <a 
+              href="/cv.pdf" 
+              download="Gael_Rothlin_CV.pdf"
+              class="cv-download-btn"
+              aria-label="Télécharger mon CV"
+            >
+              <span class="cv-btn-icon">󰏢</span>
+              <span class="cv-btn-text">{{ $i18n.t("home.body.downloadCV") }}</span>
+              <span class="cv-btn-ext">.pdf</span>
+            </a>
+          </div>
         </div>
 
         <!-- Actions sociales minimalistes -->
@@ -860,12 +872,72 @@ onBeforeUnmount(() => {
   height: 20px;
 }
 
-/* Spotify widget */
-.spotify-widget {
+.cv-download-btn {
   position: absolute;
-  left: 50%;
-  top: 10%;
-  transform: translateX(-50%);
+  bottom: -60px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: rgba(79, 172, 254, 0.05);
+  border: 1px solid rgba(79, 172, 254, 0.4);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.cv-download-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.cv-download-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.cv-download-btn:hover {
+  background: rgba(79, 172, 254, 0.12);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 20px rgba(79, 172, 254, 0.25);
+  transform: translateY(-2px);
+  color: var(--color-primary);
+  text-shadow: none;
+}
+
+.cv-btn-icon {
+  font-size: 16px;
+}
+
+.cv-btn-text {
+  letter-spacing: 1.5px;
+}
+
+.cv-btn-ext {
+  font-size: 10px;
+  color: var(--color-muted);
+  border-left: 1px solid rgba(79, 172, 254, 0.3);
+  padding-left: 10px;
+  margin-left: 2px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .cv-download-btn {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 24px;
+    width: fit-content;
+  }
 }
 
 /* Scroll indicator */
