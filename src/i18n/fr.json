@@ -6,6 +6,18 @@
     "contact": "CONTACT"
   },
   "home": {
+    "skills": {
+      "tier": {
+        "expert": "EXPERT",
+        "proficient": "COMPÉTENT",
+        "learning": "EN APPRENTISSAGE"
+      },
+      "legendTitle": "// ÉCHELLE_DE_COMPÉTENCE",
+      "frontend": "FRONTEND",
+      "backend": "BACKEND",
+      "devops": "DEVOPS",
+      "tools": "OUTILS & DONNÉES"
+    },
     "panel": {
       "roleTitle": "RÔLE",
       "role": "Étudiant en BUT* informatique",
@@ -59,7 +71,8 @@
             "sudoCommandNotFound": "sudo : commande non trouvée",
             "internshipMissingOperand": "stage : argument manquant",
             "bashCommandNotFound": "bash : commande non trouvée",
-            "manCommandNotFound": "man : commande non trouvée"
+            "manCommandNotFound": "man : commande non trouvée",
+            "manMissingOperand": "man : argument manquant"
           }
         },
         "whoami": {
@@ -203,9 +216,6 @@
         "description": "Une application Python pour créer et gérer des motifs de points dans une grille. Elle permet aux utilisateurs de générer, visualiser et analyser des motifs de points pour diverses applications.",
         "status": "Terminé"
       }
-    },
-    "skills": {
-      "database": "OUTILS & BASE DE DONNÉES"
     },
     "contact": {
       "title": "TRAVAILLONS ENSEMBLE !",

@@ -3,7 +3,7 @@
     <div v-if="isOpen" class="modal-overlay" @click.self="closeModal">
       <div class="modal-content">
         <div class="modal-header">
-          <h2>{{ projectName }}</h2>
+          <h2>{{ projectName }}.md</h2>
           <button class="close-btn" @click="closeModal">✕</button>
         </div>
         <div class="modal-body markdown-content" v-html="renderedMarkdown"></div>
@@ -71,7 +71,6 @@ watch(() => props.language, loadMarkdown);
 .modal-content {
   background: var(--color-bg);
   border: 1px solid rgba(79, 172, 254, 0.3);
-  border-radius: 8px;
   max-width: 800px;
   width: 90%;
   max-height: 80vh;

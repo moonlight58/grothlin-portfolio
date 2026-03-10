@@ -352,7 +352,7 @@ const commands = {
       return [
         { text: t('home.body.terminal.help.errors.manMissingOperand'), class: 'output-error' },
         { text: 'Usage: man [command]', class: 'output-default' },
-        { text: 'Available commands:', class: 'output-default' },
+        { text: t('home.body.terminal.help.name'), class: 'output-default' },
         { text: '- help', class: 'output-default' },
         { text: '- whoami', class: 'output-default' },
         { text: '- nitch', class: 'output-default' },

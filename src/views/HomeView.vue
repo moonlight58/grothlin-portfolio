@@ -64,7 +64,7 @@
         <!-- Bio en bas à gauche -->
         <div class="bio-compact">
           <div class="bio-intro">
-            <div class="bio-icon"></div>
+            <div class="bio-icon"></div>
             <p class="bio-text">{{ $i18n.t("home.body.student") }}</p>
           </div>
           <div class="bio-intro">
@@ -240,67 +240,78 @@
       </div>
     </section>
 
-    <!-- Skills Section - Format diagramme technique -->
+    <!-- Skills Section - Redesigned -->
     <section id="skills" class="skills-zone">
       <div class="section-marker">
         <span class="marker-number">03</span>
         <span class="marker-title">{{ $i18n.t("nav.skills") }}</span>
       </div>
 
-      <div class="skills-diagram">
-        <!-- Frontend -->
-        <div class="skill-block">
-          <div class="block-header">
-            <div class="block-icon"></div>
-            <h3 class="block-title">FRONTEND</h3>
-          </div>
-          <div class="block-content">
-            <div
-              class="skill-item"
-              :style="{ '--color': skill.color }"
-              v-for="skill in frontendSkills"
-            >
-              <!-- svg logo of the skill -->
-              <img class="skill-icon" :src="skill.icon" :alt="skill.name" />
+      <!-- Category tabs -->
+      <div class="skills-tabs" role="tablist">
+        <button
+          v-for="cat in skillCategories"
+          :key="cat.id"
+          :class="['skills-tab', { active: activeCategory === cat.id }]"
+          @click="activeCategory = cat.id"
+          :aria-selected="activeCategory === cat.id"
+          role="tab"
+        >
+          <span class="tab-icon">{{ cat.icon }}</span>
+          <span class="tab-label">{{ cat.label }}</span>
+          <span class="tab-count">{{ String(cat.skills.length).padStart(2, '0') }}</span>
+        </button>
+      </div>
+
+      <!-- Skills panel -->
+      <div class="skills-panel">
+        <div class="panel-header">
+          <span class="panel-marker">// CATEGORY: {{ activeCategory.toUpperCase() }}</span>
+          <span class="panel-info">{{ activeSkills.length }} MODULES_LOADED</span>
+        </div>
+
+        <div class="skills-grid">
+          <div
+            v-for="(skill, index) in activeSkills"
+            :key="skill.name"
+            class="skill-card"
+            :class="`tier-${skill.tier}`"
+            :style="{ '--accent': skill.color }"
+          >
+            <div class="skill-index">{{ String(index + 1).padStart(2, '0') }}</div>
+            <div class="skill-card-body">
+              <img :src="skill.icon" :alt="skill.name" class="skill-logo" />
               <span class="skill-name">{{ skill.name }}</span>
             </div>
+            <div class="skill-footer">
+              <span class="tier-label">{{ tierMeta[skill.tier].label }}</span>
+              <div class="skill-bars">
+                <span
+                  v-for="i in 4"
+                  :key="i"
+                  :class="['signal-bar', { active: i <= skill.level }]"
+                  :style="i <= skill.level ? { background: `rgba(${skill.color}, 0.9)` } : {}"
+                ></span>
+              </div>
+            </div>
+            <div class="skill-scan"></div>
           </div>
         </div>
 
-        <!-- Backend -->
-        <div class="skill-block">
-          <div class="block-header">
-            <div class="block-icon">⚙</div>
-            <h3 class="block-title">BACKEND</h3>
-          </div>
-          <div class="block-content">
-            <div
-              class="skill-item"
-              :style="{ '--color': skill.color }"
-              v-for="skill in backendSkills"
-            >
-              <!-- svg logo of the skill -->
-              <img class="skill-icon" :src="skill.icon" :alt="skill.name" />
-              <span class="skill-name">{{ skill.name }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tools & Others -->
-        <div class="skill-block full-width">
-          <div class="block-header">
-            <div class="block-icon">⚒</div>
-            <h3 class="block-title">{{ $i18n.t("home.skills.database") }}</h3>
-          </div>
-          <div class="block-content horizontal">
-            <div
-              class="skill-item"
-              :style="{ '--color': skill.color }"
-              v-for="skill in tools"
-            >
-              <!-- svg logo of the skill -->
-              <img class="skill-icon" :src="skill.icon" :alt="skill.name" />
-              <span class="skill-name">{{ skill.name }}</span>
+        <!-- Tier legend -->
+        <div class="tier-legend">
+          <div class="legend-title">{{ $i18n.t("home.skills.legendTitle") }}</div>
+          <div class="legend-items">
+            <div v-for="(item, key) in tierMeta" :key="key" class="legend-item">
+              <div class="legend-bars">
+                <span
+                  v-for="i in 4"
+                  :key="i"
+                  class="signal-bar sm"
+                  :class="{ active: i <= item.level }"
+                ></span>
+              </div>
+              <span class="legend-label">{{ item.label }}</span>
             </div>
           </div>
         </div>
@@ -467,6 +478,7 @@ const statusClass = ref("");
 const workSection = ref(null);
 const selectedProject = ref(null);
 const modalOpen = ref(false);
+const { t } = useI18n();
 
 // Form rate limiting
 const lastSubmissionTime = ref(0);
@@ -481,38 +493,71 @@ const formData = ref({
   message: "",
 });
 
-// Skills data
-const frontendSkills = ref([
-  { name: "VueJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg", color: "65, 184, 131" },
-  { name: "CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", color: "38, 77, 228" },
-  { name: "Quasar", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/quasar/quasar-plain.svg", color: "0, 102, 204" },
-  { name: "babylonJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babylonjs/babylonjs-original.svg", color: "255, 102, 0" }
+// ========== SKILLS DATA (REDESIGNED) ==========
+const activeCategory = ref('frontend');
+
+const skillCategories = computed(() => [
+  {
+    id: 'frontend',
+    label: t('home.skills.frontend'),
+    icon: '',
+    skills: [
+      { name: "VueJS",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",       color: "65, 184, 131",  level: 4, tier: 'expert'     },
+      { name: "CSS",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",          color: "86, 130, 230",  level: 4, tier: 'expert'     },
+      { name: "Quasar",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/quasar/quasar-plain.svg",         color: "0, 162, 255",   level: 3, tier: 'proficient' },
+      { name: "BabylonJS",  icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babylonjs/babylonjs-original.svg", color: "255, 102, 0",  level: 2, tier: 'learning'   },
+    ]
+  },
+  {
+    id: 'backend',
+    label: t('home.skills.backend'),
+    icon: '⚙',
+    skills: [
+      { name: "Python",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",       color: "55, 118, 171",  level: 4, tier: 'expert'     },
+      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", color: "220, 195, 30", level: 4, tier: 'expert'   },
+      { name: "NodeJS",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",       color: "51, 153, 51",   level: 3, tier: 'proficient' },
+      { name: "C",          icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",                 color: "80, 140, 200",  level: 2, tier: 'proficient'   },
+      { name: "Java",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",           color: "176, 114, 25",  level: 2, tier: 'proficient'   },
+      { name: "PHP",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",             color: "130, 120, 200", level: 3, tier: 'learning' },
+    ]
+  },
+  {
+    id: 'devops',
+    label: t('home.skills.devops'),
+    icon: '⚒',
+    skills: [
+      { name: "Linux",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",         color: "230, 200, 100", level: 4, tier: 'expert'     },
+      { name: "Git",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",             color: "240, 80, 51",   level: 4, tier: 'expert'     },
+      { name: "Docker",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain.svg",       color: "0, 150, 210",   level: 3, tier: 'proficient' },
+      { name: "Bash",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",           color: "100, 200, 120", level: 3, tier: 'proficient' },
+      { name: "ProxMox",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/proxmox/proxmox-original-wordmark.svg", color: "229, 112, 0", level: 2, tier: 'learning' },
+      { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",  color: "50, 108, 229",  level: 2, tier: 'learning'   },
+    ]
+  },
+  {
+    id: 'tools',
+    label: t('home.skills.tools'),
+    icon: '⊞',
+    skills: [
+      { name: "MySQL",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",    color: "0, 150, 200",   level: 4, tier: 'expert'     },
+      { name: "MongoDB",  icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 175, 80",  level: 3, tier: 'proficient' },
+      { name: "Figma",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",    color: "240, 80, 130",  level: 3, tier: 'proficient' },
+      { name: "Netlify",  icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg", color: "14, 210, 210", level: 3, tier: 'proficient' },
+      { name: "Ollama",   icon: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/devicons/icons/ollama/ollama.svg", color: "180, 180, 200", level: 2, tier: 'learning' },
+    ]
+  },
 ]);
 
-const backendSkills = ref([
-  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", color: "55, 118, 171" },
-  { name: "NodeJS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg", color: "51, 153, 51" },
-  { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", color: "247, 223, 30" },
-  { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg", color: "119, 123, 180" },
-  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", color: "176, 114, 25" },
-  { name: "C", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg", color: "0, 122, 204" },
-]);
+const activeSkills = computed(() =>
+  skillCategories.value.find(c => c.id === activeCategory.value)?.skills || []
+);
 
-const tools = ref([
-  { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", color: "255, 255, 255" },
-  { name: "Bash", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", color: "30, 30, 30" },
-  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg", color: "240, 80, 51" },
-  { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg", color: "0, 117, 181" },
-  { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg", color: "76, 153, 0" },
-  { name: "Figma", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", color: "255, 0, 102" },
-  { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "0, 123, 193" },
-  { name: "ProxMox", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/proxmox/proxmox-original-wordmark.svg", color: "229, 112, 0" },
-  { name: "Ollama", icon: "https://raw.githubusercontent.com/moonlight58/extra/refs/heads/main/devicons/icons/ollama/ollama.svg", color: "255, 255, 255" },
-  { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg", color: "0, 123, 193" },
-  { name: "Netlify", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg", color: "14, 216, 212" },
-]);
+const tierMeta = computed (() => ({
+  expert:     { label: t('home.skills.tier.expert'),     level: 4 },
+  proficient: { label: t('home.skills.tier.proficient'), level: 3 },
+  learning:   { label: t('home.skills.tier.learning'),   level: 2 },
+}));
 
-const { t } = useI18n();
 
 const internships = computed(() => [
   { name: "ANI & Low-Tech", mission: t("home.internship.ani.mission"), tech: ["IA", "VR", "3D", "Help-Desk"], date: t("home.internship.ani.date"), link: "/internship/ani" },
@@ -550,10 +595,8 @@ const startCooldown = () => {
   lastSubmissionTime.value = Date.now();
   cooldownRemaining.value = cooldownDuration;
   
-  // Clear existing interval if any
   if (cooldownInterval) clearInterval(cooldownInterval);
   
-  // Update countdown every 100ms
   cooldownInterval = setInterval(() => {
     cooldownRemaining.value = Math.max(0, cooldownDuration - (Date.now() - lastSubmissionTime.value));
     if (cooldownRemaining.value === 0) {
@@ -563,7 +606,6 @@ const startCooldown = () => {
 };
 
 const handleSubmit = async () => {
-  // Check if still in cooldown period
   const timeSinceLastSubmission = Date.now() - lastSubmissionTime.value;
   if (timeSinceLastSubmission < cooldownDuration) {
     const secondsRemaining = Math.ceil((cooldownDuration - timeSinceLastSubmission) / 1000);
@@ -586,16 +628,10 @@ const handleSubmit = async () => {
     });
 
     if (response.ok || response.status === 404) {
-      // Netlify forms submission returns 404 in production - this is normal
       statusMessage.value = t('home.contact.form.success');
       statusClass.value = "success";
-      const formDataReset = { name: "", email: "", message: "" };
-      Object.assign(window.formData || {}, formDataReset);
-      // Clear the form fields
       document.getElementById("contact-form").reset();
       formData.value = { name: "", email: "", message: "" };
-      
-      // Start cooldown
       startCooldown();
     } else {
       throw new Error("Erreur");
@@ -609,21 +645,6 @@ const handleSubmit = async () => {
   }
 };
 
-const scrollToSection = (sectionId) => {
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute("href"));
-      if (target) {
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    });
-  });
-};
-
 const openProjectModal = (project) => {
   selectedProject.value = project;
   modalOpen.value = true;
@@ -634,7 +655,6 @@ const closeProjectModal = () => {
   selectedProject.value = null;
 };
 
-// Cleanup interval on component unmount
 onBeforeUnmount(() => {
   if (cooldownInterval) {
     clearInterval(cooldownInterval);
@@ -668,7 +688,6 @@ onBeforeUnmount(() => {
   height: calc(100vh - 200px);
 }
 
-/* Nom en stack vertical */
 .name-stack {
   position: absolute;
   left: 0;
@@ -693,7 +712,6 @@ onBeforeUnmount(() => {
   -webkit-text-stroke: 0;
 }
 
-/* Meta panel à droite */
 .meta-panel {
   position: absolute;
   right: 0;
@@ -728,14 +746,8 @@ onBeforeUnmount(() => {
 }
 
 @keyframes blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0.3;
-  }
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0.3; }
 }
 
 .meta-note {
@@ -749,7 +761,6 @@ onBeforeUnmount(() => {
   border-top: 1px solid rgba(79, 172, 254, 0.15);
 }
 
-/* Avatar blueprint */
 .avatar-blueprint {
   position: absolute;
   right: 40%;
@@ -802,15 +813,9 @@ onBeforeUnmount(() => {
   gap: 4px;
 }
 
-.label-text {
-  color: var(--color-primary);
-}
+.label-text { color: var(--color-primary); }
+.label-dimension { color: var(--color-muted); }
 
-.label-dimension {
-  color: var(--color-muted);
-}
-
-/* Bio compact */
 .bio-compact {
   position: absolute;
   left: 0;
@@ -839,7 +844,6 @@ onBeforeUnmount(() => {
   margin: 0;
 }
 
-/* Social compact */
 .social-compact {
   position: absolute;
   right: 0;
@@ -900,9 +904,7 @@ onBeforeUnmount(() => {
   transition: transform 0.5s ease;
 }
 
-.cv-download-btn:hover::before {
-  transform: translateX(100%);
-}
+.cv-download-btn:hover::before { transform: translateX(100%); }
 
 .cv-download-btn:hover {
   background: rgba(79, 172, 254, 0.12);
@@ -913,13 +915,8 @@ onBeforeUnmount(() => {
   text-shadow: none;
 }
 
-.cv-btn-icon {
-  font-size: 16px;
-}
-
-.cv-btn-text {
-  letter-spacing: 1.5px;
-}
+.cv-btn-icon { font-size: 16px; }
+.cv-btn-text { letter-spacing: 1.5px; }
 
 .cv-btn-ext {
   font-size: 10px;
@@ -929,7 +926,6 @@ onBeforeUnmount(() => {
   margin-left: 2px;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .cv-download-btn {
     position: relative;
@@ -940,7 +936,6 @@ onBeforeUnmount(() => {
   }
 }
 
-/* Scroll indicator */
 .scroll-indicator {
   position: absolute;
   bottom: 40px;
@@ -968,13 +963,8 @@ onBeforeUnmount(() => {
 }
 
 @keyframes scrollPulse {
-  0%,
-  100% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
 /* ========== SECTIONS COMMUNES ========== */
@@ -1026,10 +1016,7 @@ section {
   border-bottom: 1px solid rgba(79, 172, 254, 0.2);
 }
 
-.terminal-dots {
-  display: flex;
-  gap: 8px;
-}
+.terminal-dots { display: flex; gap: 8px; }
 
 .rectangle {
   width: 16px;
@@ -1043,19 +1030,10 @@ section {
   border-radius: 50%;
 }
 
-.dot.active {
-  background: rgba(54, 255, 54, 1);
-}
-
-.rectangle.close {
-  background: var(--color-primary);
-}
-.rectangle.reduce {
-  background: var(--color-secondary);
-}
-.rectangle.expand {
-  background: #f0f0f0;
-}
+.dot.active { background: rgba(54, 255, 54, 1); }
+.rectangle.close { background: var(--color-primary); }
+.rectangle.reduce { background: var(--color-secondary); }
+.rectangle.expand { background: #f0f0f0; }
 
 .terminal-title {
   font-family: var(--font-mono);
@@ -1084,24 +1062,14 @@ section {
   margin: 0;
 }
 
-.cursor-blink {
-  animation: cursorBlink 1s infinite;
-}
+.cursor-blink { animation: cursorBlink 1s infinite; }
 
 @keyframes cursorBlink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0;
-  }
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 /* ========== WORK SECTION ========== */
-
-/* 2 equals columns */
 .work-column {
   display: grid;
   grid-template-columns: 1fr 0.1fr 1fr;
@@ -1110,13 +1078,8 @@ section {
   margin-bottom: 100px;
 }
 
-.work-category {
-  min-width: 0;
-}
-
-.school-category {
-  min-width: 0;
-}
+.work-category { min-width: 0; }
+.school-category { min-width: 0; }
 
 .work-divider {
   border: none;
@@ -1150,7 +1113,6 @@ section {
   letter-spacing: 1px;
 }
 
-/* Blueprint Grid */
 .blueprint-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1230,18 +1192,14 @@ section {
   transition: opacity 0.3s ease;
 }
 
-.card-link:hover {
-  opacity: 0.7;
-}
+.card-link:hover { opacity: 0.7; }
 
 .more-projects {
   padding: 20px 0;
   text-align: right;
 }
 
-.redirect-link {
-  margin-top: 12px;
-}
+.redirect-link { margin-top: 12px; }
 
 .redirect-link .card-link,
 .more-projects .card-link {
@@ -1289,9 +1247,7 @@ section {
   background: rgba(79, 172, 254, 0.3);
 }
 
-.timeline-item:last-child .timeline-marker::before {
-  display: none;
-}
+.timeline-item:last-child .timeline-marker::before { display: none; }
 
 .timeline-date {
   font-family: var(--font-mono);
@@ -1329,137 +1285,342 @@ section {
   color: var(--color-primary);
 }
 
-/* Design Showcase */
-.design-showcase {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px;
-}
-
-.design-card {
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.design-card:hover {
-  transform: translateY(-8px);
-}
-
-.design-preview {
-  aspect-ratio: 16 / 10;
-  background: rgba(79, 172, 254, 0.03);
+/* ========== SKILLS SECTION (REDESIGNED) ========== */
+.skills-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto 24px;
+  max-width: 1200px;
   border: 1px solid rgba(79, 172, 254, 0.2);
-  margin-bottom: 12px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skills-tab {
+  flex: 1;
+  min-width: 130px;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.preview-placeholder {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--color-muted);
-}
-
-.design-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.design-name {
-  font-size: 14px;
-  color: var(--color-text);
-}
-
-.design-tool {
+  gap: 8px;
+  padding: 14px 20px;
+  background: transparent;
+  border: none;
+  border-right: 1px solid rgba(79, 172, 254, 0.15);
+  color: var(--color-text-muted);
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--color-muted);
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-/* ========== SKILLS SECTION ========== */
-.skills-diagram {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+.skills-tab:last-child { border-right: none; }
+
+.skills-tab:hover {
+  background: rgba(79, 172, 254, 0.06);
+  color: var(--color-primary);
+}
+
+.skills-tab.active {
+  background: rgba(79, 172, 254, 0.12);
+  color: var(--color-primary);
+  box-shadow: inset 0 -2px 0 var(--color-primary);
+}
+
+.tab-icon { font-size: 14px; }
+
+.tab-count {
+  font-size: 10px;
+  opacity: 0.5;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+}
+
+.skills-tab.active .tab-count { opacity: 1; }
+
+/* Panel */
+.skills-panel {
+  background: rgba(79, 172, 254, 0.02);
+  border: 1px solid rgba(79, 172, 254, 0.15);
+  border-radius: 4px;
+  padding: 32px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.skill-block {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-}
-
-.skill-block.full-width {
-  grid-column: 1 / -1;
-}
-
-.block-header {
+.panel-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 16px;
   margin-bottom: 28px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(79, 172, 254, 0.1);
 }
 
-.block-icon {
-  font-size: 24px;
-}
-
-.block-title {
+.panel-marker {
   font-family: var(--font-mono);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-primary);
+  font-size: 11px;
+  color: rgba(79, 172, 254, 0.45);
+  letter-spacing: 0.5px;
+}
+
+.panel-info {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text-muted);
   letter-spacing: 1px;
-  margin: 0;
 }
 
-.block-content {
+/* Skills grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 14px;
+  margin-bottom: 36px;
+}
+
+/* Skill card */
+.skill-card {
+  --accent: 79, 172, 254;
+  position: relative;
+  /*
+   * will-change: transform forces Chrome to pre-allocate a GPU compositing
+   * layer for every card before any hover occurs. Without this, Chrome
+   * promotes only the hovered card mid-interaction, which causes adjacent
+   * cards' painted content to bleed into the new layer (visible as the
+   * previous card's text appearing inside the hovered card).
+   * isolation: isolate creates a separate stacking context per card so
+   * paint operations never cross card boundaries.
+   */
+  will-change: transform;
+  isolation: isolate;
+  background: rgba(var(--accent), 0.04);
+  border: 1px solid rgba(var(--accent), 0.2);
+  padding: 18px 14px 14px;
+  transition: transform 0.3s ease, background 0.3s ease,
+              border-color 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  cursor: default;
+}
+
+.skill-card:hover {
+  background: rgba(var(--accent), 0.09);
+  border-color: rgba(var(--accent), 0.65);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(var(--accent), 0.12),
+              0 0 0 1px rgba(var(--accent), 0.1);
+}
+
+.skill-card.tier-expert, 
+.skill-card.tier-proficient, 
+.skill-card.tier-learning { 
+  border-color: rgba(var(--accent), 0.3);
+}
+
+.skill-card.tier-expert:hover, 
+.skill-card.tier-proficient:hover, 
+.skill-card.tier-learning:hover { 
+  border-color: rgba(var(--accent), 0.75);
+}
+
+.skill-card.tier-expert .tier-label, 
+.skill-card.tier-proficient .tier-label, 
+.skill-card.tier-learning .tier-label {
+  color: rgba(var(--accent), 1); 
+}
+
+/* Scan-line sweep on hover */
+.skill-scan {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(var(--accent), 0.07) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.skill-card:hover .skill-scan {
+  animation: scanDown 0.5s ease forwards;
+}
+
+@keyframes scanDown {
+  from { top: -60%; }
+  to   { top: 110%; }
+}
+
+.skill-index {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(var(--accent), 0.6);
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.skill-card-body {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.block-content.horizontal {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.skill-item {
-  --color: 79, 172, 254;
-  color: white;
-  width: fit-content;
-  background-color: rgba(var(--color), 0.2);
-  padding: 12px 16px;
-  border: 2px solid rgba(var(--color), 0.6);
-  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
 }
 
-.skill-icon {
-  width: 24px;
-  margin-right: 12px;
+.skill-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  filter: saturate(0.6) brightness(0.85);
+  transition: filter 0.3s ease;
+}
+
+.skill-card:hover .skill-logo {
+  filter: saturate(1) brightness(1.15);
 }
 
 .skill-name {
   font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--color-text);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-align: center;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
 }
 
-.tool-chip {
+.skill-card:hover .skill-name { color: var(--color-text-primary); }
+
+.skill-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(var(--accent), 0.12);
+}
+
+.tier-label {
   font-family: var(--font-mono);
-  font-size: 12px;
-  padding: 8px 16px;
-  background: rgba(79, 172, 254, 0.1);
-  border: 1px solid rgba(79, 172, 254, 0.3);
-  color: var(--color-primary);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  color: rgba(var(--accent), 0.5);
+  text-transform: uppercase;
+}
+
+.skill-card.tier-expert .tier-label { color: rgba(var(--accent), 0.85); }
+
+/* Signal bars */
+.skill-bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+}
+
+.signal-bar {
+  width: 3px;
+  border-radius: 1px;
+  background: rgba(var(--accent), 0.18);
+  transition: background 0.3s ease;
+}
+
+.signal-bar:nth-child(1) { height: 5px; }
+.signal-bar:nth-child(2) { height: 8px; }
+.signal-bar:nth-child(3) { height: 11px; }
+.signal-bar:nth-child(4) { height: 14px; }
+
+/* Tier legend */
+.tier-legend {
+  border-top: 1px solid rgba(79, 172, 254, 0.1);
+  padding-top: 20px;
+}
+
+.legend-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(79, 172, 254, 0.35);
+  margin-bottom: 14px;
+  letter-spacing: 1px;
+}
+
+.legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-bars {
+  display: flex;
+  gap: 2px;
+  align-items: flex-end;
+}
+
+/* Legend signal bars — no CSS variable dependency */
+.signal-bar.sm {
+  width: 3px;
+  background: rgba(79, 172, 254, 0.18);
+}
+
+.signal-bar.sm:nth-child(1) { height: 4px; }
+.signal-bar.sm:nth-child(2) { height: 6px; }
+.signal-bar.sm:nth-child(3) { height: 8px; }
+.signal-bar.sm:nth-child(4) { height: 10px; }
+
+.signal-bar.sm.active { background: rgba(79, 172, 254, 0.75) !important; }
+
+.legend-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--color-text);
+  letter-spacing: 0.5px;
+}
+
+/* Skills responsive */
+@media (max-width: 768px) {
+  .skills-tab {
+    min-width: 100px;
+    padding: 10px 14px;
+    font-size: 10px;
+    gap: 6px;
+  }
+
+  .skills-panel { padding: 20px 16px; }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-tab {
+    flex: 1 1 45%;
+    min-width: 0;
+    padding: 8px 10px;
+    font-size: 9px;
+    border-right: 1px solid rgba(79, 172, 254, 0.15);
+  }
+
+  .tab-icon { display: none; }
+
+  .skills-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+
+  .skill-logo { width: 28px; height: 28px; }
 }
 
 /* ========== CONTACT SECTION ========== */
@@ -1511,10 +1672,7 @@ section {
   color: var(--color-primary);
 }
 
-.social-links {
-  display: flex;
-  gap: 16px;
-}
+.social-links { display: flex; gap: 16px; }
 
 .social-link {
   display: flex;
@@ -1535,10 +1693,7 @@ section {
   border-color: var(--color-primary);
 }
 
-.social-link img {
-  width: 18px;
-  height: 18px;
-}
+.social-link img { width: 18px; height: 18px; }
 
 /* Formulaire */
 .contact-form {
@@ -1547,9 +1702,7 @@ section {
   padding: 40px;
 }
 
-.form-field {
-  margin-bottom: 24px;
-}
+.form-field { margin-bottom: 24px; }
 
 .form-field label {
   display: block;
@@ -1650,19 +1803,12 @@ section {
 }
 
 @media (max-width: 1200px) {
-  .name-line {
-    font-size: clamp(3rem, 10vw, 8rem);
-  }
-
-  .meta-panel {
-    min-width: 280px;
-  }
+  .name-line { font-size: clamp(3rem, 10vw, 8rem); }
+  .meta-panel { min-width: 280px; }
 }
 
 @media (max-width: 1024px) {
-  .hero-content {
-    height: auto;
-  }
+  .hero-content { height: auto; }
 
   .avatar-container {
     width: 140px;
@@ -1704,42 +1850,20 @@ section {
 }
 
 @media (max-width: 768px) {
-  .blueprint-header {
-    padding: 20px 5%;
-  }
+  .blueprint-header { padding: 20px 5%; }
+  .header-nav { gap: 16px; }
+  .nav-link { font-size: 10px; }
 
-  .header-nav {
-    gap: 16px;
-  }
+  section { padding: 80px 5%; }
 
-  .nav-link {
-    font-size: 10px;
-  }
+  .hero-zone { padding: 100px 5% 60px; }
 
-  section {
-    padding: 80px 5%;
-  }
-
-  .hero-zone {
-    padding: 100px 5% 60px;
-  }
-
-  .section-marker {
-    margin-bottom: 40px;
-  }
-
-  .marker-number {
-    font-size: 32px;
-  }
-
-  .marker-title {
-    font-size: 24px;
-  }
+  .section-marker { margin-bottom: 40px; }
+  .marker-number { font-size: 32px; }
+  .marker-title { font-size: 24px; }
 
   .blueprint-grid,
-  .design-showcase {
-    grid-template-columns: 1fr;
-  }
+  .design-showcase { grid-template-columns: 1fr; }
 }
 
 /* ========== ACCESSIBILITÉ ========== */

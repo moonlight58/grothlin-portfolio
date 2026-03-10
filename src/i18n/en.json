@@ -6,6 +6,18 @@
     "contact": "CONTACT"
   },
   "home": {
+    "skills": {
+      "tier": {
+        "expert": "EXPERT",
+        "proficient": "PROFICIENT",
+        "learning": "FAMILIAR"
+      },
+      "legendTitle": "// PROFICIENCY_SCALE",
+      "frontend": "FRONTEND",
+      "backend": "BACKEND",
+      "devops": "DEVOPS",
+      "tools": "TOOLS & DATA"
+    },
     "panel": {
       "roleTitle": "ROLE",
       "role": "French Computer Science student",
@@ -203,9 +215,6 @@
         "description": "A Python application for creating and managing dot patterns in a grid. It allows users to generate, visualize and analyze dot patterns for various applications.",
         "status": "Completed"
       }
-    },
-    "skills": {
-      "database": "TOOLS & DATABASES"
     },
     "contact": {
       "title": "LET'S WORK TOGETHER !",
