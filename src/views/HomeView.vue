@@ -529,7 +529,7 @@ const skillCategories = computed(() => [
       { name: "Linux",      icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",         color: "230, 200, 100", level: 4, tier: 'expert'     },
       { name: "Git",        icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",             color: "240, 80, 51",   level: 4, tier: 'expert'     },
       { name: "Docker",     icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain.svg",       color: "0, 150, 210",   level: 3, tier: 'proficient' },
-      { name: "Bash",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",           color: "100, 200, 120", level: 3, tier: 'proficient' },
+      { name: "Bash",       icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",           color: "180, 180, 200", level: 3, tier: 'proficient' },
       { name: "ProxMox",    icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/proxmox/proxmox-original-wordmark.svg", color: "229, 112, 0", level: 2, tier: 'learning' },
       { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg",  color: "50, 108, 229",  level: 2, tier: 'learning'   },
     ]
