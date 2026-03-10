@@ -16,7 +16,11 @@
       "frontend": "FRONTEND",
       "backend": "BACKEND",
       "devops": "DEVOPS",
-      "tools": "OUTILS & DONNÉES"
+      "tools": "OUTILS & DONNÉES",
+      "panel": {
+        "marker": "CATÉGORIE",
+        "info": "MODULES_CHARGÉS"
+       }
     },
     "panel": {
       "roleTitle": "RÔLE",

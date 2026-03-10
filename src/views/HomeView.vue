@@ -64,7 +64,7 @@
         <!-- Bio en bas à gauche -->
         <div class="bio-compact">
           <div class="bio-intro">
-            <div class="bio-icon"></div>
+            <div class="bio-icon"></div>
             <p class="bio-text">{{ $i18n.t("home.body.student") }}</p>
           </div>
           <div class="bio-intro">
@@ -266,8 +266,8 @@
       <!-- Skills panel -->
       <div class="skills-panel">
         <div class="panel-header">
-          <span class="panel-marker">// CATEGORY: {{ activeCategory.toUpperCase() }}</span>
-          <span class="panel-info">{{ activeSkills.length }} MODULES_LOADED</span>
+          <span class="panel-marker">{{ t("home.skills.panel.marker") }}: {{ activeCategory.toUpperCase() }}</span>
+          <span class="panel-info">{{ activeSkills.length }} {{ t("home.skills.panel.info") }}</span>
         </div>
 
         <div class="skills-grid">
