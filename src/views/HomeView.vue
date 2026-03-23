@@ -370,6 +370,11 @@
 
         <!-- Droite : Formulaire -->
         <div class="contact-form-wrapper" v-if="showForm">
+          <button
+            class="form-close-btn"
+            @click="toggleFormVisibility"
+            aria-label="Close contact form"
+          >✕</button>
           <form
             id="contact-form"
             name="contact"
@@ -430,9 +435,23 @@
               :disabled="isSubmitting || cooldownRemaining > 0"
               aria-label="Submit contact form"
             >
-              <span v-if="!isSubmitting && cooldownRemaining === 0">{{ $i18n.t("home.contact.form.submit") }}</span>
-              <span v-else-if="isSubmitting">{{ $i18n.t("home.contact.form.submitting") }}</span>
-              <span v-else>{{ $i18n.t("home.contact.form.preventSpam") }} {{ Math.ceil(cooldownRemaining / 1000) }}s</span>
+              <span v-if="!isSubmitting && cooldownRemaining === 0">
+                {{ $i18n.t("home.contact.form.submit") }}
+              </span>
+              <span v-else-if="isSubmitting">
+                {{ $i18n.t("home.contact.form.submitting") }}
+              </span>
+              <span v-else class="cooldown-content">
+                <span class="cooldown-label">
+                  {{ $i18n.t("home.contact.form.preventSpam") }} {{ Math.ceil(cooldownRemaining / 1000) }}s
+                </span>
+                <span class="cooldown-bar">
+                  <span
+                    class="cooldown-fill"
+                    :style="{ width: `${(cooldownRemaining / cooldownDuration) * 100}%` }"
+                  ></span>
+                </span>
+              </span>
             </button>
 
             <div v-if="statusMessage" class="form-status" :class="statusClass">
@@ -1756,6 +1775,59 @@ section {
   cursor: not-allowed;
   border-color: var(--color-danger, #ff6b6b);
   color: var(--color-danger, #ff6b6b);
+}
+
+/* Close button */
+.form-close-btn {
+  display: block;
+  margin-left: auto;
+  margin-bottom: 16px;
+  background: transparent;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--color-muted);
+  font-size: 16px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  line-height: 1;
+}
+
+.form-close-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background: rgba(79, 172, 254, 0.1);
+}
+
+/* Cooldown progress */
+.cooldown-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+}
+
+.cooldown-label {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.cooldown-bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 107, 107, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.cooldown-fill {
+  display: block;
+  height: 100%;
+  background: var(--color-danger, #ff6b6b);
+  border-radius: 2px;
+  transition: width 0.1s linear;
 }
 
 .form-status {
