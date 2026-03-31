@@ -63,4 +63,4 @@ SpotCLI en action est montré dans les captures d'écran ci-dessous. La premièr
 ---
 
 ## 󰊤 Github
-> [Découvrez le code sur GitHub](https://github.com/moonglight58/spotcli)
+> [Découvrez le code sur GitHub](https://github.com/moonlight58/spotcli)

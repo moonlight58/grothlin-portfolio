@@ -306,6 +306,7 @@ const commands = {
       ];
     }
 
+    const listArguments = ['--list', '-l'];
     if (listArguments.some(arg => args.includes(arg))) {
       return [
         { text: 'Available organisations :', class: 'output-default' },

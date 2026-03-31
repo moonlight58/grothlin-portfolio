@@ -1,518 +1,453 @@
 <template>
-  <div class="blueprint-internship" @mousemove="updateCoords">
-    <!-- Grille blueprint subtile -->
-    <div class="grid-layer"></div>
+  <div class="blueprint-internship">
+    <div class="grid-layer" aria-hidden="true"></div>
 
-    <!-- Spybar -->
-    <aside class="spybar">
+    <!-- ── SPYBAR ───────────────────────────────────────────────────────── -->
+    <aside class="spybar" aria-label="Page sections">
       <nav class="spybar-nav">
-        <a 
-          v-for="section in sections" 
+        <a
+          v-for="section in sections"
           :key="section.id"
           :href="`#${section.id}`"
           class="spybar-link"
           :class="{ active: currentSection === section.id }"
-          :title="section.label"
-          @click="scrollToSection(section.id)"
+          :aria-current="currentSection === section.id ? 'true' : undefined"
+          @click.prevent="scrollToSection(section.id)"
         >
-          <span class="spybar-indicator"></span>
           <span class="spybar-label">{{ section.label }}</span>
+          <span class="spybar-dot" aria-hidden="true"></span>
         </a>
       </nav>
     </aside>
 
-    <!-- Hero Section -->
-    <section class="internship-hero">
+    <!-- ── HERO ─────────────────────────────────────────────────────────── -->
+    <header class="internship-hero">
       <a class="back-btn" href="/">
-        ↼ {{ $t('common.back') }}
+        <span aria-hidden="true">↼</span> {{ $t('common.back') }}
       </a>
-      <div class="hero-content">
+
+      <div class="hero-grid">
+        <!-- Title -->
         <div class="title-stack">
+          <p class="hero-eyebrow">{{ $t('internshipPage.euphron.hero.eyebrow') }}</p>
           <h1 class="title-line">{{ $t('internshipPage.euphron.hero.title') }}</h1>
-          <h1 class="title-line accent">{{ $t('internshipPage.euphron.hero.jobTitle') }}</h1>
+          <h2 class="title-sub">{{ $t('internshipPage.euphron.hero.jobTitle') }}</h2>
         </div>
 
-        <!-- Stats panel technique -->
-        <div class="stats-panel">
-          <div class="stat-item">
-            <span class="stat-key">{{ $t('internshipPage.euphron.hero.jobTitleLabel') }}:</span>
-            <span class="stat-value">{{ $t('internshipPage.euphron.hero.jobTitle') }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-key">{{ $t('internshipPage.euphron.hero.locationLabel') }}:</span>
-            <span class="stat-value">{{ $t('internshipPage.euphron.hero.location') }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-key">{{ $t('internshipPage.euphron.hero.durationLabel') }}:</span>
-            <span class="stat-value">{{ $t('internshipPage.euphron.hero.duration') }}</span>
-          </div>
-          <div class="stat-item">
-            <span class="stat-key">{{ $t('internshipPage.euphron.hero.statusLabel') }}:</span>
-            <span class="stat-value blink">{{ $t('internshipPage.euphron.hero.status') }}</span>
-          </div>
-        </div>
-
-        <!-- Logo Euphron -->
-        <div class="logo-visual">
-          <img
-            src="@/assets/Euphron.svg"
-            class="logo-image"
-            alt="Logo Euphron"
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- Context Section -->
-    <section id="context" class="context-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.context.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.context.title').toUpperCase() }}</span>
-      </div>
-
-      <div class="content-block">
-        <p class="content-text">{{ $t('internshipPage.euphron.context.description1') }}</p>
-        <p class="content-text">{{ $t('internshipPage.euphron.context.description2') }}</p>
-        
-        <div class="objectives-grid">
-          <div class="objective-card">
-            <div class="card-header">
-              <span class="card-icon"></span>
-              <span class="card-number">01</span>
+        <!-- Stats panel — sits in its own grid column, never overlaps -->
+        <aside class="stats-panel" aria-label="Internship metadata">
+          <dl class="stats-list">
+            <div class="stat-row">
+              <dt class="stat-key">{{ $t('internshipPage.euphron.hero.jobTitleLabel') }}</dt>
+              <dd class="stat-value">{{ $t('internshipPage.euphron.hero.jobTitle') }}</dd>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.euphron.context.objective1Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.euphron.context.objective1Desc') }}</p>
-          </div>
-          <div class="objective-card">
-            <div class="card-header">
-              <span class="card-icon"></span>
-              <span class="card-number">02</span>
+            <div class="stat-row">
+              <dt class="stat-key">{{ $t('internshipPage.euphron.hero.locationLabel') }}</dt>
+              <dd class="stat-value">{{ $t('internshipPage.euphron.hero.location') }}</dd>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.euphron.context.objective2Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.euphron.context.objective2Desc') }}</p>
-          </div>
-          <div class="objective-card">
-            <div class="card-header">
-              <span class="card-icon"></span>
-              <span class="card-number">03</span>
+            <div class="stat-row">
+              <dt class="stat-key">{{ $t('internshipPage.euphron.hero.durationLabel') }}</dt>
+              <dd class="stat-value">{{ $t('internshipPage.euphron.hero.duration') }}</dd>
             </div>
-            <h4 class="card-title">{{ $t('internshipPage.euphron.context.objective3Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.euphron.context.objective3Desc') }}</p>
-          </div>
-        </div>
-        
-        <div class="constraint-box">
-          <span class="constraint-label">{{ $t('internshipPage.euphron.context.constraintLabel') }}</span>
-          <span class="constraint-text">{{ $t('internshipPage.euphron.context.constraintText') }}</span>
+            <div class="stat-row">
+              <dt class="stat-key">{{ $t('internshipPage.euphron.hero.statusLabel') }}</dt>
+              <dd class="stat-value stat-value--done">
+                <span class="status-dot" aria-hidden="true"></span>
+                {{ $t('internshipPage.euphron.hero.status') }}
+              </dd>
+            </div>
+          </dl>
+        </aside>
+
+        <!-- Logo -->
+        <div class="hero-logo" aria-hidden="true">
+          <img src="@/assets/Euphron.svg" alt="" class="logo-image" />
         </div>
       </div>
-    </section>
+    </header>
 
-    <!-- Role Section -->
-    <section id="role" class="role-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.role.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.role.title').toUpperCase() }}</span>
-      </div>
+    <!-- ── MAIN CONTENT ──────────────────────────────────────────────────── -->
+    <main id="main-content">
 
-      <div class="content-block">
-        <p class="content-text">{{ $t('internshipPage.euphron.role.description') }}</p>
-        
-        <div class="responsibilities-grid">
-          <div class="responsibility-card">
-            <div class="card-header">
-              <span class="card-number">01</span>
-              <span class="card-icon"></span>
-            </div>
-            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility1Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility1Desc') }}</p>
-          </div>
-          <div class="responsibility-card">
-            <div class="card-header">
-              <span class="card-number">02</span>
-              <span class="card-icon"></span>
-            </div>
-            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility2Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility2Desc') }}</p>
-          </div>
-          <div class="responsibility-card">
-            <div class="card-header">
-              <span class="card-number">03</span>
-              <span class="card-icon"></span>
-            </div>
-            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility3Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility3Desc') }}</p>
-          </div>
-          <div class="responsibility-card">
-            <div class="card-header">
-              <span class="card-number">04</span>
-              <span class="card-icon"></span>
-            </div>
-            <h4 class="card-title">{{ $t('internshipPage.euphron.role.responsibility4Title') }}</h4>
-            <p class="card-description">{{ $t('internshipPage.euphron.role.responsibility4Desc') }}</p>
-          </div>
+      <!-- 01 · CONTEXT -->
+      <section id="context" class="page-section" aria-labelledby="heading-context">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.context.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
         </div>
-      </div>
-    </section>
+        <h2 id="heading-context" class="section-title">
+          {{ $t('internshipPage.euphron.context.title').toUpperCase() }}
+        </h2>
 
-    <!-- Organization Section -->
-    <section id="organization" class="organization-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.organization.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.organization.title').toUpperCase() }}</span>
-      </div>
+        <div class="content-block">
+          <p class="content-text">{{ $t('internshipPage.euphron.context.description1') }}</p>
+          <p class="content-text">{{ $t('internshipPage.euphron.context.description2') }}</p>
 
-      <div class="content-block">
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <span class="marker-label">WEEKS</span>
-              <span class="marker-value">1-2</span>
-            </div>
-            <div class="timeline-content">
-              <h4 class="timeline-title">{{ $t('internshipPage.euphron.organization.week12Title') }}</h4>
-              <p class="timeline-description">{{ $t('internshipPage.euphron.organization.week12Desc') }}</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <span class="marker-label">WEEK</span>
-              <span class="marker-value">3</span>
-            </div>
-            <div class="timeline-content">
-              <h4 class="timeline-title">{{ $t('internshipPage.euphron.organization.week3Title') }}</h4>
-              <p class="timeline-description">{{ $t('internshipPage.euphron.organization.week3Desc') }}</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-marker">
-              <span class="marker-label">WEEKS</span>
-              <span class="marker-value">4-8</span>
-            </div>
-            <div class="timeline-content">
-              <h4 class="timeline-title">{{ $t('internshipPage.euphron.organization.week48Title') }}</h4>
-              <p class="timeline-description">{{ $t('internshipPage.euphron.organization.week48Desc') }}</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="methodology-box">
-          <div class="box-header">
-            <span class="box-icon"></span>
-            <h4 class="box-title">{{ $t('internshipPage.euphron.organization.methodologyTitle') }}</h4>
-          </div>
-          <p class="box-description">{{ $t('internshipPage.euphron.organization.methodologyDesc') }}</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Tech Stack Section -->
-    <section id="tech" class="tech-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.techStack.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.techStack.title').toUpperCase() }}</span>
-      </div>
-
-      <div class="content-block">
-        <div class="tech-stack-grid">
-          <div class="tech-stack-section">
-            <h3 class="stack-title">{{ $t('internshipPage.euphron.techStack.frontendTitle') }}</h3>
-            <div class="tech-list">
-              <div class="tech-item">
-                <span class="tech-icon"></span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend1Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend1Desc') }}</p>
-                </div>
+          <div class="card-grid card-grid--3">
+            <div class="info-card">
+              <div class="header-info-card">
+                <span class="info-card__num">01</span>
+                <span class="icon-card"></span>
               </div>
-              <div class="tech-item">
-                <span class="tech-icon"></span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend2Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend2Desc') }}</p>
-                </div>
+              <h3 class="info-card__title">{{ $t('internshipPage.euphron.context.objective1Title') }}</h3>
+              <p class="info-card__desc">{{ $t('internshipPage.euphron.context.objective1Desc') }}</p>
+            </div>
+            <div class="info-card">
+              <div class="header-info-card">
+                <span class="info-card__num">02</span>
+                <span class="icon-card"></span>
               </div>
-              <div class="tech-item">
-                <span class="tech-icon">󱇯</span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend3Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend3Desc') }}</p>
-                </div>
+              <h3 class="info-card__title">{{ $t('internshipPage.euphron.context.objective2Title') }}</h3>
+              <p class="info-card__desc">{{ $t('internshipPage.euphron.context.objective2Desc') }}</p>
+            </div>
+            <div class="info-card">
+              <div class="header-info-card">
+                <span class="info-card__num">03</span>
+                <span class="icon-card"></span>
               </div>
-              <div class="tech-item">
-                <span class="tech-icon"></span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.frontend4Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.frontend4Desc') }}</p>
-                </div>
-              </div>
+              <h3 class="info-card__title">{{ $t('internshipPage.euphron.context.objective3Title') }}</h3>
+              <p class="info-card__desc">{{ $t('internshipPage.euphron.context.objective3Desc') }}</p>
             </div>
           </div>
-          
-          <div class="tech-stack-section">
-            <h3 class="stack-title">{{ $t('internshipPage.euphron.techStack.backendTitle') }}</h3>
-            <div class="tech-list">
-              <div class="tech-item">
-                <span class="tech-icon"></span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend1Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend1Desc') }}</p>
-                </div>
-              </div>
-              <div class="tech-item">
-                <span class="tech-icon"></span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend2Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend2Desc') }}</p>
-                </div>
-              </div>
-              <div class="tech-item">
-                <span class="tech-icon"></span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend3Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend3Desc') }}</p>
-                </div>
-              </div>
-              <div class="tech-item">
-                <span class="tech-icon"></span>
-                <div class="tech-info">
-                  <strong class="tech-name">{{ $t('internshipPage.euphron.techStack.backend4Name') }}</strong>
-                  <p class="tech-desc">{{ $t('internshipPage.euphron.techStack.backend4Desc') }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="justification-box">
-          <div class="box-header">
-            <span class="box-icon">󰛨</span>
-            <h4 class="box-title">{{ $t('internshipPage.euphron.techStack.justificationTitle') }}</h4>
-          </div>
-          <p class="box-description">{{ $t('internshipPage.euphron.techStack.justificationDesc') }}</p>
-        </div>
-      </div>
-    </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.features.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.features.title').toUpperCase() }}</span>
-      </div>
+          <blockquote class="constraint-box">
+            <span class="constraint-label">{{ $t('internshipPage.euphron.context.constraintLabel') }}</span>
+            {{ $t('internshipPage.euphron.context.constraintText') }}
+          </blockquote>
+        </div>
+      </section>
 
-      <div class="content-block">
-        <div class="features-grid">
-          <div class="feature-category">
-            <div class="category-header">
-              <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category1Title') }}</h3>
-            </div>
-            <ul class="feature-list">
-              <li>{{ $t('internshipPage.euphron.features.category1Item1') }}</li>
-              <li>{{ $t('internshipPage.euphron.features.category1Item2') }}</li>
-              <li>{{ $t('internshipPage.euphron.features.category1Item3') }}</li>
-            </ul>
-          </div>
-          <div class="feature-category">
-            <div class="category-header">
-              <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category2Title') }}</h3>
-            </div>
-            <ul class="feature-list">
-              <li>{{ $t('internshipPage.euphron.features.category2Item1') }}</li>
-              <li>{{ $t('internshipPage.euphron.features.category2Item2') }}</li>
-              <li>{{ $t('internshipPage.euphron.features.category2Item3') }}</li>
-            </ul>
-          </div>
-          <div class="feature-category">
-            <div class="category-header">
-              <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category3Title') }}</h3>
-            </div>
-            <ul class="feature-list">
-              <li>{{ $t('internshipPage.euphron.features.category3Item1') }}</li>
-              <li>{{ $t('internshipPage.euphron.features.category3Item2') }}</li>
-            </ul>
-          </div>
-          <div class="feature-category">
-            <div class="category-header">
-              <span class="category-icon"></span>
-              <h3 class="category-title">{{ $t('internshipPage.euphron.features.category4Title') }}</h3>
-            </div>
-            <ul class="feature-list">
-              <li>{{ $t('internshipPage.euphron.features.category4Item1') }}</li>
-              <li>{{ $t('internshipPage.euphron.features.category4Item2') }}</li>
-              <li>{{ $t('internshipPage.euphron.features.category4Item3') }}</li>
-            </ul>
-          </div>
+      <!-- 02 · ROLE -->
+      <section id="role" class="page-section" aria-labelledby="heading-role">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.role.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
         </div>
-        
-        <div class="highlight-box">
-          <div class="box-header">
-            <span class="box-icon">󰛨</span>
-            <h4 class="box-title">{{ $t('internshipPage.euphron.features.highlightTitle') }}</h4>
-          </div>
-          <p class="box-description">{{ $t('internshipPage.euphron.features.highlightDesc') }}</p>
-        </div>
-        
-        <div class="progress-box">
-          <div class="progress-header">
-            <h4 class="progress-title">{{ $t('internshipPage.euphron.features.progressTitle') }}</h4>
-            <span class="progress-percentage">{{ $t('internshipPage.euphron.features.progressPercentage') }}</span>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 70%"></div>
-          </div>
-          <p class="progress-description">{{ $t('internshipPage.euphron.features.progressDesc') }}</p>
-        </div>
-      </div>
-    </section>
+        <h2 id="heading-role" class="section-title">
+          {{ $t('internshipPage.euphron.role.title').toUpperCase() }}
+        </h2>
 
-    <!-- Architecture Section -->
-    <section id="architecture" class="architecture-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.architecture.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.architecture.title').toUpperCase() }}</span>
-      </div>
+        <div class="content-block">
+          <p class="content-text">{{ $t('internshipPage.euphron.role.description') }}</p>
 
-      <div class="content-block">
-        <div class="diagram-container">
-          <img
-            src="@/assets/stage/Diagram.png"
-            :alt="$t('internshipPage.euphron.architecture.diagramAlt')"
-            class="architecture-diagram"
-          />
-          <div class="diagram-caption">
-            <span class="caption-label">FIGURE 01:</span>
-            <em class="caption-text">{{ $t('internshipPage.euphron.architecture.diagramCaption') }}</em>
+          <div class="card-grid card-grid--4">
+            <div class="info-card" v-for="n in 4" :key="n">
+              <div class="header-info-card">
+                <span class="info-card__num">0{{ n }}</span>
+                <span class="icon-card" :class="`icon-card--${n}`">{{ $t(`internshipPage.euphron.role.responsibility${n}Icon`) }}</span>
+              </div>
+              <h3 class="info-card__title">{{ $t(`internshipPage.euphron.role.responsibility${n}Title`) }}</h3>
+              <p class="info-card__desc">{{ $t(`internshipPage.euphron.role.responsibility${n}Desc`) }}</p>
+            </div>
           </div>
         </div>
-        
-        <div class="architecture-description">
+      </section>
+
+      <!-- 03 · ORGANIZATION -->
+      <section id="organization" class="page-section" aria-labelledby="heading-org">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.organization.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
+        </div>
+        <h2 id="heading-org" class="section-title">
+          {{ $t('internshipPage.euphron.organization.title').toUpperCase() }}
+        </h2>
+
+        <div class="content-block">
+          <!-- Timeline -->
+          <ol class="timeline" aria-label="Project timeline">
+            <li class="timeline-item">
+              <div class="timeline-marker" aria-hidden="true">
+                <span class="tl-label">WEEKS</span>
+                <span class="tl-value">1–2</span>
+              </div>
+              <div class="timeline-content">
+                <h3 class="timeline-title">{{ $t('internshipPage.euphron.organization.week12Title') }}</h3>
+                <p class="timeline-desc">{{ $t('internshipPage.euphron.organization.week12Desc') }}</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-marker" aria-hidden="true">
+                <span class="tl-label">WEEK</span>
+                <span class="tl-value">3</span>
+              </div>
+              <div class="timeline-content">
+                <h3 class="timeline-title">{{ $t('internshipPage.euphron.organization.week3Title') }}</h3>
+                <p class="timeline-desc">{{ $t('internshipPage.euphron.organization.week3Desc') }}</p>
+              </div>
+            </li>
+            <li class="timeline-item">
+              <div class="timeline-marker" aria-hidden="true">
+                <span class="tl-label">WEEKS</span>
+                <span class="tl-value">4–8</span>
+              </div>
+              <div class="timeline-content">
+                <h3 class="timeline-title">{{ $t('internshipPage.euphron.organization.week48Title') }}</h3>
+                <p class="timeline-desc">{{ $t('internshipPage.euphron.organization.week48Desc') }}</p>
+              </div>
+            </li>
+          </ol>
+
+          <div class="highlight-box">
+            <h3 class="highlight-box__title">{{ $t('internshipPage.euphron.organization.methodologyTitle') }}</h3>
+            <p class="highlight-box__desc">{{ $t('internshipPage.euphron.organization.methodologyDesc') }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · TECH STACK -->
+      <section id="tech" class="page-section" aria-labelledby="heading-tech">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.techStack.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
+        </div>
+        <h2 id="heading-tech" class="section-title">
+          {{ $t('internshipPage.euphron.techStack.title').toUpperCase() }}
+        </h2>
+
+        <div class="content-block">
+          <div class="tech-columns">
+            <!-- Frontend -->
+            <div class="tech-group">
+              <h3 class="tech-group__title">{{ $t('internshipPage.euphron.techStack.frontendTitle') }}</h3>
+              <ul class="tech-list">
+                <li v-for="n in 4" :key="`fe-${n}`" class="tech-item">
+                  <strong class="tech-item__name">{{ $t(`internshipPage.euphron.techStack.frontend${n}Name`) }}</strong>
+                  <p class="tech-item__desc">{{ $t(`internshipPage.euphron.techStack.frontend${n}Desc`) }}</p>
+                </li>
+              </ul>
+            </div>
+            <!-- Backend -->
+            <div class="tech-group">
+              <h3 class="tech-group__title">{{ $t('internshipPage.euphron.techStack.backendTitle') }}</h3>
+              <ul class="tech-list">
+                <li v-for="n in 4" :key="`be-${n}`" class="tech-item">
+                  <strong class="tech-item__name">{{ $t(`internshipPage.euphron.techStack.backend${n}Name`) }}</strong>
+                  <p class="tech-item__desc">{{ $t(`internshipPage.euphron.techStack.backend${n}Desc`) }}</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <h3 class="highlight-box__title">{{ $t('internshipPage.euphron.techStack.justificationTitle') }}</h3>
+            <p class="highlight-box__desc">{{ $t('internshipPage.euphron.techStack.justificationDesc') }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · FEATURES -->
+      <section id="features" class="page-section" aria-labelledby="heading-features">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.features.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
+        </div>
+        <h2 id="heading-features" class="section-title">
+          {{ $t('internshipPage.euphron.features.title').toUpperCase() }}
+        </h2>
+
+        <div class="content-block">
+          <div class="card-grid card-grid--4">
+            <div class="feature-card">
+              <h3 class="feature-card__title">{{ $t('internshipPage.euphron.features.category1Title') }}</h3>
+              <ul class="feature-card__list">
+                <li>{{ $t('internshipPage.euphron.features.category1Item1') }}</li>
+                <li>{{ $t('internshipPage.euphron.features.category1Item2') }}</li>
+                <li>{{ $t('internshipPage.euphron.features.category1Item3') }}</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <h3 class="feature-card__title">{{ $t('internshipPage.euphron.features.category2Title') }}</h3>
+              <ul class="feature-card__list">
+                <li>{{ $t('internshipPage.euphron.features.category2Item1') }}</li>
+                <li>{{ $t('internshipPage.euphron.features.category2Item2') }}</li>
+                <li>{{ $t('internshipPage.euphron.features.category2Item3') }}</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <h3 class="feature-card__title">{{ $t('internshipPage.euphron.features.category3Title') }}</h3>
+              <ul class="feature-card__list">
+                <li>{{ $t('internshipPage.euphron.features.category3Item1') }}</li>
+                <li>{{ $t('internshipPage.euphron.features.category3Item2') }}</li>
+              </ul>
+            </div>
+            <div class="feature-card">
+              <h3 class="feature-card__title">{{ $t('internshipPage.euphron.features.category4Title') }}</h3>
+              <ul class="feature-card__list">
+                <li>{{ $t('internshipPage.euphron.features.category4Item1') }}</li>
+                <li>{{ $t('internshipPage.euphron.features.category4Item2') }}</li>
+                <li>{{ $t('internshipPage.euphron.features.category4Item3') }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="highlight-box">
+            <h3 class="highlight-box__title">{{ $t('internshipPage.euphron.features.highlightTitle') }}</h3>
+            <p class="highlight-box__desc">{{ $t('internshipPage.euphron.features.highlightDesc') }}</p>
+          </div>
+
+          <div class="progress-block">
+            <div class="progress-block__header">
+              <h3 class="progress-block__title">{{ $t('internshipPage.euphron.features.progressTitle') }}</h3>
+              <span class="progress-block__pct">{{ $t('internshipPage.euphron.features.progressPercentage') }}</span>
+            </div>
+            <div
+              class="progress-track"
+              role="progressbar"
+              aria-valuenow="70"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              :aria-label="$t('internshipPage.euphron.features.progressTitle')"
+            >
+              <div class="progress-fill" style="width: 70%"></div>
+            </div>
+            <p class="progress-block__desc">{{ $t('internshipPage.euphron.features.progressDesc') }}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · ARCHITECTURE -->
+      <section id="architecture" class="page-section" aria-labelledby="heading-arch">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.architecture.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
+        </div>
+        <h2 id="heading-arch" class="section-title">
+          {{ $t('internshipPage.euphron.architecture.title').toUpperCase() }}
+        </h2>
+
+        <div class="content-block">
+          <figure class="diagram-figure">
+            <img
+              src="@/assets/stage/Diagram.png"
+              :alt="$t('internshipPage.euphron.architecture.diagramAlt')"
+              class="diagram-img"
+              loading="lazy"
+            />
+            <figcaption class="diagram-caption">
+              <span class="caption-label" aria-hidden="true">FIGURE 01 —</span>
+              {{ $t('internshipPage.euphron.architecture.diagramCaption') }}
+            </figcaption>
+          </figure>
+
           <p class="content-text">{{ $t('internshipPage.euphron.architecture.description') }}</p>
-          
-          <div class="architecture-sections">
-            <div class="arch-section">
-              <div class="section-header">
-                <span class="section-icon">󰛈</span>
-                <h4 class="section-title">{{ $t('internshipPage.euphron.architecture.section1Title') }}</h4>
+
+          <div class="two-col">
+            <div class="highlight-box">
+              <h3 class="highlight-box__title">{{ $t('internshipPage.euphron.architecture.section1Title') }}</h3>
+              <p class="highlight-box__desc">{{ $t('internshipPage.euphron.architecture.section1Desc') }}</p>
+            </div>
+            <div class="highlight-box">
+              <h3 class="highlight-box__title">{{ $t('internshipPage.euphron.architecture.section2Title') }}</h3>
+              <p class="highlight-box__desc">{{ $t('internshipPage.euphron.architecture.section2Desc') }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 · SECURITY -->
+      <section id="security" class="page-section" aria-labelledby="heading-security">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.security.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
+        </div>
+        <h2 id="heading-security" class="section-title">
+          {{ $t('internshipPage.euphron.security.title').toUpperCase() }}
+        </h2>
+
+        <div class="content-block">
+          <p class="content-text">{{ $t('internshipPage.euphron.security.intro') }}</p>
+
+          <div class="two-col">
+            <div class="security-method">
+              <div class="security-method__header">
+                <span class="security-method__num">01</span>
+                <h3 class="security-method__title">{{ $t('internshipPage.euphron.security.method1Title') }}</h3>
               </div>
-              <p class="section-description">{{ $t('internshipPage.euphron.architecture.section1Desc') }}</p>
-            </div>
-            <div class="arch-section">
-              <div class="section-header">
-                <span class="section-icon">⚡</span>
-                <h4 class="section-title">{{ $t('internshipPage.euphron.architecture.section2Title') }}</h4>
+              <p class="security-method__desc">{{ $t('internshipPage.euphron.security.method1Desc') }}</p>
+              <div class="code-img-wrapper">
+                <img
+                  src="@/assets/stage/RegexCheck.png"
+                  :alt="$t('internshipPage.euphron.security.method1Alt')"
+                  class="code-img"
+                  loading="lazy"
+                />
               </div>
-              <p class="section-description">{{ $t('internshipPage.euphron.architecture.section2Desc') }}</p>
+            </div>
+
+            <div class="security-method">
+              <div class="security-method__header">
+                <span class="security-method__num">02</span>
+                <h3 class="security-method__title">{{ $t('internshipPage.euphron.security.method2Title') }}</h3>
+              </div>
+              <p class="security-method__desc">{{ $t('internshipPage.euphron.security.method2Desc') }}</p>
+              <ul class="check-list">
+                <li>{{ $t('internshipPage.euphron.security.method2Item1') }}</li>
+                <li>{{ $t('internshipPage.euphron.security.method2Item2') }}</li>
+                <li>{{ $t('internshipPage.euphron.security.method2Item3') }}</li>
+              </ul>
+              <div class="code-img-wrapper">
+                <img
+                  src="@/assets/stage/PreparedQuery.png"
+                  :alt="$t('internshipPage.euphron.security.method2Alt')"
+                  class="code-img"
+                  loading="lazy"
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Security Section -->
-    <section id="security" class="security-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.security.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.security.title').toUpperCase() }}</span>
-      </div>
+      <!-- 08 · LEARNING -->
+      <section id="learning" class="page-section" aria-labelledby="heading-learning">
+        <div class="section-marker" aria-hidden="true">
+          <span class="marker-number">{{ $t('internshipPage.euphron.learning.sectionNumber') }}</span>
+          <span class="marker-bar"></span>
+        </div>
+        <h2 id="heading-learning" class="section-title">
+          {{ $t('internshipPage.euphron.learning.title').toUpperCase() }}
+        </h2>
 
-      <div class="content-block">
-        <p class="content-text">{{ $t('internshipPage.euphron.security.intro') }}</p>
-        
-        <div class="security-methods">
-          <div class="security-method">
-            <div class="method-header">
-              <span class="method-number">01</span>
-              <h4 class="method-title">{{ $t('internshipPage.euphron.security.method1Title') }}</h4>
+        <div class="content-block">
+          <div class="two-col">
+            <div class="learning-group">
+              <h3 class="learning-group__title">{{ $t('internshipPage.euphron.learning.technicalTitle') }}</h3>
+              <ul class="arrow-list">
+                <li>{{ $t('internshipPage.euphron.learning.technical1') }}</li>
+                <li>{{ $t('internshipPage.euphron.learning.technical2') }}</li>
+                <li>{{ $t('internshipPage.euphron.learning.technical3') }}</li>
+                <li>{{ $t('internshipPage.euphron.learning.technical4') }}</li>
+              </ul>
             </div>
-            <p class="method-description">{{ $t('internshipPage.euphron.security.method1Desc') }}</p>
-            <div class="method-image-wrapper">
-              <img
-                src="@/assets/stage/RegexCheck.png"
-                :alt="$t('internshipPage.euphron.security.method1Alt')"
-                class="security-image"
-              />
+            <div class="learning-group">
+              <h3 class="learning-group__title">{{ $t('internshipPage.euphron.learning.softTitle') }}</h3>
+              <ul class="arrow-list">
+                <li>{{ $t('internshipPage.euphron.learning.soft1') }}</li>
+                <li>{{ $t('internshipPage.euphron.learning.soft2') }}</li>
+                <li>{{ $t('internshipPage.euphron.learning.soft3') }}</li>
+                <li>{{ $t('internshipPage.euphron.learning.soft4') }}</li>
+              </ul>
             </div>
           </div>
-          
-          <div class="security-method">
-            <div class="method-header">
-              <span class="method-number">02</span>
-              <h4 class="method-title">{{ $t('internshipPage.euphron.security.method2Title') }}</h4>
-            </div>
-            <p class="method-description">{{ $t('internshipPage.euphron.security.method2Desc') }}</p>
-            <ul class="method-list">
-              <li>{{ $t('internshipPage.euphron.security.method2Item1') }}</li>
-              <li>{{ $t('internshipPage.euphron.security.method2Item2') }}</li>
-              <li>{{ $t('internshipPage.euphron.security.method2Item3') }}</li>
-            </ul>
-            <div class="method-image-wrapper">
-              <img
-                src="@/assets/stage/PreparedQuery.png"
-                :alt="$t('internshipPage.euphron.security.method2Alt')"
-                class="security-image"
-              />
-            </div>
+
+          <div class="highlight-box highlight-box--accent">
+            <h3 class="highlight-box__title">{{ $t('internshipPage.euphron.learning.reflectionTitle') }}</h3>
+            <p class="highlight-box__desc">{{ $t('internshipPage.euphron.learning.reflectionDesc') }}</p>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Learning Section -->
-    <section id="learning" class="learning-zone">
-      <div class="section-marker">
-        <span class="marker-number">{{ $t('internshipPage.euphron.learning.sectionNumber') }}</span>
-        <span class="marker-title">{{ $t('internshipPage.euphron.learning.title').toUpperCase() }}</span>
-      </div>
+    </main>
 
-      <div class="content-block">
-        <div class="learning-grid">
-          <div class="learning-section">
-            <div class="section-header">
-              <span class="section-icon"></span>
-              <h3 class="section-title">{{ $t('internshipPage.euphron.learning.technicalTitle') }}</h3>
-            </div>
-            <ul class="learning-list">
-              <li>{{ $t('internshipPage.euphron.learning.technical1') }}</li>
-              <li>{{ $t('internshipPage.euphron.learning.technical2') }}</li>
-              <li>{{ $t('internshipPage.euphron.learning.technical3') }}</li>
-              <li>{{ $t('internshipPage.euphron.learning.technical4') }}</li>
-            </ul>
-          </div>
-          <div class="learning-section">
-            <div class="section-header">
-              <span class="section-icon"></span>
-              <h3 class="section-title">{{ $t('internshipPage.euphron.learning.softTitle') }}</h3>
-            </div>
-            <ul class="learning-list">
-              <li>{{ $t('internshipPage.euphron.learning.soft1') }}</li>
-              <li>{{ $t('internshipPage.euphron.learning.soft2') }}</li>
-              <li>{{ $t('internshipPage.euphron.learning.soft3') }}</li>
-              <li>{{ $t('internshipPage.euphron.learning.soft4') }}</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="reflection-box">
-          <div class="box-header">
-            <span class="box-icon"></span>
-            <h4 class="box-title">{{ $t('internshipPage.euphron.learning.reflectionTitle') }}</h4>
-          </div>
-          <p class="box-description">{{ $t('internshipPage.euphron.learning.reflectionDesc') }}</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
+    <!-- ── BACK LINK ─────────────────────────────────────────────────────── -->
+    <div class="back-section">
       <a class="back-btn" href="/">
-        ↼ {{ $t('common.back') }}
+        <span aria-hidden="true">↼</span> {{ $t('common.back') }}
       </a>
-    </section>
+    </div>
 
-    <!-- Footer -->
+    <!-- ── FOOTER ────────────────────────────────────────────────────────── -->
     <FooterComponent />
   </div>
 </template>
@@ -522,1074 +457,970 @@ import FooterComponent from "@/components/FooterComponent.vue";
 
 export default {
   name: "InternshipEuphron",
-  components: {
-    FooterComponent,
-  },
+  components: { FooterComponent },
+
   data() {
     return {
-      mouseX: 0,
-      mouseY: 0,
       currentSection: "context",
+      /* IntersectionObserver instance — kept so we can disconnect on unmount */
+      _observer: null,
     };
   },
+
   computed: {
     sections() {
       return [
-        { id: "context", label: this.$t('internshipPage.euphron.context.title') },
-        { id: "role", label: this.$t('internshipPage.euphron.role.title') },
-        { id: "organization", label: this.$t('internshipPage.euphron.organization.title') },
-        { id: "tech", label: this.$t('internshipPage.euphron.techStack.title') },
-        { id: "features", label: this.$t('internshipPage.euphron.features.title') },
-        { id: "architecture", label: this.$t('internshipPage.euphron.architecture.title') },
-        { id: "security", label: this.$t('internshipPage.euphron.security.title') },
-        { id: "learning", label: this.$t('internshipPage.euphron.learning.title') },
+        { id: "context",      label: this.$t("internshipPage.euphron.context.title") },
+        { id: "role",         label: this.$t("internshipPage.euphron.role.title") },
+        { id: "organization", label: this.$t("internshipPage.euphron.organization.title") },
+        { id: "tech",         label: this.$t("internshipPage.euphron.techStack.title") },
+        { id: "features",     label: this.$t("internshipPage.euphron.features.title") },
+        { id: "architecture", label: this.$t("internshipPage.euphron.architecture.title") },
+        { id: "security",     label: this.$t("internshipPage.euphron.security.title") },
+        { id: "learning",     label: this.$t("internshipPage.euphron.learning.title") },
       ];
     },
   },
+
   mounted() {
-    window.addEventListener("scroll", this.handleSpybarScroll);
+    this.initObserver();
   },
+
   beforeUnmount() {
-    window.removeEventListener("scroll", this.handleSpybarScroll);
+    if (this._observer) {
+      this._observer.disconnect();
+      this._observer = null;
+    }
   },
+
   methods: {
-    updateCoords(e) {
-      this.mouseX = e.clientX;
-      this.mouseY = e.clientY;
-    },
-    goBack() {
-      this.$router.back();
-    },
-    handleSpybarScroll() {
-      const sections = this.sections.map(s => ({
-        id: s.id,
-        element: document.getElementById(s.id),
-      }));
+    initObserver() {
+      this._observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.currentSection = entry.target.id;
+            }
+          });
+        },
+        { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      );
 
-      let currentSection = "context";
-      let closestDistance = Infinity;
-
-      sections.forEach(section => {
-        if (section.element) {
-          const rect = section.element.getBoundingClientRect();
-          const distance = Math.abs(rect.top - 100);
-
-          if (rect.top <= 100 && distance < closestDistance) {
-            closestDistance = distance;
-            currentSection = section.id;
-          } else if (rect.top > 100 && rect.top < closestDistance) {
-            closestDistance = rect.top;
-            currentSection = section.id;
-          }
-        }
+      this.$nextTick(() => {
+        this.sections.forEach(({ id }) => {
+          const el = document.getElementById(id);
+          if (el) this._observer.observe(el);
+        });
       });
-
-      this.currentSection = currentSection;
     },
-    scrollToSection(sectionId) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+    scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     },
   },
 };
 </script>
 
 <style scoped>
-p {
-    text-align: justify;
+/* ═══════════════════════════════════════════════════════
+   TOKENS — inherit site variables, define local ones
+═══════════════════════════════════════════════════════ */
+.blueprint-internship {
+  --c-primary:   #4facfe;
+  --c-secondary: #7dd3fc;
+  --c-bg:        #0b0e14;
+  --c-surface:   rgba(79,172,254,.03);
+  --c-border:    rgba(79,172,254,.18);
+  --c-border-hi: rgba(79,172,254,.5);
+  --c-text:      #e8eef5;
+  --c-muted:     #8b95a8;
+  --c-dim:       #6a7c92;
+  --font-mono:   'Space Mono', monospace;
+  --font-sans:   'Chivo', sans-serif;
+
+  min-height: 100vh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-sans);
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* ========== SPYBAR ========== */
+/* ── Background grid ── */
+.grid-layer {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79,172,254,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,172,254,.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+p {
+  text-align: justify;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SPYBAR
+═══════════════════════════════════════════════════════ */
 .spybar {
   position: fixed;
-  right: 40px;
-  top: 70%;
+  right: 32px;
+  top: 50%;
   transform: translateY(-50%);
-  z-index: 100;
+  z-index: 200;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  font-size: small;
 }
 
 .spybar-nav {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  align-items: flex-end;
+  gap: 18px;
 }
 
 .spybar-link {
-  position: relative;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  gap: 10px;
   text-decoration: none;
-  text-transform: uppercase;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--color-muted);
-  transition: all 0.3s ease;
+  color: var(--c-dim);
   cursor: pointer;
-  letter-spacing: 0.05em;
+  transition: color .25s;
 }
 
-.spybar-link:hover {
-  color: var(--color-primary);
-}
+.spybar-link:hover,
+.spybar-link.active { color: var(--c-primary); }
 
-.spybar-link.active {
-  color: var(--color-primary);
-}
-
-.spybar-indicator {
-  width: 8px;
-  height: 8px;
-  border: 2px solid currentColor;
-  border-radius: 50%;
-  transition: all 0.3s ease;
-  order: 2;
-  margin-left: auto;
-}
-
-.spybar-link.active .spybar-indicator {
-  background-color: var(--color-primary);
-  box-shadow: 0 0 16px rgba(79, 172, 254, 0.6);
-  width: 12px;
-  height: 12px;
-  margin-left: auto;
-}
-
+/* Label: visible on desktop, hidden on tablet (overflow-safe) */
 .spybar-label {
-  order: 1;
-  max-width: 0;
-  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
   white-space: nowrap;
-  transition: max-width 0.3s ease;
   opacity: 0;
-  margin-right: auto;
+  transform: translateX(6px);
+  transition: opacity .25s, transform .25s;
+  pointer-events: none;
 }
 
 .spybar-link:hover .spybar-label,
-.spybar-link.active .spybar-label {
-  max-width: 150px;
+.spybar-link.active  .spybar-label {
   opacity: 1;
+  transform: translateX(0);
 }
 
-/* ========== HERO SECTION ========== */
+.spybar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  flex-shrink: 0;
+  transition: background .25s, box-shadow .25s, transform .25s;
+}
+
+.spybar-link.active .spybar-dot {
+  background: var(--c-primary);
+  box-shadow: 0 0 10px rgba(79,172,254,.6);
+  transform: scale(1.35);
+}
+
+/* Tablet: hide labels, keep dots — no overflow risk */
+@media (max-width: 1024px) {
+  .spybar { right: 16px; }
+  .spybar-label { display: none; }
+}
+
+/* Mobile: hide entirely */
+@media (max-width: 640px) {
+  .spybar { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   BACK BUTTON
+═══════════════════════════════════════════════════════ */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  color: var(--c-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-decoration: none;
+  transition: background .25s, border-color .25s, transform .25s;
+}
+
+.back-btn:hover {
+  background: rgba(79,172,254,.08);
+  border-color: var(--c-border-hi);
+  transform: translateX(-4px);
+  color: var(--c-primary);
+  text-shadow: none;
+}
+
+/* ═══════════════════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════════════════ */
 .internship-hero {
-  min-height: 60vh;
   position: relative;
-  padding: 120px 6% 80px;
   z-index: 1;
+  padding: 120px 6% 80px;
 }
 
-.hero-content {
-  max-width: 1600px;
+@media (max-width: 768px) {
+  .internship-hero { padding: 80px 5% 48px; }
+}
+
+.hero-grid {
+  max-width: 1400px;
   margin: 0 auto;
-  position: relative;
+  display: grid;
+  /* title | stats panel */
+  grid-template-columns: 1fr 340px;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "title  stats"
+    "logo   stats";
+  gap: 32px 56px;
+  align-items: start;
 }
 
-.title-stack {
-  margin-bottom: 60px;
+/* 1024–1200 px — was the overlap zone in the original */
+@media (max-width: 1200px) {
+  .hero-grid {
+    grid-template-columns: 1fr 280px;
+    gap: 24px 40px;
+  }
+}
+
+/* Tablet: stack everything */
+@media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "stats"
+      "logo";
+  }
+}
+
+.title-stack  { grid-area: title; }
+.stats-panel  { grid-area: stats; }
+.hero-logo    { grid-area: logo;  }
+
+/* Hero eyebrow */
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--c-dim);
+  margin: 0 0 16px;
+  text-transform: uppercase;
 }
 
 .title-line {
-  font-family: "Chivo", sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 700;
-  line-height: 0.9;
-  margin: 0;
-  letter-spacing: -0.03em;
+  line-height: .9;
+  letter-spacing: -.03em;
   color: transparent;
-  -webkit-text-stroke: 2px var(--color-primary);
+  -webkit-text-stroke: 2px var(--c-primary);
+  margin: 0 0 8px;
 }
 
-.title-line.accent {
-  font-family: "Bricolage Grotesque", sans-serif;
-  color: var(--color-primary);
-  -webkit-text-stroke: 0;
-  width:35%;
-  text-align: left;
+@media (max-width: 480px) {
+  .title-line { -webkit-text-stroke: 1.5px var(--c-primary); }
 }
 
-/* Stats panel */
+.title-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  color: var(--c-primary);
+  margin: 0;
+  letter-spacing: -.01em;
+}
+
+/* Stats panel — plain border box, no absolute positioning */
 .stats-panel {
-  position: absolute;
-  right: 0;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-  min-width: 320px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 28px;
+  align-self: start;
 }
 
-.stat-item {
+.stats-list { margin: 0; padding: 0; }
+
+.stat-row {
   display: flex;
   justify-content: space-between;
-  font-family: var(--font-mono);
-  font-size: 12px;
+  align-items: baseline;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(79,172,254,.08);
 }
 
+.stat-row:last-child { border-bottom: none; }
+
 .stat-key {
-  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
   letter-spacing: 1px;
+  color: var(--c-dim);
+  flex-shrink: 0;
 }
 
 .stat-value {
-  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 700;
+  color: var(--c-primary);
   text-align: right;
-  max-width: 200px;
 }
 
-.blink {
-  animation: blink 1.5s infinite;
-}
-
-@keyframes blink {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  51%,
-  100% {
-    opacity: 0.3;
-  }
-}
-
-/* Logo visual */
-.logo-visual {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 200px;
+.stat-value--done {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  color: var(--c-muted);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(79,172,254,.4);
+  flex-shrink: 0;
+}
+
+/* Logo */
+.hero-logo {
+  display: flex;
+  align-items: center;
+  padding: 16px 0;
 }
 
 .logo-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 20px rgba(79, 172, 254, 0.3));
+  width: clamp(80px, 15vw, 160px);
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(79,172,254,.25));
 }
 
-/* ========== SECTIONS ========== */
-section {
-  padding: 100px 6%;
+/* ═══════════════════════════════════════════════════════
+   MAIN + SECTIONS
+═══════════════════════════════════════════════════════ */
+#main-content {
   position: relative;
   z-index: 1;
 }
 
+.page-section {
+  padding: 96px 6%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) { .page-section { padding: 64px 5%; } }
+@media (max-width: 480px) { .page-section { padding: 48px 4%; } }
+
+/* Section marker */
 .section-marker {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-bottom: 60px;
-  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
-  padding-bottom: 16px;
+  gap: 20px;
+  margin-bottom: 12px;
 }
 
 .marker-number {
   font-family: var(--font-mono);
-  font-size: 48px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--color-primary);
-  opacity: 0.3;
+  color: var(--c-primary);
+  opacity: .45;
+  letter-spacing: 1px;
 }
 
-.marker-title {
+.marker-bar {
+  flex: 1;
+  height: 1px;
+  background: var(--c-border);
+}
+
+.section-title {
   font-family: var(--font-mono);
-  font-size: 32px;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
   font-weight: 700;
   letter-spacing: 2px;
-  color: var(--color-text);
+  color: var(--c-text);
+  margin: 0 0 48px;
 }
 
-.content-block {
-  max-width: 1400px;
-  margin: 0 auto;
+@media (max-width: 480px) {
+  .section-title { letter-spacing: 1px; margin-bottom: 32px; }
 }
+
+.content-block { display: flex; flex-direction: column; gap: 32px; }
 
 .content-text {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.8;
-  margin-bottom: 24px;
-}
-
-/* ========== OBJECTIVES GRID ========== */
-.objectives-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin: 40px 0;
-}
-
-.objective-card {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-  transition: all 0.3s ease;
-}
-
-.objective-card:hover {
-  border-color: var(--color-primary);
-  background: rgba(79, 172, 254, 0.06);
-  transform: translateY(-4px);
-}
-
-.objective-card .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.card-icon {
-  font-size: 32px;
-}
-
-.card-number {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--color-primary);
-  font-weight: 700;
-}
-
-.card-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0 0 12px;
-}
-
-.card-description {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--color-muted);
+  color: var(--c-muted);
+  text-align: justify;
   margin: 0;
 }
 
-/* ========== CONSTRAINT BOX ========== */
-.constraint-box {
-  background: rgba(79, 172, 254, 0.05);
-  border-left: 4px solid var(--color-primary);
-  padding: 20px 24px;
-  margin-top: 40px;
+@media (max-width: 640px) {
+  .content-text { text-align: justify; }
+}
+
+/* ── Card grids ── */
+.card-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.card-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 1024px) {
+  .card-grid--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .card-grid--3,
+  .card-grid--4 { grid-template-columns: 1fr; }
+}
+
+/* Info card */
+.info-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 24px;
+  transition: border-color .25s, background .25s, transform .25s;
+}
+
+.info-card:hover {
+  border-color: var(--c-border-hi);
+  background: rgba(79,172,254,.06);
+  transform: translateY(-3px);
+}
+
+.header-info-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.icon-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--c-primary);
+  border-radius: 8px;
+}
+
+.info-card__num {
+  display: block;
   font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--c-primary);
+  font-weight: 700;
+  margin-bottom: 12px;
+  opacity: .7;
+}
+
+.info-card__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin: 0 0 10px;
+}
+
+.info-card__desc {
   font-size: 13px;
+  line-height: 1.65;
+  color: var(--c-muted);
+  margin: 0;
+}
+
+/* Constraint blockquote */
+.constraint-box {
+  background: rgba(79,172,254,.04);
+  border-left: 3px solid var(--c-primary);
+  padding: 16px 20px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--c-muted);
+  line-height: 1.65;
 }
 
 .constraint-label {
-  color: var(--color-primary);
+  font-family: var(--font-mono);
+  font-size: 11px;
   font-weight: 700;
+  color: var(--c-primary);
   margin-right: 8px;
 }
 
-.constraint-text {
-  color: var(--color-muted);
+/* Highlight box */
+.highlight-box {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 28px;
 }
 
-/* ========== RESPONSIBILITIES GRID ========== */
-.responsibilities-grid {
+.highlight-box--accent {
+  border-left: 3px solid var(--c-primary);
+}
+
+.highlight-box__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin: 0 0 10px;
+}
+
+.highlight-box__desc {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--c-muted);
+  margin: 0;
+}
+
+/* ── Two-column layout (architecture, security, learning) ── */
+.two-col {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
-.responsibility-card {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-  transition: all 0.3s ease;
+@media (max-width: 768px) {
+  .two-col { grid-template-columns: 1fr; }
 }
 
-.responsibility-card:hover {
-  border-color: var(--color-primary);
-  background: rgba(79, 172, 254, 0.06);
-  transform: translateY(-4px);
-}
-
-.responsibility-card .card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-/* ========== TIMELINE ========== */
+/* ═══════════════════════════════════════════════════════
+   TIMELINE (organization section)
+═══════════════════════════════════════════════════════ */
 .timeline {
-  margin: 40px 0;
-  position: relative;
-}
-
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: 80px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: rgba(79, 172, 254, 0.2);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  /* Left border acts as the vertical connector — works at all sizes */
+  border-left: 2px solid var(--c-border);
+  padding-left: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .timeline-item {
   display: flex;
-  gap: 40px;
-  margin-bottom: 60px;
+  gap: 28px;
+  padding-bottom: 40px;
   position: relative;
 }
 
-.timeline-marker {
-  min-width: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  position: relative;
-}
-
-.timeline-marker::after {
-  content: "";
+/* Dot on the connector line */
+.timeline-item::before {
+  content: '';
   position: absolute;
-  right: -40px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -38px;
+  top: 6px;
   width: 12px;
   height: 12px;
-  background: var(--color-primary);
-  border: 3px solid var(--color-bg);
   border-radius: 50%;
-  z-index: 1;
+  background: var(--c-primary);
+  border: 2px solid var(--c-bg);
+  box-shadow: 0 0 8px rgba(79,172,254,.45);
 }
 
-.marker-label {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--color-muted);
-  letter-spacing: 1px;
-}
+.timeline-item:last-child { padding-bottom: 0; }
 
-.marker-value {
-  font-family: var(--font-mono);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--color-primary);
-}
-
-.timeline-content {
-  flex: 1;
-  padding-top: 8px;
-}
-
-.timeline-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.timeline-description {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--color-muted);
-  margin: 0;
-}
-
-/* ========== BOX STYLES ========== */
-.methodology-box,
-.justification-box,
-.highlight-box,
-.reflection-box {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-  margin-top: 40px;
-}
-
-.box-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-}
-
-.box-icon {
-  font-size: 24px;
-}
-
-.box-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.box-description {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--color-muted);
-  margin: 0;
-}
-
-/* ========== TECH STACK ========== */
-.tech-stack-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 40px;
-  margin: 40px 0;
-}
-
-.tech-stack-section {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-}
-
-.stack-title {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-primary);
-  letter-spacing: 2px;
-  margin: 0 0 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
-}
-
-.tech-list {
+.timeline-marker {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-width: 56px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+
+.tl-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: var(--c-dim);
+  text-transform: uppercase;
+}
+
+.tl-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-primary);
+  line-height: 1;
+}
+
+.timeline-content { padding-top: 2px; }
+
+.timeline-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin: 0 0 6px;
+}
+
+.timeline-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--c-muted);
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TECH STACK
+═══════════════════════════════════════════════════════ */
+.tech-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-.tech-item {
-  display: flex;
-  gap: 16px;
-  align-items: flex-start;
+@media (max-width: 768px) {
+  .tech-columns { grid-template-columns: 1fr; }
 }
 
-.tech-icon {
-  font-size: 24px;
-  flex-shrink: 0;
+.tech-group {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 28px;
 }
 
-.tech-info {
-  flex: 1;
-}
-
-.tech-name {
-  font-size: 16px;
+.tech-group__title {
+  font-family: var(--font-mono);
+  font-size: 14px;
   font-weight: 700;
-  color: var(--color-text);
-  display: block;
-  margin-bottom: 6px;
+  letter-spacing: 2px;
+  color: var(--c-primary);
+  text-transform: uppercase;
+  margin: 0 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--c-border);
 }
 
-.tech-desc {
-  font-size: 13px;
-  line-height: 1.6;
-  color: var(--color-muted);
-  margin: 0;
-}
-
-/* ========== FEATURES GRID ========== */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin: 40px 0;
-}
-
-.feature-category {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-  transition: all 0.3s ease;
-}
-
-.feature-category:hover {
-  border-color: var(--color-primary);
-  background: rgba(79, 172, 254, 0.06);
-}
-
-.category-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
-}
-
-.category-icon {
-  font-size: 28px;
-}
-
-.category-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.feature-list {
+.tech-list {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.feature-list li {
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--color-muted);
-  margin-bottom: 12px;
-  padding-left: 20px;
-  position: relative;
-}
-
-.feature-list li::before {
-  content: "→";
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-}
-
-/* ========== PROGRESS BOX ========== */
-.progress-box {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-  margin-top: 40px;
-}
-
-.progress-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.progress-title {
-  font-size: 18px;
+.tech-item { display: flex; flex-direction: column; gap: 3px; }
+
+.tech-item__name {
+  font-size: 14px;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--c-text);
+}
+
+.tech-item__desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--c-muted);
   margin: 0;
 }
 
-.progress-percentage {
-  font-family: var(--font-mono);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--color-primary);
+/* ═══════════════════════════════════════════════════════
+   FEATURES
+═══════════════════════════════════════════════════════ */
+.feature-card {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 24px;
+  transition: border-color .25s, background .25s, transform .25s;
 }
 
-.progress-bar {
+.feature-card:hover {
+  border-color: var(--c-border-hi);
+  background: rgba(79,172,254,.06);
+  transform: translateY(-3px);
+}
+
+.feature-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.feature-card__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.feature-card__list li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--c-muted);
+  padding-left: 16px;
+  position: relative;
+}
+
+.feature-card__list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--c-primary);
+  font-size: 11px;
+}
+
+/* Progress bar */
+.progress-block {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 28px;
+}
+
+.progress-block__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 14px;
+}
+
+.progress-block__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin: 0;
+}
+
+.progress-block__pct {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--c-primary);
+}
+
+.progress-track {
   width: 100%;
-  height: 8px;
-  background: rgba(79, 172, 254, 0.1);
-  border-radius: 4px;
+  height: 6px;
+  background: rgba(79,172,254,.1);
+  border-radius: 3px;
   overflow: hidden;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .progress-fill {
   height: 100%;
-  background: var(--color-primary);
-  transition: width 0.5s ease;
+  background: linear-gradient(90deg, var(--c-primary), var(--c-text));
+  border-radius: 3px;
+  transition: width .6s ease;
 }
 
-.progress-description {
-  font-size: 13px;
-  color: var(--color-muted);
+.progress-block__desc {
+  font-size: 12px;
+  color: var(--c-dim);
   margin: 0;
 }
 
-/* ========== ARCHITECTURE ========== */
-.diagram-container {
-  margin: 40px 0;
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
+/* ═══════════════════════════════════════════════════════
+   ARCHITECTURE — diagram
+═══════════════════════════════════════════════════════ */
+.diagram-figure {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 28px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.architecture-diagram {
-  width: 50%;
+.diagram-img {
+  width: 100%;
+  max-width: 600px;
+  min-width: 240px;   /* never goes below readable size */
+  height: auto;
   display: block;
-  margin-bottom: 20px;
-  /* center the image */
-  margin: 0 auto 20px;
 }
 
 .diagram-caption {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
   font-size: 12px;
+  color: var(--c-dim);
+  text-align: center;
+  font-style: italic;
+  line-height: 1.5;
 }
 
 .caption-label {
   font-family: var(--font-mono);
-  color: var(--color-primary);
+  font-style: normal;
   font-weight: 700;
+  color: var(--c-primary);
+  margin-right: 4px;
 }
 
-.caption-text {
-  color: var(--color-muted);
-  font-style: italic;
-}
-
-.architecture-sections {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 24px;
-  margin-top: 40px;
-}
-
-.arch-section {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 24px;
-}
-
-.arch-section .section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.section-icon {
-  font-size: 24px;
-}
-
-.section-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin: 0;
-}
-
-.section-description {
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--color-muted);
-  margin: 0;
-}
-
-/* ========== SECURITY ========== */
-.security-methods {
-  margin-top: 40px;
-}
-
+/* ═══════════════════════════════════════════════════════
+   SECURITY — code images
+═══════════════════════════════════════════════════════ */
 .security-method {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-  margin-bottom: 32px;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.method-header {
+.security-method__header {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 14px;
 }
 
-.method-number {
+.security-method__num {
   font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--color-primary);
+  font-size: 12px;
   font-weight: 700;
-  padding: 8px 16px;
-  background: rgba(79, 172, 254, 0.1);
-  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--c-primary);
+  background: rgba(79,172,254,.1);
+  border: 1px solid rgba(79,172,254,.3);
+  padding: 6px 12px;
+  flex-shrink: 0;
 }
 
-.method-title {
-  font-size: 18px;
+.security-method__title {
+  font-size: 14px;
   font-weight: 700;
-  color: var(--color-text);
+  color: var(--c-text);
   margin: 0;
 }
 
-.method-description {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--color-muted);
-  margin-bottom: 16px;
+.security-method__desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--c-muted);
+  margin: 0;
 }
 
-.method-list {
+.check-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.method-list li {
+.check-list li {
   font-size: 13px;
-  line-height: 1.7;
-  color: var(--color-muted);
-  margin-bottom: 8px;
+  color: var(--c-muted);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.55;
+}
+
+.check-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--c-primary);
+  font-weight: 700;
+}
+
+.code-img-wrapper {
+  border: 1px solid var(--c-border);
+  background: rgba(10,14,26,.5);
+  padding: 12px;
+  overflow-x: auto; /* scroll on tiny screens rather than squash */
+}
+
+.code-img {
+  width: 100%;         /* fluid */
+  min-width: 200px;    /* never unreadably tiny */
+  height: auto;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LEARNING
+═══════════════════════════════════════════════════════ */
+.learning-group {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  padding: 28px;
+}
+
+.learning-group__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin: 0 0 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.arrow-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.arrow-list li {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--c-muted);
   padding-left: 20px;
   position: relative;
 }
 
-.method-list li::before {
-  content: "✓";
+.arrow-list li::before {
+  content: '→';
   position: absolute;
   left: 0;
-  color: var(--color-primary);
+  color: var(--c-primary);
   font-weight: 700;
 }
 
-.method-image-wrapper {
-  margin-top: 20px;
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 16px;
-  background: rgba(10, 14, 26, 0.5);
-}
-
-.security-image {
-  width: 50%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-
-/* ========== LEARNING ========== */
-.learning-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 32px;
-  margin: 40px 0;
-}
-
-.learning-section {
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  padding: 32px;
-}
-
-.learning-section .section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 20px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(79, 172, 254, 0.2);
-}
-
-.learning-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.learning-list li {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--color-muted);
-  margin-bottom: 16px;
-  padding-left: 24px;
-  position: relative;
-}
-
-.learning-list li::before {
-  content: "→";
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-  font-weight: 700;
-}
-
-.back-btn {
-  display: inline-block;
-  margin-top: 40px;
-  padding: 12px 24px;
-  background: rgba(79, 172, 254, 0.03);
-  border: 1px solid rgba(79, 172, 254, 0.2);
-  color: var(--color-primary);
-  font-family: var(--font-mono);
-  font-size: 13px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-/* ========== FOOTER ========== */
-.site-footer {
-  padding: 40px 6%;
-  border-top: 1px solid rgba(79, 172, 254, 0.1);
+/* ═══════════════════════════════════════════════════════
+   BACK SECTION
+═══════════════════════════════════════════════════════ */
+.back-section {
+  padding: 32px 6% 64px;
   position: relative;
   z-index: 1;
 }
 
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.footer-text {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--color-muted);
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1200px) {
-  .stats-panel {
-    position: relative;
-    top: auto;
-    right: auto;
-    margin-top: 40px;
-  }
-
-  .logo-visual {
-    position: relative;
-    left: 0;
-    transform: none;
-    margin-top: 40px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .spybar {
-    right: 20px;
-    gap: 16px;
-  }
-
-  .spybar-label {
-    max-width: 100px;
-  }
-
-  .objectives-grid,
-  .responsibilities-grid,
-  .features-grid,
-  .tech-stack-grid,
-  .architecture-sections,
-  .learning-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .timeline::before {
-    left: 60px;
-  }
-
-  .timeline-item {
-    gap: 24px;
-  }
-
-  .timeline-marker {
-    min-width: 100px;
-  }
-}
-
-@media (max-width: 768px) {
-  .spybar {
-    position: static;
-    transform: none;
-    flex-direction: row;
-    justify-content: center;
-    padding: 20px 0;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin: 100px 0 0 0;
-    border-top: 1px solid rgba(79, 172, 254, 0.2);
-    border-bottom: 1px solid rgba(79, 172, 254, 0.2);
-  }
-
-  .spybar-nav {
-    display: flex;
-    flex-direction: row;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .spybar-link {
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .spybar-label {
-    order: 1;
-    max-width: 100%;
-    opacity: 1;
-    font-size: 9px;
-  }
-
-  .spybar-indicator {
-    order: 2;
-  }
-
-  .internship-hero {
-    padding: 100px 5% 60px;
-  }
-
-  section {
-    padding: 80px 5%;
-  }
-
-  .title-line {
-    font-size: clamp(2.5rem, 10vw, 5rem);
-    text-align: center;
-  }
-
-  .title-line.accent {
-    width: 100%;
-    text-align: center;
-  }
-
-  .marker-number {
-    font-size: 32px;
-  }
-
-  .marker-title {
-    font-size: 24px;
-  }
-
-  .stats-panel {
-    min-width: auto;
-    width: 100%;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
-  }
-
-  .timeline::before {
-    display: none;
-  }
-
-  .timeline-marker::after {
-    display: none;
-  }
-
-  .timeline-item {
-    flex-direction: column;
-    gap: 16px;
-  }
-}
-
-/* ========== ACCESSIBILITÉ ========== */
+/* ═══════════════════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
   }
 }
 </style>

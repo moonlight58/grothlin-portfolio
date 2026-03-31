@@ -46,7 +46,11 @@
       "terminalHint": "Tapez 'cat pourquoi_ce_portfolio.txt' pour en savoir plus sur moi et ce site !",
       "terminalHint2": "Ou : 'help' pour voir les commandes disponibles",
       "terminalHint3": "NB : Tapez 'clear' pour réinitialiser le terminal et revoir ces messages d'aide",
+<<<<<<< HEAD
       "terminalFooter": "Ce terminal est juste pour le plaisir et n'est pas un vrai terminal ! (cliquez sur le terminal pour l'utiliser)",
+=======
+      "terminalFooter": "Ce terminal est juste pour le plaisir et n'est pas un vrai terminal ! (cliquez sur le terminal pour pouvoir l'utiliser)",
+>>>>>>> main
       "why": "pourquoi_ce_portfolio",
       "projects": "Mes projets",
       "why_desc": "Ce site est développé dans le cadre de mon projet de Portfolio durant les trois années du BUT. Il sera continuellement mis à jour pour refléter mes projets académiques et personnels.",
@@ -285,6 +289,7 @@
     },
     "euphron": {
       "hero": {
+        "eyebrow": "RAPPORT_DE_STAGE",
         "title": "Euphron",
         "jobTitle": "Stage de développement web full-stack",
         "jobTitleLabel": "RÔLE",
@@ -315,12 +320,16 @@
         "title": "Mon rôle",
         "subtitle": "Responsabilités & développement autonome",
         "description": "J'ai été chargé de créer l'intégralité de l'application web (compatible ordinateur et mobile) de manière complètement autonome.",
+        "responsibility1Icon": "",
         "responsibility1Title": "Design visuel",
         "responsibility1Desc": "Conception sur Figma pour validation du client",
+        "responsibility2Icon": "󰌢",
         "responsibility2Title": "Développement frontend",
         "responsibility2Desc": "Interface utilisateur responsive",
+        "responsibility3Icon": "",
         "responsibility3Title": "Développement backend",
         "responsibility3Desc": "API et logique métier",
+        "responsibility4Icon": "",
         "responsibility4Title": "Base de données",
         "responsibility4Desc": "Conception et gestion complète"
       },
@@ -479,7 +488,7 @@
     "email": "E-mail",
     "copyright": "© 2026 Gaël Röthlin",
     "allRightsReserved": "Tous droits réservés",
-    "backToTop": "↑ Haut",
+    "backToTop": "Haut",
     "credit": "Conçu & développé avec Vue.js"
   },
   "common": {
