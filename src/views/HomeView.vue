@@ -365,21 +365,14 @@
             </a>
           </div>
         </div>
-<<<<<<< HEAD
     
         <!-- Right: form or toggle button -->
         <div v-if="showForm" class="contact-form-wrapper">
-=======
-
-        <!-- Droite : Formulaire -->
-        <div class="contact-form-wrapper" v-if="showForm">
->>>>>>> main
           <button
             class="form-close-btn"
             @click="toggleFormVisibility"
             aria-label="Close contact form"
           >✕</button>
-<<<<<<< HEAD
     
           <!--
             IMPORTANT for Netlify:
@@ -387,8 +380,6 @@
             - The hidden <input name="form-name"> must always be in the DOM
             - Do NOT clear it or bind it with v-model
           -->
-=======
->>>>>>> main
           <form
             id="contact-form"
             name="contact"
@@ -461,7 +452,6 @@
               </span>
               <span v-else class="cooldown-content">
                 <span class="cooldown-label">
-<<<<<<< HEAD
                   {{ $i18n.t("home.contact.form.preventSpam") }}
                   {{ Math.ceil(cooldownRemaining / 1000) }}s
                 </span>
@@ -470,11 +460,6 @@
                   :aria-valuemax="cooldownDuration / 1000"
                   aria-valuemin="0"
                 >
-=======
-                  {{ $i18n.t("home.contact.form.preventSpam") }} {{ Math.ceil(cooldownRemaining / 1000) }}s
-                </span>
-                <span class="cooldown-bar">
->>>>>>> main
                   <span
                     class="cooldown-fill"
                     :style="{ width: `${(cooldownRemaining / cooldownDuration) * 100}%` }"

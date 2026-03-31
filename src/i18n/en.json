@@ -46,11 +46,7 @@
       "terminalHint": "Type 'cat why_this_portfolio.txt' to learn more about me and this website !",
       "terminalHint2": "Or: 'help' to see available commands",
       "terminalHint3": "NB: Type 'clear' to reset the terminal and see the hints again",
-<<<<<<< HEAD
       "terminalFooter": "This terminal is just for fun and is not a real terminal ! (click on the terminal to gain focus)",
-=======
-      "terminalFooter": "This terminal is just for fun and is not a real terminal ! (click on the terminal to focus on it)",
->>>>>>> main
       "why": "why_this_portfolio",
       "projects": "My projects",
       "why_desc": "This website is developed as part of my Portfolio project during the three years of my Computer Science degree. It will be continuously updated to reflect my academic and personal projects.",
