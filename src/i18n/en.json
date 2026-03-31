@@ -282,6 +282,7 @@
     },
     "euphron": {
       "hero": {
+        "eyebrow": "INTERNSHIP_REPORT",
         "title": "Euphron",
         "jobTitleLabel": "ROLE",
         "jobTitle": "Full-Stack Web Internship",
@@ -312,13 +313,15 @@
         "title": "My Role",
         "subtitle": "Responsibilities & autonomous development",
         "description": "I was tasked with creating the entire web application (computer and mobile compatible) completely autonomously.",
+        "responsibility1Icon": "",
         "responsibility1Title": "Visual design",
         "responsibility1Desc": "Design on Figma for client validation",
+        "responsibility2Icon": "󰌢",
         "responsibility2Title": "Frontend development",
         "responsibility2Desc": "Responsive user interface",
-        "responsibility3Title": "Backend development",
+        "responsibility3Icon": "",
         "responsibility3Desc": "API and business logic",
-        "responsibility4Title": "Database",
+        "responsibility4Icon": "",
         "responsibility4Desc": "Complete design and management"
       },
       "organization": {

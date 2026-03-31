@@ -1,7 +1,7 @@
 <template>
   <header class="blueprint-header">
     <div class="header-left">
-      <a class="logo-text" href="/">GR_</a>
+      <a href="/" class="nav-logo">GR<span class="logo-cursor">_</span></a>
     </div>
     <nav class="header-nav">
       <a href="/#about" class="nav-link">01_{{ $i18n.t("nav.about") }}</a>
@@ -97,6 +97,7 @@ export default {
 </script>
 
 <style scoped>
+
 header {
   transition: background-color 0.3s ease;
 }
@@ -108,7 +109,33 @@ header.scrolled {
 .header-left {
   display: flex;
   align-items: center;
-} 
+}
+
+/* ── BRAND ── */
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-decoration: none;
+  letter-spacing: 2px;
+  display: inline-block;
+  transition: text-shadow 0.3s ease;
+}
+
+.nav-logo:hover {
+  text-shadow: 0 0 16px rgba(79, 172, 254, 0.7);
+}
+
+.logo-cursor {
+  animation: cursorBlink 1.2s infinite;
+  color: var(--color-secondary);
+}
+
+@keyframes cursorBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
 
 /* ========== HEADER ========== */
 .blueprint-header {

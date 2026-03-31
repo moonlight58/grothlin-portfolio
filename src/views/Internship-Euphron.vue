@@ -3,12 +3,6 @@
     <div class="grid-layer" aria-hidden="true"></div>
 
     <!-- ── SPYBAR ───────────────────────────────────────────────────────── -->
-    <!--
-      Fix: replaced scroll+click dual-fire with pure IntersectionObserver.
-      On tablet (≤1024px) the bar collapses into a compact dot-only rail
-      on the right edge so it never overflows, with labels shown on hover.
-      Hidden entirely on mobile (≤640px) where it would be unusable.
-    -->
     <aside class="spybar" aria-label="Page sections">
       <nav class="spybar-nav">
         <a
@@ -27,11 +21,6 @@
     </aside>
 
     <!-- ── HERO ─────────────────────────────────────────────────────────── -->
-    <!--
-      Fix: stats-panel is no longer position:absolute at any breakpoint.
-      Layout uses CSS grid so the panel never overlaps the title at
-      1024–1200px. The logo moves into its own grid cell.
-    -->
     <header class="internship-hero">
       <a class="back-btn" href="/">
         <span aria-hidden="true">↼</span> {{ $t('common.back') }}
@@ -40,7 +29,7 @@
       <div class="hero-grid">
         <!-- Title -->
         <div class="title-stack">
-          <p class="hero-eyebrow">INTERNSHIP_REPORT</p>
+          <p class="hero-eyebrow">{{ $t('internshipPage.euphron.hero.eyebrow') }}</p>
           <h1 class="title-line">{{ $t('internshipPage.euphron.hero.title') }}</h1>
           <h2 class="title-sub">{{ $t('internshipPage.euphron.hero.jobTitle') }}</h2>
         </div>
@@ -78,7 +67,6 @@
     </header>
 
     <!-- ── MAIN CONTENT ──────────────────────────────────────────────────── -->
-    <!--  Fix: <main> landmark wrapping all page sections  -->
     <main id="main-content">
 
       <!-- 01 · CONTEXT -->
@@ -97,17 +85,26 @@
 
           <div class="card-grid card-grid--3">
             <div class="info-card">
-              <span class="info-card__num">01</span>
+              <div class="header-info-card">
+                <span class="info-card__num">01</span>
+                <span class="icon-card"></span>
+              </div>
               <h3 class="info-card__title">{{ $t('internshipPage.euphron.context.objective1Title') }}</h3>
               <p class="info-card__desc">{{ $t('internshipPage.euphron.context.objective1Desc') }}</p>
             </div>
             <div class="info-card">
-              <span class="info-card__num">02</span>
+              <div class="header-info-card">
+                <span class="info-card__num">02</span>
+                <span class="icon-card"></span>
+              </div>
               <h3 class="info-card__title">{{ $t('internshipPage.euphron.context.objective2Title') }}</h3>
               <p class="info-card__desc">{{ $t('internshipPage.euphron.context.objective2Desc') }}</p>
             </div>
             <div class="info-card">
-              <span class="info-card__num">03</span>
+              <div class="header-info-card">
+                <span class="info-card__num">03</span>
+                <span class="icon-card"></span>
+              </div>
               <h3 class="info-card__title">{{ $t('internshipPage.euphron.context.objective3Title') }}</h3>
               <p class="info-card__desc">{{ $t('internshipPage.euphron.context.objective3Desc') }}</p>
             </div>
@@ -135,7 +132,10 @@
 
           <div class="card-grid card-grid--4">
             <div class="info-card" v-for="n in 4" :key="n">
-              <span class="info-card__num">0{{ n }}</span>
+              <div class="header-info-card">
+                <span class="info-card__num">0{{ n }}</span>
+                <span class="icon-card" :class="`icon-card--${n}`">{{ $t(`internshipPage.euphron.role.responsibility${n}Icon`) }}</span>
+              </div>
               <h3 class="info-card__title">{{ $t(`internshipPage.euphron.role.responsibility${n}Title`) }}</h3>
               <p class="info-card__desc">{{ $t(`internshipPage.euphron.role.responsibility${n}Desc`) }}</p>
             </div>
@@ -286,7 +286,6 @@
             <p class="highlight-box__desc">{{ $t('internshipPage.euphron.features.highlightDesc') }}</p>
           </div>
 
-          <!-- Fix: progress bar now has correct ARIA roles and values -->
           <div class="progress-block">
             <div class="progress-block__header">
               <h3 class="progress-block__title">{{ $t('internshipPage.euphron.features.progressTitle') }}</h3>
@@ -318,7 +317,6 @@
         </h2>
 
         <div class="content-block">
-          <!-- Fix: diagram now fluid width with min-width so it stays readable on mobile -->
           <figure class="diagram-figure">
             <img
               src="@/assets/stage/Diagram.png"
@@ -367,7 +365,6 @@
                 <h3 class="security-method__title">{{ $t('internshipPage.euphron.security.method1Title') }}</h3>
               </div>
               <p class="security-method__desc">{{ $t('internshipPage.euphron.security.method1Desc') }}</p>
-              <!-- Fix: image is fluid, never truncated on small screens -->
               <div class="code-img-wrapper">
                 <img
                   src="@/assets/stage/RegexCheck.png"
@@ -490,7 +487,6 @@ export default {
   },
 
   beforeUnmount() {
-    /* Fix: always clean up the observer to prevent memory leaks */
     if (this._observer) {
       this._observer.disconnect();
       this._observer = null;
@@ -498,13 +494,6 @@ export default {
   },
 
   methods: {
-    /*
-     * Fix: replace the scroll-event + getBoundingClientRect loop with a single
-     * IntersectionObserver. No throttling needed — the browser calls us only
-     * when a section crosses the threshold, not on every pixel of scroll.
-     * rootMargin "-40% 0px -55% 0px" fires when the top ~40% of the viewport
-     * passes a section heading, which matches "which section am I reading".
-     */
     initObserver() {
       this._observer = new IntersectionObserver(
         (entries) => {
@@ -524,11 +513,6 @@ export default {
         });
       });
     },
-
-    /*
-     * Fix: @click.prevent on the anchor already stops the native jump,
-     * so this method only handles the smooth scroll — no dual-fire.
-     */
     scrollToSection(id) {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -580,8 +564,6 @@ p {
 
 /* ═══════════════════════════════════════════════════════
    SPYBAR
-   Fix: dot-only on tablet; never overflows at any width.
-   Layout: label left of dot, dots flush to right edge.
 ═══════════════════════════════════════════════════════ */
 .spybar {
   position: fixed;
@@ -684,8 +666,6 @@ p {
 
 /* ═══════════════════════════════════════════════════════
    HERO
-   Fix: CSS grid layout so stats-panel sits beside the
-   title and NEVER overlaps it, at any viewport width.
 ═══════════════════════════════════════════════════════ */
 .internship-hero {
   position: relative;
@@ -932,6 +912,23 @@ p {
   transform: translateY(-3px);
 }
 
+.header-info-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.icon-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: var(--c-primary);
+  border-radius: 8px;
+}
+
 .info-card__num {
   display: block;
   font-family: var(--font-mono);
@@ -1013,7 +1010,6 @@ p {
 
 /* ═══════════════════════════════════════════════════════
    TIMELINE (organization section)
-   Fix: visible connector on mobile via left border on li.
 ═══════════════════════════════════════════════════════ */
 .timeline {
   list-style: none;
@@ -1112,7 +1108,7 @@ p {
 
 .tech-group__title {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 2px;
   color: var(--c-primary);
@@ -1140,7 +1136,7 @@ p {
 }
 
 .tech-item__desc {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.55;
   color: var(--c-muted);
   margin: 0;
@@ -1163,7 +1159,7 @@ p {
 }
 
 .feature-card__title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--c-text);
   margin: 0 0 14px;
@@ -1181,7 +1177,7 @@ p {
 }
 
 .feature-card__list li {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
   color: var(--c-muted);
   padding-left: 16px;
@@ -1235,7 +1231,7 @@ p {
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--c-primary), var(--c-secondary));
+  background: linear-gradient(90deg, var(--c-primary), var(--c-text));
   border-radius: 3px;
   transition: width .6s ease;
 }
@@ -1248,8 +1244,6 @@ p {
 
 /* ═══════════════════════════════════════════════════════
    ARCHITECTURE — diagram
-   Fix: fluid width with min-width so it never shrinks
-   to unreadable size on mobile.
 ═══════════════════════════════════════════════════════ */
 .diagram-figure {
   background: var(--c-surface);
@@ -1288,8 +1282,6 @@ p {
 
 /* ═══════════════════════════════════════════════════════
    SECURITY — code images
-   Fix: fluid, never 50% fixed width which was too small
-   on anything under ~900px.
 ═══════════════════════════════════════════════════════ */
 .security-method {
   background: var(--c-surface);
