@@ -532,7 +532,7 @@ const cooldownDuration   = 60_000;          // 1 min
 const cooldownRemaining  = ref(0);
 let   cooldownInterval   = null;
  
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = import.meta.env.NODE_ENV === 'development';
 
 // ========== SKILLS DATA (REDESIGNED) ==========
 const activeCategory = ref('frontend');
