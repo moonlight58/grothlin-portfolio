@@ -48,7 +48,6 @@ const loadMarkdown = async () => {
     renderedMarkdown.value = md.render(markdown);
   } catch (error) {
     renderedMarkdown.value = `<p>Error loading project details.</p>`;
-    console.error("Error loading markdown:", error);
   }
 };
 

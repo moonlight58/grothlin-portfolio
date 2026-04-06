@@ -36,11 +36,9 @@ exports.handler = async (event) => {
   const token = tokens[username];
   
   if (!token) {
-    console.error(`Token not found for username: ${username}`);
-    console.error(`Available env vars: TOKEN_API_GITHUB_MOONLIGHT58=${process.env.TOKEN_API_GITHUB_MOONLIGHT58 ? 'SET' : 'NOT SET'}, TOKEN_API_GITHUB_GROTHLIN_IUT90=${process.env.TOKEN_API_GITHUB_GROTHLIN_IUT90 ? 'SET' : 'NOT SET'}`);
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: `Invalid username or token not configured for: ${username}` }),
+      body: JSON.stringify({ error: 'Invalid username or token not configured' }),
     };
   }
 
@@ -49,7 +47,6 @@ exports.handler = async (event) => {
   const cachedData = cache[username];
   
   if (cachedData.data && (now - cachedData.timestamp) < CACHE_DURATION) {
-    console.log(`Returning cached data for ${username}`);
     return {
       statusCode: 200,
       headers: {
@@ -63,7 +60,6 @@ exports.handler = async (event) => {
 
   // Cache miss or expired - fetch fresh data
   try {
-    console.log(`Fetching fresh data for ${username}`);
     const response = await axios.get(
       `https://api.github.com/users/${username}/repos?sort=updated&per_page=50`,
       {
@@ -90,7 +86,6 @@ exports.handler = async (event) => {
   } catch (error) {
     // If API fails but we have stale cache, return it
     if (cachedData.data) {
-      console.log(`API failed, returning stale cache for ${username}`);
       return {
         statusCode: 200,
         headers: {
