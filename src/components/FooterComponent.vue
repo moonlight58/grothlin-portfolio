@@ -1,5 +1,5 @@
 <template>
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
 
     <!-- Top glow bar -->
     <div class="footer-glow-bar"></div>
@@ -24,28 +24,41 @@
         <h4 class="footer-heading">
           <span class="heading-prefix">// </span>{{ $t('home.body.internship.title') }}
         </h4>
+
         <div class="internship-list">
-          <a href="/internship/ani" class="internship-item">
-            <div class="internship-item__header">
-              <span class="internship-item__dot"></span>
-              <span class="internship-item__name">ANI & Low-Tech</span>
+          <a href="/internship/ani" class="internship-card">
+            <!-- Status strip on the left -->
+            <span class="internship-card__strip internship-card__strip--active" aria-hidden="true"></span>
+
+            <div class="internship-card__body">
+              <div class="internship-card__top">
+                <span class="internship-card__name">ANI &amp; Low-Tech</span>
+                <span class="internship-card__badge internship-card__badge--active">{{ $t('home.internship.ani.badge') }}</span>
+              </div>
+              <span class="internship-card__date">{{ $t('home.internship.ani.date') }}</span>
             </div>
-            <span class="internship-item__date">{{ $t('home.internship.ani.date') }}</span>
-            <span class="internship-item__arrow">⇁</span>
+
+            <span class="internship-card__arrow" aria-hidden="true">⇁</span>
           </a>
-          <a href="/internship/euphron" class="internship-item">
-            <div class="internship-item__header">
-              <span class="internship-item__dot internship-item__dot--done"></span>
-              <span class="internship-item__name">Euphron</span>
+
+          <a href="/internship/euphron" class="internship-card">
+            <span class="internship-card__strip internship-card__strip--done" aria-hidden="true"></span>
+
+            <div class="internship-card__body">
+              <div class="internship-card__top">
+                <span class="internship-card__name">Euphron</span>
+                <span class="internship-card__badge internship-card__badge--done">{{ $t('home.internship.euphron.badge') }}</span>
+              </div>
+              <span class="internship-card__date">{{ $t('home.internship.euphron.date') }}</span>
             </div>
-            <span class="internship-item__date">{{ $t('home.internship.euphron.date') }}</span>
-            <span class="internship-item__arrow">⇁</span>
+
+            <span class="internship-card__arrow" aria-hidden="true">⇁</span>
           </a>
         </div>
 
         <a href="/projects" class="footer-projects-link">
           <span>{{ $t('footer.projectsLink') }}</span>
-          <span class="projects-link__count">→</span>
+          <span class="projects-link__arrow">→</span>
         </a>
       </div>
 
@@ -62,9 +75,11 @@
             class="social-row"
             :aria-label="$t('footer.github')"
           >
-            <span class="social-row__icon">󰊤</span>
-            <span class="social-row__label">{{ $t('footer.github') }}</span>
-            <span class="social-row__handle">moonlight58</span>
+            <img src="../assets/github.svg" alt="" class="social-row__icon-img" />
+            <div class="social-row__text">
+              <span class="social-row__label">{{ $t('footer.github') }}</span>
+              <span class="social-row__handle">moonlight58</span>
+            </div>
           </a>
           <a
             href="https://www.instagram.com/osiris._25"
@@ -73,23 +88,27 @@
             class="social-row"
             :aria-label="$t('footer.instagram')"
           >
-            <span class="social-row__icon">󰋾</span>
-            <span class="social-row__label">{{ $t('footer.instagram') }}</span>
-            <span class="social-row__handle">osiris._25</span>
+            <img src="../assets/instagram.svg" alt="" class="social-row__icon-img" />
+            <div class="social-row__text">
+              <span class="social-row__label">{{ $t('footer.instagram') }}</span>
+              <span class="social-row__handle">osiris._25</span>
+            </div>
           </a>
           <a
             href="/#contact"
             class="social-row"
             :aria-label="$t('footer.email')"
           >
-            <span class="social-row__icon">󰇮</span>
-            <span class="social-row__label">{{ $t('footer.email') }}</span>
-            <span class="social-row__handle">gael.rothlin@edu.univ-fcomte.fr</span>
+            <img src="../assets/email.svg" alt="" class="social-row__icon-img" />
+            <div class="social-row__text">
+              <span class="social-row__label">{{ $t('footer.email') }}</span>
+              <span class="social-row__handle">gael.rothlin@edu.univ-fcomte.fr</span>
+            </div>
           </a>
         </div>
 
         <button class="back-to-top" @click="scrollToTop" :aria-label="$t('footer.backToTop')">
-          <span class="btt-icon">↑</span>
+          <span class="btt-icon" aria-hidden="true">↑</span>
           <span>{{ $t('footer.backToTop') }}</span>
         </button>
       </div>
@@ -100,12 +119,12 @@
     <div class="footer-bottom">
       <div class="footer-bottom__left">
         <span class="footer-meta">{{ $t('footer.copyright') }}</span>
-        <span class="footer-meta footer-meta--sep">·</span>
+        <span class="footer-meta footer-meta--sep" aria-hidden="true">·</span>
         <span class="footer-meta">{{ $t('footer.allRightsReserved') }}</span>
       </div>
       <div class="footer-bottom__right">
         <span class="footer-meta">{{ $t('footer.credit') }}</span>
-        <span class="footer-meta footer-meta--sep">·</span>
+        <span class="footer-meta footer-meta--sep" aria-hidden="true">·</span>
         <span class="footer-meta">{{ currentYear }}</span>
       </div>
     </div>
@@ -248,95 +267,117 @@ export default {
 .internship-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-.internship-item {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  grid-template-rows: auto auto;
+/* ── INTERNSHIP CARD (redesigned) ── */
+.internship-card {
+  display: flex;
   align-items: center;
-  gap: 4px 12px;
-  padding: 14px 16px;
-  background: rgba(79, 172, 254, 0.04);
+  gap: 0;
+  text-decoration: none;
+  background: rgba(79, 172, 254, 0.03);
   border: 1px solid rgba(79, 172, 254, 0.12);
   border-radius: 3px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  position: relative;
   overflow: hidden;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  position: relative;
 }
 
-.internship-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(79, 172, 254, 0.06), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.internship-item:hover {
-  border-color: rgba(79, 172, 254, 0.4);
+.internship-card:hover {
+  border-color: rgba(79, 172, 254, 0.5);
+  background: rgba(79, 172, 254, 0.07);
   transform: translateX(4px);
 }
 
-.internship-item:hover::before { opacity: 1; }
-
-.internship-item__header {
-  grid-column: 1;
-  grid-row: 1;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.internship-item__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--color-primary);
-  animation: pulseDot 2s infinite;
+/* Left status strip */
+.internship-card__strip {
+  display: block;
+  width: 3px;
+  align-self: stretch;
   flex-shrink: 0;
 }
 
-.internship-item__dot--done {
-  background: rgba(79, 172, 254, 0.4);
-  animation: none;
+.internship-card__strip--active {
+  background: var(--color-primary);
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.6);
+  animation: stripPulse 2s ease-in-out infinite;
 }
 
-@keyframes pulseDot {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(79, 172, 254, 0.4); }
-  50% { box-shadow: 0 0 0 4px rgba(79, 172, 254, 0); }
+.internship-card__strip--done {
+  background: rgba(79, 172, 254, 0.25);
 }
 
-.internship-item__name {
+@keyframes stripPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+/* Card body */
+.internship-card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  min-width: 0; /* prevent text overflow breaking layout */
+}
+
+.internship-card__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.internship-card__name {
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
   color: var(--color-text-primary);
+  white-space: nowrap;
 }
 
-.internship-item__date {
-  grid-column: 1;
-  grid-row: 2;
+/* Status badge */
+.internship-card__badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.internship-card__badge--active {
+  color: var(--color-primary);
+  background: rgba(79, 172, 254, 0.12);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+}
+
+.internship-card__badge--done {
+  color: var(--color-text-muted);
+  background: rgba(106, 124, 146, 0.1);
+  border: 1px solid rgba(106, 124, 146, 0.25);
+}
+
+.internship-card__date {
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--color-text-muted);
-  padding-left: 14px;
 }
 
-.internship-item__arrow {
-  grid-column: 2;
-  grid-row: 1 / 3;
+/* Arrow */
+.internship-card__arrow {
   font-size: 14px;
   color: var(--color-primary);
+  padding: 0 14px;
   opacity: 0;
-  transform: translateX(-4px);
-  transition: all 0.3s ease;
+  transform: translateX(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  flex-shrink: 0;
 }
 
-.internship-item:hover .internship-item__arrow {
+.internship-card:hover .internship-card__arrow {
   opacity: 1;
   transform: translateX(0);
 }
@@ -365,6 +406,14 @@ export default {
   background: rgba(79, 172, 254, 0.05);
 }
 
+.projects-link__arrow {
+  transition: transform 0.25s ease;
+}
+
+.footer-projects-link:hover .projects-link__arrow {
+  transform: translateX(4px);
+}
+
 /* ── SOCIAL ROWS ── */
 .social-stack {
   display: flex;
@@ -373,11 +422,9 @@ export default {
 }
 
 .social-row {
-  display: grid;
-  grid-template-columns: 28px 1fr;
-  grid-template-rows: auto auto;
-  column-gap: 10px;
+  display: flex;
   align-items: center;
+  gap: 12px;
   padding: 12px 14px;
   background: rgba(79, 172, 254, 0.03);
   border: 1px solid rgba(79, 172, 254, 0.1);
@@ -392,20 +439,27 @@ export default {
   transform: translateX(4px);
 }
 
-.social-row__icon {
-  grid-column: 1;
-  grid-row: 1 / 3;
-  font-size: 18px;
-  color: var(--color-primary);
+/* SVG icon — replaces Nerd Font glyphs */
+.social-row__icon-img {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  filter: brightness(0) saturate(100%) invert(62%) sepia(60%) saturate(500%) hue-rotate(180deg) brightness(105%);
+  transition: filter 0.3s ease;
+}
+
+.social-row:hover .social-row__icon-img {
+  filter: brightness(0) saturate(100%) invert(72%) sepia(80%) saturate(600%) hue-rotate(185deg) brightness(110%);
+}
+
+.social-row__text {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
 }
 
 .social-row__label {
-  grid-column: 2;
-  grid-row: 1;
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
@@ -415,13 +469,10 @@ export default {
 }
 
 .social-row__handle {
-  grid-column: 2;
-  grid-row: 2;
   font-family: var(--font-mono);
   font-size: 10px;
   color: var(--color-text-muted);
   line-height: 1.2;
-  margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -531,9 +582,8 @@ export default {
 
   .footer-nav { border-top: 1px solid rgba(79, 172, 254, 0.1); padding-top: 12px; }
 
+  /* On mobile, hide the handle text to keep rows compact */
   .social-row__handle { display: none; }
-  .social-row { grid-template-rows: 1fr; }
-  .social-row__label { grid-row: 1; align-self: center; }
 
   .footer-bottom {
     flex-direction: column;
@@ -545,11 +595,11 @@ export default {
 @media (max-width: 480px) {
   .footer-inner { padding: 36px 4% 24px; }
 
-  .internship-item {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+  /* Stack badge below name on very small screens */
+  .internship-card__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
-
-  .internship-item__arrow { display: none; }
 }
 </style>

@@ -318,21 +318,19 @@
       </div>
     </section>
 
-    <!-- Contact Section - Format formulaire minimaliste -->
+    <!-- Contact Section - Form with Netlify integration -->
     <section id="contact" class="contact-zone">
       <div class="section-marker">
         <span class="marker-number">04</span>
         <span class="marker-title">{{ $i18n.t("nav.contact") }}</span>
       </div>
-
+    
       <div class="contact-layout">
-        <!-- Gauche : Infos -->
+        <!-- Left: info -->
         <div class="contact-info">
           <h2 class="contact-heading">{{ $t('home.contact.title') }}</h2>
-          <p class="contact-text">
-            {{ $t('home.contact.description') }}
-          </p>
-
+          <p class="contact-text">{{ $t('home.contact.description') }}</p>
+    
           <div class="contact-methods">
             <div class="method-item">
               <span class="method-label">EMAIL</span>
@@ -343,7 +341,7 @@
               <span class="method-value">Besançon, France</span>
             </div>
           </div>
-
+    
           <div class="social-links">
             <a
               href="https://www.instagram.com/osiris._25"
@@ -367,27 +365,35 @@
             </a>
           </div>
         </div>
-
-        <!-- Droite : Formulaire -->
-        <div class="contact-form-wrapper" v-if="showForm">
+    
+        <!-- Right: form or toggle button -->
+        <div v-if="showForm" class="contact-form-wrapper">
           <button
             class="form-close-btn"
             @click="toggleFormVisibility"
             aria-label="Close contact form"
           >✕</button>
+    
+          <!--
+            IMPORTANT for Netlify:
+            - The <form> must have name="contact" and data-netlify="true"
+            - The hidden <input name="form-name"> must always be in the DOM
+            - Do NOT clear it or bind it with v-model
+          -->
           <form
             id="contact-form"
             name="contact"
             method="POST"
-            data-netlify-recaptcha="true"
             data-netlify="true"
+            data-netlify-recaptcha="true"
             class="contact-form"
             @submit.prevent="handleSubmit"
-            netlify
             aria-label="Contact form"
+            novalidate
           >
+            <!-- Required by Netlify bot — never remove or v-model this -->
             <input type="hidden" name="form-name" value="contact" />
-
+    
             <div class="form-field">
               <label for="name">{{ $i18n.t("home.contact.form.name") }}</label>
               <input
@@ -398,9 +404,10 @@
                 :placeholder="$t('home.contact.form.namePlaceholder')"
                 required
                 aria-required="true"
+                autocomplete="name"
               />
             </div>
-
+    
             <div class="form-field">
               <label for="email">{{ $i18n.t("home.contact.form.email") }}</label>
               <input
@@ -411,9 +418,10 @@
                 :placeholder="$t('home.contact.form.emailPlaceholder')"
                 required
                 aria-required="true"
+                autocomplete="email"
               />
             </div>
-
+    
             <div class="form-field">
               <label for="message">{{ $i18n.t("home.contact.form.message") }}</label>
               <textarea
@@ -426,13 +434,14 @@
                 aria-required="true"
               ></textarea>
             </div>
-
+    
             <div data-netlify-recaptcha="true"></div>
-
+    
             <button
               type="submit"
               class="submit-button"
               :disabled="isSubmitting || cooldownRemaining > 0"
+              :aria-busy="isSubmitting"
               aria-label="Submit contact form"
             >
               <span v-if="!isSubmitting && cooldownRemaining === 0">
@@ -443,9 +452,14 @@
               </span>
               <span v-else class="cooldown-content">
                 <span class="cooldown-label">
-                  {{ $i18n.t("home.contact.form.preventSpam") }} {{ Math.ceil(cooldownRemaining / 1000) }}s
+                  {{ $i18n.t("home.contact.form.preventSpam") }}
+                  {{ Math.ceil(cooldownRemaining / 1000) }}s
                 </span>
-                <span class="cooldown-bar">
+                <span class="cooldown-bar" role="progressbar"
+                  :aria-valuenow="Math.ceil(cooldownRemaining / 1000)"
+                  :aria-valuemax="cooldownDuration / 1000"
+                  aria-valuemin="0"
+                >
                   <span
                     class="cooldown-fill"
                     :style="{ width: `${(cooldownRemaining / cooldownDuration) * 100}%` }"
@@ -453,14 +467,26 @@
                 </span>
               </span>
             </button>
-
-            <div v-if="statusMessage" class="form-status" :class="statusClass">
+    
+            <div
+              v-if="statusMessage"
+              class="form-status"
+              :class="statusClass"
+              role="status"
+              aria-live="polite"
+            >
               {{ statusMessage }}
             </div>
           </form>
         </div>
+    
         <div v-else class="form-toggle">
-          <button @click="toggleFormVisibility" class="toggle-button" :aria-label="`${showForm ? 'Hide' : 'Show'} contact form`">
+          <button
+            @click="toggleFormVisibility"
+            class="toggle-button"
+            :aria-expanded="showForm"
+            aria-controls="contact-form"
+          >
             {{ $t('home.contact.toggleButton') }}
           </button>
         </div>
@@ -490,27 +516,23 @@ import FooterComponent from "@/components/FooterComponent.vue";
 // État
 const mouseX = ref(0);
 const mouseY = ref(0);
-const showForm = ref(false);
-const isSubmitting = ref(false);
-const statusMessage = ref("");
-const statusClass = ref("");
 const workSection = ref(null);
 const selectedProject = ref(null);
 const modalOpen = ref(false);
 const { t } = useI18n();
 
-// Form rate limiting
+const formData = ref({ name: "", email: "", message: "" });
+const isSubmitting  = ref(false);
+const statusMessage = ref("");
+const statusClass   = ref("");   // "success" | "error"
+const showForm      = ref(false);
+ 
 const lastSubmissionTime = ref(0);
-const cooldownDuration = 60000; // 1 minute cooldown
-const cooldownRemaining = ref(0);
-let cooldownInterval = null;
-
-// Données du formulaire
-const formData = ref({
-  name: "",
-  email: "",
-  message: "",
-});
+const cooldownDuration   = 60_000;          // 1 min
+const cooldownRemaining  = ref(0);
+let   cooldownInterval   = null;
+ 
+const isDev = process.env.NODE_ENV === 'development';
 
 // ========== SKILLS DATA (REDESIGNED) ==========
 const activeCategory = ref('frontend');
@@ -612,53 +634,57 @@ const toggleFormVisibility = () => {
 
 const startCooldown = () => {
   lastSubmissionTime.value = Date.now();
-  cooldownRemaining.value = cooldownDuration;
-  
+  cooldownRemaining.value  = cooldownDuration;
+ 
   if (cooldownInterval) clearInterval(cooldownInterval);
-  
+ 
   cooldownInterval = setInterval(() => {
-    cooldownRemaining.value = Math.max(0, cooldownDuration - (Date.now() - lastSubmissionTime.value));
-    if (cooldownRemaining.value === 0) {
-      clearInterval(cooldownInterval);
-    }
+    cooldownRemaining.value = Math.max(
+      0,
+      cooldownDuration - (Date.now() - lastSubmissionTime.value)
+    );
+    if (cooldownRemaining.value === 0) clearInterval(cooldownInterval);
   }, 100);
 };
 
 const handleSubmit = async () => {
-  const timeSinceLastSubmission = Date.now() - lastSubmissionTime.value;
-  if (timeSinceLastSubmission < cooldownDuration) {
-    const secondsRemaining = Math.ceil((cooldownDuration - timeSinceLastSubmission) / 1000);
-    statusMessage.value = `Veuillez attendre ${secondsRemaining}s avant de renvoyer un message.`;
-    statusClass.value = "error";
-    return;
-  }
-
-  isSubmitting.value = true;
+  // Guard: cooldown still active
+  if (cooldownRemaining.value > 0) return;
+ 
+  isSubmitting.value  = true;
   statusMessage.value = "";
-
+  statusClass.value   = "";
+ 
+  // Build encoded body from the reactive ref — no variable shadowing
+  const payload = new URLSearchParams({
+    "form-name": "contact",
+    name:        formData.value.name,
+    email:       formData.value.email,
+    message:     formData.value.message,
+  }).toString();
+ 
   try {
-    const form = document.getElementById("contact-form");
-    const formData = new FormData(form);
-    
     const response = await fetch("/", {
-      method: "POST",
+      method:  "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(formData).toString(),
+      body:    payload,
     });
-
-    if (response.ok || response.status === 404) {
-      statusMessage.value = t('home.contact.form.success');
-      statusClass.value = "success";
-      document.getElementById("contact-form").reset();
-      formData.value = { name: "", email: "", message: "" };
+ 
+    // In development Netlify isn't present, so we skip the status check
+    // and show a mock success so the UI flow can be tested.
+    if (isDev || response.ok) {
+      statusMessage.value = t("home.contact.form.success");
+      statusClass.value   = "success";
+      formData.value      = { name: "", email: "", message: "" };
       startCooldown();
     } else {
-      throw new Error("Erreur");
+      // Real error from Netlify (e.g. 400 bad form name, 422, 5xx)
+      throw new Error(`Server responded with ${response.status}`);
     }
-  } catch (error) {
-    console.error("Form submission error:", error);
-    statusMessage.value = "Erreur lors de l'envoi. Réessayez.";
-    statusClass.value = "error";
+  } catch (err) {
+    console.error("Form submission error:", err);
+    statusMessage.value = t("home.contact.form.error");
+    statusClass.value   = "error";
   } finally {
     isSubmitting.value = false;
   }
@@ -675,9 +701,7 @@ const closeProjectModal = () => {
 };
 
 onBeforeUnmount(() => {
-  if (cooldownInterval) {
-    clearInterval(cooldownInterval);
-  }
+  if (cooldownInterval) clearInterval(cooldownInterval);
 });
 </script>
 
@@ -1873,6 +1897,19 @@ section {
   background: var(--color-primary);
   color: var(--color-bg);
 }
+
+.form-close-btn {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: var(--color-muted);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.form-close-btn:hover { color: var(--color-primary); }
 
 @media (max-width: 1200px) {
   .name-line { font-size: clamp(3rem, 10vw, 8rem); }
